@@ -164,3 +164,30 @@ Limits of evidence: exhaustive only over the stated finite domains; random check
 cover additional rectangular cases, not every supported input. No production
 optimizer, persistent storage, or full interface yet. Student Stage 4 understanding
 remains pending. Stage 5 has not started. No publication or submission occurred.
+
+
+## Stage 5 — 2026-11-08
+
+User marked the Stage 4 exercise done and requested the next stage. Implemented
+optimizer.py with successive shortest augmenting paths and Bellman–Ford, reverse
+capacities/negative costs, full bottleneck augmentation, immutable plan output,
+projected stock/demand, and exact source snapshot. No persistence or UI mutation.
+
+Final pre-Stage-6 command: `.venv/bin/python -B -m unittest discover -s tests -v > docs/stage5-tests.log 2>&1`:
+exit 0, **57 tests passed**. Includes 6,561 exhaustive cases, 400 seeded multi-item
+rectangular cases (seed 4325), 30 larger price-shift/more-stock checks, all prior tests.
+`.venv/bin/python -B tests/audit_optimizer.py > docs/stage5-independent-audit.log 2>&1`:
+exit 0; **65,536** exhaustive 2x2 cases match flat enumeration; 200 larger cases
+(seed 54325) pass an independently reconstructed residual-cycle certificate using
+Floyd–Warshall. Certificate rejects the known greedy allocation. Three deliberate
+in-memory defects were detected: disabled reverse capacity (assertion failure),
+wrong reverse sign (error), and wrong route price (assertion failure and errors).
+
+Executed original and partial examples: 10 units/1400 cents and 12 units/2000 cents;
+partial remaining demand is 2 monitors at Store Y. Source State remained unchanged.
+Double-check review covered reverse-index pairing, capacity restoration, strict
+relaxation with zero/tied prices, integer-only distances, and final route-cost
+reconciliation. No test failure required a solver correction in this stage.
+
+The user then explicitly authorized completing Stage 5 and implementing Stage 6
+in this session. Stage 5 agent gate passed; personal explanation remains separate.

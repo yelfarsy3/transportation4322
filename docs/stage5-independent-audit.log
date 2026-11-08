@@ -1,0 +1,5 @@
+PASS: 65536 exhaustive 2x2 cases, quantities/costs 0..3, versus flat matrix enumeration
+PASS: 200 larger instances, independent Floyd–Warshall residual-cycle certificate; rejected greedy plan
+PASS: detected reverse capacity disabled (1 assertion failures, 0 errors)
+PASS: detected reverse cost sign wrong (0 assertion failures, 1 errors)
+PASS: detected cost used from wrong store (1 assertion failures, 2 errors)
