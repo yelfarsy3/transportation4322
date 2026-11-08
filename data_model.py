@@ -9,10 +9,15 @@ class ValidationError(ValueError):
     """Input does not satisfy the transportation data contract."""
 
 
-def _integer(value, path):
+MAX_STATE_INTEGER = 10**300 - 1
+
+
+def validate_nonnegative_integer(value, path, *, maximum=None):
     # bool is an int subclass in Python, but True is not a valid unit count.
     if type(value) is not int or value < 0:
         raise ValidationError(f"{path}: expected a nonnegative integer")
+    if maximum is not None and value > maximum:
+        raise ValidationError(f"{path}: exceeds the supported integer limit")
 
 
 def _catalog(value, path):
@@ -33,7 +38,7 @@ def _matrix(value, rows, columns, path):
         if not isinstance(row, Mapping) or set(row) != set(columns):
             raise ValidationError(f"{path}.{row_id}: missing or unknown column IDs")
         for column_id, number in row.items():
-            _integer(number, f"{path}.{row_id}.{column_id}")
+            validate_nonnegative_integer(number, f"{path}.{row_id}.{column_id}", maximum=MAX_STATE_INTEGER)
         result[row_id] = MappingProxyType(dict(row))
     return MappingProxyType(result)
 
@@ -59,7 +64,7 @@ class State:
     schema_version: int = 1
 
     def __post_init__(self):
-        _integer(self.revision, "revision")
+        validate_nonnegative_integer(self.revision, "revision", maximum=MAX_STATE_INTEGER)
         if type(self.schema_version) is not int or self.schema_version != 1:
             raise ValidationError("schema_version: only integer version 1 is supported")
         for name in ("items", "warehouses", "stores"):
@@ -83,7 +88,9 @@ class State:
         """Decode a string only; file I/O and atomic saving belong to Stage 8."""
         try:
             data = json.loads(text, object_pairs_hook=_unique_object)
-        except (json.JSONDecodeError, TypeError) as error:
+        except ValidationError:
+            raise
+        except (ValueError, TypeError, RecursionError) as error:
             raise ValidationError(f"Invalid JSON: {error}") from error
         return cls.from_dict(data)
 
@@ -102,9 +109,10 @@ class State:
         """Return a validated edit; failures leave this snapshot untouched."""
         if table not in ("inventory", "demand"):
             raise ValidationError("table must be inventory or demand")
-        _integer(quantity, "quantity")
+        validate_nonnegative_integer(quantity, "quantity", maximum=MAX_STATE_INTEGER)
         matrix = getattr(self, table)
-        if location_id not in matrix or item_id not in self.items:
+        if (not isinstance(location_id, str) or not isinstance(item_id, str)
+                or location_id not in matrix or item_id not in self.items):
             raise ValidationError("Unknown location or item ID")
         old = matrix[location_id][item_id]
         if operation == "set":
@@ -115,12 +123,13 @@ class State:
             new = old - quantity
         else:
             raise ValidationError("operation must be set, add, or remove")
-        _integer(new, "resulting quantity")
+        validate_nonnegative_integer(new, "resulting quantity", maximum=MAX_STATE_INTEGER)
         return self._with_cell(table, location_id, item_id, new)
 
     def with_shipping_cost(self, warehouse_id, store_id, cents):
-        _integer(cents, "shipping cost in cents")
-        if warehouse_id not in self.warehouses or store_id not in self.stores:
+        validate_nonnegative_integer(cents, "shipping cost in cents", maximum=MAX_STATE_INTEGER)
+        if (not isinstance(warehouse_id, str) or not isinstance(store_id, str)
+                or warehouse_id not in self.warehouses or store_id not in self.stores):
             raise ValidationError("Unknown warehouse or store ID")
         return self._with_cell("shipping_costs_cents", warehouse_id, store_id, cents)
 

@@ -3,7 +3,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from types import MappingProxyType
 
-from data_model import State
+from data_model import State, validate_nonnegative_integer
 
 
 @dataclass(frozen=True)
@@ -12,6 +12,11 @@ class ItemAvailability:
 
     supply: int
     demand: int
+
+    def __post_init__(self):
+        # Totals may exceed the per-cell storage limit; they are not stored cells.
+        validate_nonnegative_integer(self.supply, "supply")
+        validate_nonnegative_integer(self.demand, "demand")
 
     @property
     def shippable(self) -> int:

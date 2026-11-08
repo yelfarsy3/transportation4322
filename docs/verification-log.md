@@ -97,3 +97,22 @@ Stage 2 gate is satisfied for progression to Stage 3.
 
 Stage 3 agent verification passed; personal understanding check pending. Stage 4
 has not started. Counts do not establish optimal prices or shipment assignments.
+
+
+## Audit fixes — 2026-11-08
+
+User authorized fixing the audit findings and proceeding to Stage 4 after tests.
+Added explicit MAX_STATE_INTEGER = 10**300 - 1 for stored cells/revisions; sums
+may exceed this per-cell bound. No Python global conversion limits were changed.
+Malformed edit identifiers are checked before dictionary lookup. JSON decoding
+ValueError (including UnicodeDecodeError) and recursion errors are translated to
+ValidationError. ItemAvailability now validates both counts at construction.
+
+Added six regression tests covering malformed identifiers and JSON, the maximum
+accepted value, maximum+1, 5001-digit quantities, atomic add/revision overflow,
+no-op at maximum revision, and invalid availability construction.
+
+Command: `.venv/bin/python -B -m unittest discover -s tests -v > docs/validation-fixes-tests.log 2>&1`.
+Observed: exit 0, **32 tests passed**, 0 failures. Reviewed changes against the three
+reproduced gaps before starting Stage 4. Numeric bound is an implementation choice,
+not an instructor requirement. The original student verification files remain intact.

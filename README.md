@@ -64,8 +64,12 @@ exist: a missing price never silently becomes a free route.
 Quantities, prices in cents, and revisions must be nonnegative Python integers.
 Booleans, floats, numeric strings, NaN and infinity are rejected. Zero is valid.
 No rounding occurs. A future UI must explicitly convert money entry to cents.
-Python integers have no fixed-width overflow; UI limits will be decided and
-tested when input widgets are built.
+Each stored integer is limited to `10**300 - 1` (300 decimal digits), including
+revision. This explicit bound keeps accepted state serializable under the tested
+Python JSON settings, even at Python's minimum configurable digit limit of 640.
+An edit exceeding the bound fails without changing state. Computed totals are
+not restricted by the per-cell bound. UI input limits will be decided and tested
+when input widgets are built.
 
 There must be at least one item, warehouse, and store. This is an explicit project
 choice, not an instructor requirement. Each catalog has unique IDs; duplicate
