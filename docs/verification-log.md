@@ -2,7 +2,8 @@
 
 Date: 2026-11-08 (America/New_York). Checks below were performed by Codex,
 not by the student unless explicitly attributed. Stage 2 was subsequently confirmed
-by the user below; Stage 3 personal verification remains pending.
+by the user below; their Stage 3 exercise is also marked done. Stage 4 personal
+verification remains pending.
 
 ## Stage 1
 
@@ -116,3 +117,50 @@ Command: `.venv/bin/python -B -m unittest discover -s tests -v > docs/validation
 Observed: exit 0, **32 tests passed**, 0 failures. Reviewed changes against the three
 reproduced gaps before starting Stage 4. Numeric bound is an implementation choice,
 not an instructor requirement. The original student verification files remain intact.
+
+
+## Stage 4 — 2026-11-08
+
+User authorized fixes plus Stage 4 and requested exhaustive verification and a
+second check. Student-edited Stage 2/3 verification documents remain unchanged.
+
+Implementation: tests/brute_force_reference.py enumerates route quantities for
+ONE item. Objective is lexicographic (-units, cost). It uses no production helper,
+flow algorithm, or external optimizer. Inputs are copied; returned matrix is
+immutable. Budget exhaustion raises SearchLimitExceeded and returns no optimum.
+Limits: 1–3 warehouses/stores, 0–20 units per quantity cell, default 250,000 nodes.
+These bounds keep a deliberately exponential testing tool from running indefinitely.
+
+Observed commands and outcomes on the final code:
+
+1. `.venv/bin/python -B -m unittest discover -s tests -v > docs/stage4-tests.log 2>&1`
+   — exit 0, **43 tests passed**. Includes 6,561 exhaustive 2x2 cases with quantities
+   and prices 0–2 against per-unit assignments, 200 seeded rectangular reference
+   cases (seed 4324), all previous tests, and validation regressions.
+2. `.venv/bin/python -B tests/audit_reference.py > docs/stage4-independent-audit.log 2>&1`
+   — exit 0, **65,536 exhaustive 2x2 cases** with quantities and prices 0–3 matched
+   a flat-matrix enumeration. The two exhaustive domains overlap. All three
+   deliberately broken in-memory variants were detected by assertion failures:
+   wrong objective priority, omitted maximum route quantity, wrong store price.
+3. `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v > docs/stage4-second-pass.log 2>&1`
+   — exit 0, **43 tests passed again** under the minimum configurable digit limit.
+   This environment setting affected only that process, not the global setup.
+4. Direct example execution: keyboards (7 units,1000 cents), original monitors
+   (3,400), partial monitors (5,1000), greedy counterexample (2,400). Allocations
+   matched the original PDF examples and the hand-derived lower bounds documented
+   in stage4-understanding-check.md.
+5. A 3x3 input with every stock/demand cell equal to 20 hit the default search
+   budget and raised SearchLimitExceeded. Added this case to the permanent tests,
+   then reran both the full suite and independent audit on the final code.
+
+Double-check review: every feasible matrix has one route-choice sequence;
+capacity deductions prevent infeasible leaves; restoration isolates sibling
+branches; negative units sorts maximum fulfillment first; price is secondary;
+zero/tied-cost paths are included. Search-limit exceptions cannot return a partial
+best candidate. Independent checks validate both objective and returned feasibility.
+No test failures required an algorithm correction in this implementation session.
+
+Limits of evidence: exhaustive only over the stated finite domains; random checks
+cover additional rectangular cases, not every supported input. No production
+optimizer, persistent storage, or full interface yet. Student Stage 4 understanding
+remains pending. Stage 5 has not started. No publication or submission occurred.

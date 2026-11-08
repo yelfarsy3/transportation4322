@@ -2,10 +2,10 @@
 
 Working folder: `/Users/youssefelfarsy/.codex/.chatgpt-projects/g-p-6aa703ad56f88191adfd4ddec6d7f944/transportation4322`
 
-Stages 1–3 are implemented and agent-tested. The user confirmed Stage 2 personal
-verification on 2026-11-08; Stage 3 personal verification remains pending.
+Stages 1–4 are implemented and agent-tested. The user has marked the Stage 2
+and Stage 3 checks done. Stage 4 personal verification remains pending.
 This is not yet a usable restocking application. The Streamlit app is a launch
-check; optimization, saving edited state, and the five-screen interface come later.
+check; production optimization, saving edited state, and the five-screen interface come later.
 
 ## Run
 
@@ -43,6 +43,13 @@ and its tests use Python's standard library. There is no optimization library.
   converted to cents. Never overwrite it with working inventory.
 - `tests/test_availability.py`: hand-calculated cases and 200 seeded tiny cases
   checked by unit matching.
+- `tests/brute_force_reference.py`: bounded exhaustive reference for one item;
+  testing only, independent of production logic.
+- `tests/test_brute_force_reference.py`: manual cases, 6,561 exhaustive cases,
+  200 seeded cases and failure checks.
+- `tests/audit_reference.py`: second pass over 65,536 cases with a third method
+  plus three deliberate in-memory defect checks.
+- `tests/test_validation_boundaries.py`: regressions for all three audit findings.
 - `tests/test_data_model.py`: sample, invalid-input, boundary, isolation, and
   seeded edit tests. `tests/test_app.py`: app execution and rerun check.
 - `tests/smoke_server.py`: explicit two-cycle server startup/health/shutdown check;
@@ -95,11 +102,13 @@ No linear programming and no library that directly solves the required algorithm
 
 ## Evidence and limitations
 
-See `docs/stage3-tests.log`: 26 tests passed, including 250 seeded edits and
-200 seeded availability cases. Expected
+See `docs/stage4-tests.log`: 43 tests passed, including the earlier tests plus
+reference and validation regression tests. The independent audit is in
+`docs/stage4-independent-audit.log`; a repeat with the minimum configurable Python
+integer-conversion digit limit (640) is in `docs/stage4-second-pass.log`. Expected
 sample totals are 9 keyboards/5 monitors in stock and 7 keyboards/3 monitors
-needed. These totals were checked directly against the PDF; the future $14/$20
-optimal-cost examples have not yet been verified by an implemented solver.
+needed. These totals were checked directly against the PDF; the $14/$20 cost examples now also match exhaustive enumeration and
+hand-worked lower bounds. The efficient production solver is not implemented.
 
 Streamlit AppTest checks script execution, not browser appearance. Its official
 documentation is https://docs.streamlit.io/develop/api-reference/app-testing/st.testing.v1.apptest.
@@ -111,4 +120,5 @@ checks, and an accurate initial-design history must be recorded separately.
 Do not submit these agent checks as if you personally performed them.
 
 Stage 3 explanation and runnable personal check: `docs/stage3-understanding-check.md`.
-The next stage is the independent tiny brute-force route/cost reference, after that check.
+Stage 4 explanation and runnable personal check: `docs/stage4-understanding-check.md`.
+The next stage is the production minimum-cost-flow implementation, after the Stage 4 check.
