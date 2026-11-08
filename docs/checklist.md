@@ -28,9 +28,10 @@ Recorded 2026-11-08. Deadlines below are not evidence of submission status.
 - [x] Stage 3 availability, demand and shortage functions: agent-tested.
 - [x] Stage 3 personal check marked done by the user; subsequent audit requested and gaps fixed.
 - [x] Stage 4 independently checked tiny brute-force reference: agent verification complete.
-- [ ] Stage 4 personal understanding/verification.
-- [ ] Stage 5 minimum-cost maximum-flow with negative residual edge support.
-- [ ] Stage 6 faster shortest-path method and complexity explanation.
+- [x] Stage 4 check marked done by the user; original edit preserved.
+- [x] Stage 5 Bellman–Ford minimum-cost maximum-flow: agent-verified.
+- [x] Stage 6 Dijkstra with potentials, comparisons, complexity and benchmarks: agent-verified.
+- [ ] Student explanation/verification for Stages 5–6 (joint implementation authorized).
 - [ ] Stage 7 preview, cancellation, stale-plan checks, once-only confirmation.
 - [ ] Stage 8 atomic JSON persistence and restart/reset checks.
 - [ ] Stage 9 approved five UI states and browser walkthrough.
@@ -46,8 +47,8 @@ Recorded 2026-11-08. Deadlines below are not evidence of submission status.
 | AI chat log and detailed stage checks | General instructions p. 1 | Preserve current chat and linked prior chats; student adds personal evidence |
 | AI, language and technology list | General instructions p. 1 | Codex, Python, Streamlit; dependencies recorded |
 | Understand algorithm and runtime | General instructions p. 2; assignment p. 1 | Discuss as implemented; separate written submission not required |
-| No linear programming or direct algorithm library | Assignment p. 1; general instructions p. 2 | Testing reference only; no production optimizer or optimization library added |
-| Own AI prompts; own verification | General instructions p. 1 | No prompts generated; Stages 2–3 checks marked done by user; Stage 4 personal check pending |
+| No linear programming or direct algorithm library | Assignment p. 1; general instructions p. 2 | Two handwritten flow solvers plus testing reference; no optimization library |
+| Own AI prompts; own verification | General instructions p. 1 | No prompts generated; Stages 2–4 marked done; Stages 5–6 personal explanation pending |
 | Attendance | Policy p. 1 | No attendance claims made |
 
 ## Practice log
@@ -63,3 +64,7 @@ checks, and why prices do not affect maximum shipment counts. Revisit before Sta
 2026-11-08 Stage 4: exhaustive search, restoring state between recursive branches,
 ordered objectives, independent reference methods, and search limits. Student
 explanation quality not assessed; revisit before Stage 5.
+
+2026-11-08 Stages 5–6: residual reassignment, shortest augmenting paths, potentials,
+reduced costs and time complexity. Personal explanation quality unassessed; revisit
+using the two new understanding documents before Stage 7.

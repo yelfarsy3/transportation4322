@@ -2,8 +2,8 @@
 
 Date: 2026-11-08 (America/New_York). Checks below were performed by Codex,
 not by the student unless explicitly attributed. Stage 2 was subsequently confirmed
-by the user below; their Stage 3 exercise is also marked done. Stage 4 personal
-verification remains pending.
+by the user below; their Stage 3 and Stage 4 exercises are also marked done.
+Stages 5–6 personal explanations remain separate from agent verification.
 
 ## Stage 1
 
@@ -191,3 +191,59 @@ reconciliation. No test failure required a solver correction in this stage.
 
 The user then explicitly authorized completing Stage 5 and implementing Stage 6
 in this session. Stage 5 agent gate passed; personal explanation remains separate.
+
+
+## Stage 6 — 2026-11-08
+
+Resumed by inspecting git status, Stage 5 implementation and its passing logs.
+Stage 5 checkpoint: f58bec0. User explicitly requested completing both stages.
+
+Added heap Dijkstra with vertex potentials, full reachable search before potential
+updates, and a guard against negative reachable reduced costs. Bellman–Ford remains
+selectable. Default method is Dijkstra. Both sum original path costs and reconcile
+final route costs. Exact input State retained; no confirmation/persistence added.
+
+Commands and observed results on the final code:
+
+- `.venv/bin/python -B -m unittest discover -s tests -v > docs/stage6-tests.log 2>&1`:
+  exit 0, **63 tests passed**. Includes 6,561 exhaustive cases comparing BOTH methods
+  to the Stage 4 oracle, plus all previous tests and six potential-specific tests.
+- `.venv/bin/python -B tests/audit_stage6.py > docs/stage6-independent-audit.log 2>&1`:
+  exit 0. Both methods match flat enumeration on **65,536** exhaustive 2x2 cases,
+  quantities/prices 0–3. 300 seeded multi-item cases match Stage 4; 150 larger
+  multi-item cases have equal objectives and independently certified residual
+  graphs (seed 4326). These finite domains overlap earlier tests.
+- Deliberately omitting potential updates, reversing potential signs, and charging
+  reduced distances as currency were all rejected by runtime checks (three errors
+  per defective variant). Real source files were not modified by these checks.
+- `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v > docs/stage6-second-pass.log 2>&1`:
+  exit 0, **63 tests passed again**.
+- `.venv/bin/python -B tests/audit_optimizer.py > docs/stage6-regression-audit.log 2>&1`:
+  exit 0; Stage 5 exhaustive/certificate/mutation audit also passes with the new
+  default Dijkstra implementation.
+- `.venv/bin/python -B tests/audit_reference.py > docs/stage6-reference-regression.log 2>&1`:
+  exit 0; independent Stage 4 reference audit still passes.
+
+Paired benchmark (seed 64322), Python 3.14.7 arm64 Darwin, warmed methods, alternating
+order, median of three runs per fixed instance; each result validated:
+
+| Warehouses × stores × items | Bellman–Ford seconds | Dijkstra seconds | Ratio |
+|---|---:|---:|---:|
+| 4 × 4 × 2 | 0.000179 | 0.000140 | 1.28 |
+| 12 × 12 × 3 | 0.004416 | 0.002451 | 1.80 |
+| 30 × 30 × 3 | 0.072483 | 0.030051 | 2.41 |
+| 60 × 60 × 3 | 0.694003 | 0.202872 | 3.42 |
+
+Double-check review: initial nonnegative active costs justify zero potentials;
+shortest-distance inequalities preserve nonnegative reachable reduced costs;
+newly enabled reverse path edges have zero reduced cost; unreachable vertices
+are not assigned tentative potentials. Heap stale entries are skipped. Currency
+uses original costs, and tied allocation differences are accepted if objective
+and feasibility agree. The invariant guard never fired on any valid test input.
+
+No solver correction was needed after test execution; all deliberately broken
+variants are isolated test experiments. No new dependency or external solver was
+introduced. All original reference files and student-edited verification documents
+remain unchanged. Agent implementation gates for Stages 5 and 6 are complete.
+Student understanding is not inferred from those results. Stage 7 has not started.
+No browser changes, live delivery, persistence, publication or submission occurred.

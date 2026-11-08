@@ -1,0 +1,4 @@
+PASS: 65536 exhaustive 2x2 cases (quantities and costs each 0..3), flat-matrix oracle
+PASS: tests detected deliberate defect: cost prioritized before units
+PASS: tests detected deliberate defect: maximum feasible route quantity omitted
+PASS: tests detected deliberate defect: wrong store price used

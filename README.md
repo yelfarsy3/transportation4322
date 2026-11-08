@@ -2,10 +2,12 @@
 
 Working folder: `/Users/youssefelfarsy/.codex/.chatgpt-projects/g-p-6aa703ad56f88191adfd4ddec6d7f944/transportation4322`
 
-Stages 1–4 are implemented and agent-tested. The user has marked the Stage 2
-and Stage 3 checks done. Stage 4 personal verification remains pending.
+Stages 1–6 are implemented and agent-tested. The user has marked the Stage 2–4
+checks done and authorized Stages 5 and 6 together. Their personal explanation
+checks for Stages 5–6 remain separate from agent test evidence.
 This is not yet a usable restocking application. The Streamlit app is a launch
-check; production optimization, saving edited state, and the five-screen interface come later.
+check; the tested optimizer can be called from Python. Confirmation, saving
+edited state, and the five-screen interface come later.
 
 ## Run
 
@@ -37,6 +39,13 @@ and its tests use Python's standard library. There is no optimization library.
 - `app.py`: minimal Streamlit startup screen only.
 - `data_model.py`: validated immutable state, dictionary/JSON conversion, quantity
   and shipping-price edits. No file writes, routing decisions, or UI dependency.
+- `optimizer.py`: pure minimum-cost maximum-flow planning; default Dijkstra
+  with potentials, plus retained `method="bellman_ford"` baseline. Returns
+  immutable shipments, costs, projections and exact source State.
+- `tests/test_optimizer.py`, `tests/test_optimizer_potentials.py`: solver cases,
+  exhaustive comparisons and potential-specific regressions.
+- `tests/audit_optimizer.py`, `tests/audit_stage6.py`: independent exhaustive
+  checks, residual-cycle certificates, deliberate defects and paired benchmarks.
 - `availability.py`: per-item supply, demand, maximum shippable units and shortages;
   no routing or cost optimization.
 - `data/sample.json`: exact main-screen dataset from the approved UI, with costs
@@ -96,19 +105,20 @@ O(n1(n2+n3) + n2*n3) time and space, ignoring string lengths and integer bit siz
 An edit currently copies and revalidates the whole state for clarity and safety.
 Direct cell reads use dictionary lookup. Availability/shortage functions are implemented in `availability.py`.
 
-Future optimization contract: independently for each item, maximize shipped
+Implemented optimization contract: independently for each item, maximize shipped
 units, then minimize cost. Fairness and shared route capacity are outside scope.
 No linear programming and no library that directly solves the required algorithm.
 
 ## Evidence and limitations
 
-See `docs/stage4-tests.log`: 43 tests passed, including the earlier tests plus
-reference and validation regression tests. The independent audit is in
-`docs/stage4-independent-audit.log`; a repeat with the minimum configurable Python
-integer-conversion digit limit (640) is in `docs/stage4-second-pass.log`. Expected
+See `docs/stage6-tests.log`: 63 tests passed, including all prior tests and both
+solver methods. `docs/stage6-independent-audit.log` records the two-method audit
+and measured benchmarks. `docs/stage6-second-pass.log` records a full repeat
+with the minimum configurable integer-conversion digit limit (640). Earlier
+stage logs are retained separately. Expected
 sample totals are 9 keyboards/5 monitors in stock and 7 keyboards/3 monitors
 needed. These totals were checked directly against the PDF; the $14/$20 cost examples now also match exhaustive enumeration and
-hand-worked lower bounds. The efficient production solver is not implemented.
+hand-worked lower bounds. Both production methods also reproduce these results.
 
 Streamlit AppTest checks script execution, not browser appearance. Its official
 documentation is https://docs.streamlit.io/develop/api-reference/app-testing/st.testing.v1.apptest.
@@ -121,4 +131,6 @@ Do not submit these agent checks as if you personally performed them.
 
 Stage 3 explanation and runnable personal check: `docs/stage3-understanding-check.md`.
 Stage 4 explanation and runnable personal check: `docs/stage4-understanding-check.md`.
-The next stage is the production minimum-cost-flow implementation, after the Stage 4 check.
+Stages 5 and 6: `docs/stage5-understanding-check.md` and
+`docs/stage6-understanding-check.md`. Next is Stage 7 preview/confirmation
+transactions; no plan is currently applied or saved by the optimizer.
