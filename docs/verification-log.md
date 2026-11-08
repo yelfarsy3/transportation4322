@@ -1,7 +1,8 @@
 # Verification log
 
 Date: 2026-11-08 (America/New_York). Checks below were performed by Codex,
-not by the student. Student verification and understanding remain pending.
+not by the student unless explicitly attributed. Stage 2 was subsequently confirmed
+by the user below; Stage 3 personal verification remains pending.
 
 ## Stage 1
 
@@ -59,3 +60,40 @@ bounding-box warnings, but the rendered page and sample tables were readable.
 
 Stage 1 Git checkpoint: `eb3932d`. Stage 2 is a separate subsequent commit.
 No remote repository, push, or submission has been made.
+
+
+## Stage 2 gate update — 2026-11-08
+
+The user reported: “i just did the understanding verification, it makes sense and
+answers match, let's move on to the next stage.” Their existing edit marks
+`docs/understanding-check.md` Done. That edit was preserved unchanged. This is
+user-reported verification, not a claim that Codex observed their terminal run.
+Stage 2 gate is satisfied for progression to Stage 3.
+
+## Stage 3 — 2026-11-08
+
+- Added `availability.py`: read-only item-ID report with supply, demand, shippable
+  units, and shortage. Receives validated State, performs no mutation or file I/O.
+- Added `tests/test_availability.py`: 10 focused tests. Hand expectations include
+  the original UI, partial UI, singleton exact/excess/shortage/zero cases, mixed
+  items across locations, large integers, price independence, catalog order,
+  immutable results, invalid input type, and unchanged original snapshots.
+- Independent count check: 200 seeded random states (seed 4323), 1–4 items,
+  warehouses and stores, quantities 0–5; a test-only unit pairing loop determines
+  expected shipped and remaining units without the production min formula.
+- `.venv/bin/python -m unittest discover -s tests -v > docs/stage3-tests.log 2>&1`:
+  exit 0; **26 tests passed** (10 new plus 16 existing), zero failures.
+  Existing AppTest emits its benign missing-ScriptRunContext warning as before.
+- Executed the runnable example in `stage3-understanding-check.md`: original rows
+  keyboards `9 7 7 0`, monitors `5 3 3 0`; partial rows keyboards `9 7 7 0`,
+  monitors `5 7 5 2`; original Store Y monitor demand remained `2`.
+- Reviewed correctness: total stock and demand are upper bounds; complete routes
+  and no shared capacities permit matching until one side is exhausted. Thus the
+  smaller per-item count is attainable. No per-store allocation follows from it.
+- O(n1(n2+n3)) arithmetic operations, O(n1) result space; no per-unit iteration
+  in production. Source data and the student's verification file were preserved.
+- No new dependencies, UI changes, algorithm solver, or persistence. Server checks
+  were not repeated because the app and its dependencies did not change.
+
+Stage 3 agent verification passed; personal understanding check pending. Stage 4
+has not started. Counts do not establish optimal prices or shipment assignments.

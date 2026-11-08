@@ -2,7 +2,8 @@
 
 Working folder: `/Users/youssefelfarsy/.codex/.chatgpt-projects/g-p-6aa703ad56f88191adfd4ddec6d7f944/transportation4322`
 
-Stages 1 and 2 are implemented and agent-tested. Student verification is pending.
+Stages 1–3 are implemented and agent-tested. The user confirmed Stage 2 personal
+verification on 2026-11-08; Stage 3 personal verification remains pending.
 This is not yet a usable restocking application. The Streamlit app is a launch
 check; optimization, saving edited state, and the five-screen interface come later.
 
@@ -36,8 +37,12 @@ and its tests use Python's standard library. There is no optimization library.
 - `app.py`: minimal Streamlit startup screen only.
 - `data_model.py`: validated immutable state, dictionary/JSON conversion, quantity
   and shipping-price edits. No file writes, routing decisions, or UI dependency.
+- `availability.py`: per-item supply, demand, maximum shippable units and shortages;
+  no routing or cost optimization.
 - `data/sample.json`: exact main-screen dataset from the approved UI, with costs
   converted to cents. Never overwrite it with working inventory.
+- `tests/test_availability.py`: hand-calculated cases and 200 seeded tiny cases
+  checked by unit matching.
 - `tests/test_data_model.py`: sample, invalid-input, boundary, isolation, and
   seeded edit tests. `tests/test_app.py`: app execution and rerun check.
 - `tests/smoke_server.py`: explicit two-cycle server startup/health/shutdown check;
@@ -78,7 +83,7 @@ unique identity: Stage 7 must also handle resets/branches and stale previews.
 For n1 items, n2 warehouses and n3 stores, validation and snapshot copying cost
 O(n1(n2+n3) + n2*n3) time and space, ignoring string lengths and integer bit sizes.
 An edit currently copies and revalidates the whole state for clarity and safety.
-Direct cell reads use dictionary lookup. Availability/shortage functions are Stage 3.
+Direct cell reads use dictionary lookup. Availability/shortage functions are implemented in `availability.py`.
 
 Future optimization contract: independently for each item, maximize shipped
 units, then minimize cost. Fairness and shared route capacity are outside scope.
@@ -86,7 +91,8 @@ No linear programming and no library that directly solves the required algorithm
 
 ## Evidence and limitations
 
-See `docs/stage2-tests.log`: 16 tests passed, including 250 seeded edits. Expected
+See `docs/stage3-tests.log`: 26 tests passed, including 250 seeded edits and
+200 seeded availability cases. Expected
 sample totals are 9 keyboards/5 monitors in stock and 7 keyboards/3 monitors
 needed. These totals were checked directly against the PDF; the future $14/$20
 optimal-cost examples have not yet been verified by an implemented solver.
@@ -99,3 +105,6 @@ No server is intentionally left running. No GitHub publication or submission occ
 AI: OpenAI Codex in the desktop app. Student understanding, personally performed
 checks, and an accurate initial-design history must be recorded separately.
 Do not submit these agent checks as if you personally performed them.
+
+Stage 3 explanation and runnable personal check: `docs/stage3-understanding-check.md`.
+The next stage is the independent tiny brute-force route/cost reference, after that check.
