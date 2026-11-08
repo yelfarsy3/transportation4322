@@ -1,0 +1,181 @@
+Transportation system / UI rough draft
+
+  01 / MAIN PAGE — BEFORE RESTOCK                                                                                                   02 / AFTER CLICKING RESTOCK
+
+  Transportation System                                                                                                             Transportation System
+  Stock and store demand                                                                                                            Restock preview
+  2 warehouses · 2 stores · 2 item types
+                                                                                                                                     All store demand can be met. Review the shipments below.
+  Warehouse inventory
+                                                                                                                                    10 units to ship · Total shipping cost: $14.00
+      Warehouse                                           Keyboards                               Monitors
+                                                                                                                                    Proposed shipments
+      Warehouse A                                         5                                       2
+                                                                                                                                     Item                            From → to                        Units        $/unit            Subtotal
+      Warehouse B                                         4                                       3
+                                                                                                                                     Keyboards                       A→X                              3            2.00              6.00
+  Store demand — units missing
+                                                                                                                                     Keyboards                       B→Y                              4            1.00              4.00
+      Store                                               Keyboards                               Monitors
+                                                                                                                                     Monitors                        A→X                              1            2.00              2.00
+      Store X                                             3                                       1
+                                                                                                                                     Monitors                        B→Y                              2            1.00              2.00
+      Store Y                                             4                                       2
+                                                                                                                                    Warehouse stock after confirmation
+  Update quantities
+                                                                                                                                     Warehouse                                       Keyboards                            Monitors
+      Location                                                              Item
+                                                                                                                                     Warehouse A                                     2                                    1
+          Warehouse A  ▾                                                      Keyboards  ▾
+      Operation                                                             Quantity                                                 Warehouse B                                     0                                    1
+          Add units  ▾                                                        0
+                                                                                                                                    All store demand will be 0. Four units remain in warehouses.
+        Save quantity
+                                                                                                                                      Apply this restock?
+      Choose a warehouse for stock or a store for demand. Add units or set the total. Use whole numbers of 0 or more.
+                                                                                                                                      Confirm to deduct only shipped units from stock and store demand. Any unfilled demand remains saved.
+  Shipping cost per unit ($)                                                                                                            Confirm restock                   Cancel
+      From / to                                           Store X                                 Store Y
+                                                                                                                                    Cancel without changing stock or demand.
+      Warehouse A                                         2.00                                    5.00
+
+      Warehouse B                                         4.00                                    1.00
+
+  Same rate for every item type. Edit cells, then save costs.
+
+      Save shipping costs                Preview restock
+
+  Unfilled store demand stays saved for the next restock, including after reopening the app.
+
+
+
+
+  0 / AFTER CONFIRMING
+   3                                                                                                                                04 / ALTERNATE PRE IEW — NOT ENOUG STOCK
+                                                                                                                                                           V               H
+
+
+
+
+  Transportation System                                                                                                             Transportation System
+      Restock applied. All 10 re uested units have been allocated.
+                                     q
+                                                                                                                                    Partial restock preview
+                                                                                                                                     12 of 14 needed units can ship now. he remaining 2 monitors will stay in store demand.
+  Shipping cost: $14.00                                                                                                                                                    T
+
+
+
+
+  T   his updates the pro ect records it does not book a real delivery.
+                                 j       ;                                                                                          Example change Store Y now needs 6 monitors instead of 2.
+                                                                                                                                                       :
+
+
+
+
+  Updated warehouse inventory                                                                                                       Availability by item
+
+      Warehouse                                           Keyboards                               Monitors                           Item                                        Available                 Needed                      Unfilled
+
+      Warehouse A                                         2                                       1                                  Keyboards                                   9                         7                           0
+
+      Warehouse B                                         0                                       1                                  Monitors                                    5                         7                           2
+
+  Updated store demand                                                                                                              12 units to ship · Minimum shipping cost: $20.00
+
+      Store                                               Keyboards                               Monitors                          Ship the maximum possible uantity, then minimize its cost. Review the plan below nothing changes until you
+                                                                                                                                                                     q                                                           ;
+
+
+                                                                                                                                    approve.
+      Store X                                             0                                       0
+                                                                                                                                    Proposed shipments
+      Store Y                                             0                                       0
+                                                                                                                                     Item                            From → to                        Units        $/unit            Subtotal
+
+      Back to inventory                                                                                                              Keyboards                       A→X                              3            2.00              6.00
+
+                                                                                                                                     Keyboards                       B→Y                              4            1.00              4.00
+      N   o items need restocking. Add store demand to create another plan.
+                                                                                                                                     Monitors                        A→X                              1            2.00              2.00
+
+                                                                                                                                     Monitors                        B→Y                              3            1.00              3.00
+
+                                                                                                                                     Monitors                        A→Y                              1            5.00              5.00
+
+                                                                                                                                    After approval Store X has no unmet demand. Store Y still needs 2 monitors. Warehouse A keeps 2 keyboards both warehouses
+                                                                                                                                                   :                                                                                              ;
+
+
+                                                                                                                                    have 0 monitors.
+
+
+                                                                                                                                      Approve available shipments?
+                                                                                                                                      D   educt only the shipped uantities. Save Store Y’s remaining 2 monitors as outstanding demand for the next restock.
+                                                                                                                                                                 q
+
+
+
+
+                                                                                                                                        Approve partial restock                  Cancel
+
+
+                                                                                                                                    Cancel leaves stock and demand unchanged.
+
+
+
+
+  05 / AFTER APPRO ING PARTIAL RESTOCK
+                             V
+
+
+
+
+  Transportation System
+      Partial restock applied. 12 units allocated 2 monitors still outstanding.
+                                                      ;
+
+
+
+
+  Shipping cost: $20.00
+  T   his updates the pro ect records it does not book a real delivery.
+                                 j       ;
+
+
+
+
+  Updated warehouse inventory
+
+      Warehouse                                           Keyboards                               Monitors
+
+      Warehouse A                                         2                                       0
+
+      Warehouse B                                         0                                       0
+
+  Remaining store demand — saved
+
+      Store                                               Keyboards                               Monitors
+
+      Store X                                             0                                       0
+
+      Store Y                                             0                                       2
+
+
+      Back to inventory
+
+
+      Outstanding Store Y needs 2 monitors. his demand stays saved across sessions until fulfilled or explicitly edited. Add
+                         :                        T
+
+
+      warehouse stock, then preview restock again.
+
+  Next visit show “2 units outstanding” above store demand. Recalculate using current stock and prices re uire approval again. If
+                  :                                                                                                     ;   q
+
+
+  no needed stock is available, keep the demand and show “ othing available to ship.”
+                                                                      N
+

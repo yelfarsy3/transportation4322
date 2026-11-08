@@ -1,0 +1,33 @@
+MTH 4322 – Fall 2026 – Project 1: A transportation system.
+
+You work for a chain of stores that is spread across a wide geographic area. You have:
+
+   •   A list of 𝑛1 types of items that are sold at the stores.
+   •   A list of 𝑛2 warehouses, each with a list of how many items they currently have of
+       each type.
+   •   A list of 𝑛3 stores, where each store has a list of stock that is currently missing. That
+       is, for each item, it has an amount it needs to be shipped to it.
+   •   A table of the shipping costs of a single item from each warehouse to each store.
+       That is, “Shipping one unit of any item from warehouse 𝑋 to store 𝑌 costs 𝑍.”
+
+Write a program with a friendly user interface for the above situation. That is, the user can
+see the status of each store and warehouse, add required items for a store, add items to a
+warehouse, and so on.
+
+There is also a button that finds the cheapest way of restocking all stores according to their
+current needs. This must be done efficiently, with respect to asymptotic running time in
+𝑛1 , 𝑛2 , 𝑛3 , 𝑚, where 𝑚 is the total number of items currently missing in the stores.
+
+You make some decisions on your own. For example, think about what should happen if
+there is not enough inventory to satisfy all store needs. What else is missing?
+
+Make sure you understand the asymptotic running time and the algorithm used.
+
+You may assume that the stores, warehouses, and types of items never change. You may
+not use a linear programming algorithm (you don’t need to know what that is – just make
+sure AI doesn’t use it).
+
+More advanced and optional: Have one program for the server, another for a store, and
+another for a warehouse. Store and warehouse programs communicate with the main
+server.
+

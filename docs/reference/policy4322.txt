@@ -1,0 +1,70 @@
+                   MTH 4322 - Technical Interviews, Fall 2026
+
+                       Course Number: 37507; Section: KTRA
+Instructor: Adam Sheffer
+Office/Phone: VC 6-220, (646) 312-4021
+E-mail: Adam.Sheffer@baruch.cuny.edu
+Classes: Tuesdays and Thursdays 2:55pm – 4:35pm, in VC 12-175.
+Office hours: Mondays 2pm–3pm and Thursdays 1:45pm–2:45pm, in Adam’s office.
+Text: None.
+Course policy:
+    Attendence: You are expected to attend every class and not to be late. If you have
+     four unexcused absences, each additional absence will lead to a reduction of your final
+     grade. If you need to miss a class, please email Adam IN ADVANCE about this.
+    Participation: You are strongly encouraged to participate in class, by asking for
+     clarifications, answering questions, or in any other reasonable way. It is much better
+     to provide wrong answers or ask weird questions than to sit quietly.
+    Quizzes: will be at least one quiz in this course. However, not solving questions
+     correctly on a quiz will not affect your grade. Instead, these are meant to evaluate
+     how the class is doing.
+    Homework: On most weeks there will be a homework assignment. These will be
+     LeetCode questions.
+    Exams: There will be no exams in this course.
+    Project: There will be a project involving AI, coding, and algorithmic design. You
+     will present your project in class.
+    Grading: Attendance, participation, and not copying AI answers without a good
+     understanding of those.
+    Getting Help: Feel free to attend as many office hours as you like and for any reason
+     — no appointment necessary for scheduled office hours. You are welcome to attend
+     office hours even if you have no questions or you wish to discuss pineapples. You are
+     also welcome to email Adam to schedule additional times to meet.
+    Academic Honesty: The Department of Mathematics fully supports Baruch Col-
+     lege’s policy on Academic Honesty which states, in part:
+
+              “Academic dishonesty is unacceptable and will not be tolerated. Cheat-
+          ing, forgery, plagiarism and collusion in dishonest acts undermine the col-
+          lege’s educational mission and the students’ personal and intellectual growth.
+          Baruch students are expected to bear individual responsibility for their work,
+          to learn the rules and definitions that underlie the practice of academic in-
+          tegrity, and to uphold its ideals. Ignorance of the rules is not an acceptable
+          excuse for disobeying them. Any student who attempts to compromise or
+          devalue the academic process will be sanctioned.”
+
+     Academic sanctions in this class will range from an F on the assignment to an F
+     in this course. A report of suspected academic dishonesty will be sent to the Office
+     of the Dean of Students. Additional information and definitions can be found at
+     http://www.baruch.cuny.edu/academic/academic_honesty.html
+     Math department policy regarding electronics usage during exams:
+
+              “All students must power off their cell phones or place them in airplane
+          mode for the entire exam duration. Cell phones and other unapproved elec-
+          tronics (excluding approved calculators), including smart watches, must be
+          completely secured in a closed bag or backpack and stored under your seat or
+          in a designated area. Students who use, access, or handle their cell phone
+          or other unapproved electronic device during an exam will receive a zero,
+          regardless of the reason, and an Academic Integrity report will be filed with
+          the Dean of Students. If you anticipate needing your phone for an emer-
+          gency during an exam, arrangements to leave it with the instructor must be
+          made before the exam. ”
+
+Counseling.      At Baruch, we acknowledge that as a student, you are balancing many
+demands. During the semester, if you start to experience personal difficulties or stressors
+that are interfering with your academic performance or day to day functioning, please
+consider seeking free and confidential support at the Baruch College Counseling Center.
+For more information or to make an appointment, please visit their website at https:
+//studentaffairs.baruch.cuny.edu/counseling/ or call 646-312-2155. If it’s outside
+of business hours (Monday-Friday 9-5pm) and you need immediate assistance, please call
+1-888-NYC-WELL (888-692-9355). If you are concerned about one of your classmates,
+please share that concern by filling out a Campus Intervention Team form at https://
+studentaffairs.baruch.cuny.edu/campus-intervention-team.
+

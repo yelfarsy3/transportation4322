@@ -1,0 +1,42 @@
+                         MTH 4322 - Technical Interviews, Fall 2026
+
+                             Course Number: 37507; Section: KTRA
+Instructor: Adam Sheffer, Adam.Sheffer@baruch.cuny.edu
+Office/Phone: VC 6-220, (646) 312-4021
+Classes: Tuesdays and Thursdays 2:55pm – 4:35pm, in VC 12-175.
+Office hours: Mondays 2pm–3pm and Thursdays 1:45pm–2:45pm, in Adam’s office.
+Text: None
+Tentative schedule:
+
+                      Class number       Date                Topics
+                            1             9/1            Introduction
+                            2             9/3          How to interview
+                            3             9/8          Arrays & Strings
+                            4             9/10         Arrays & Strings
+                            5             9/15            Hash maps
+                            6             9/17          Sliding window
+                            7             9/22           Practice class
+                            8             9/24   Two pointers (Class on Zoom)
+                            9             9/29   No class today (Adam away)
+                            10            10/1        ???guest lecture???
+                            11            10/6           Two pointers
+                            12            10/8     Project with AI — start
+                                         10/13    No class - Monday schedule
+                             13          10/15           Binary search
+                             14          10/20           Binary search
+                             15          10/22         Stacks & queues
+                             16          10/27         Stacks & queues
+                             17          10/29           CVs — start
+                             18           11/3         CV presentations
+                             19           11/5      Linked lists and trees
+                             20          11/10      Linked lists and trees
+                             21          11/12       Project presentation
+                             22          11/17       Project presentation
+                             23          11/19       Project presentation
+                             24          11/24      Dynamic programming
+                                         11/26     No class - Thanksgiving
+                             25           12/1      Dynamic programming
+                             26           12/3      Dynamic programming
+                             27           12/8         Graph algorithms
+                             28          12/10         Graph algorithms
+

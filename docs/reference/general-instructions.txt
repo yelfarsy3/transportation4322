@@ -1,0 +1,52 @@
+Project instructions.
+
+This is a guide for your course project in MTH4322 of fall 2026, with Professor Adam Sheffer.
+
+The project should be done using an AI of your choice. When done, you should send Adam:
+
+   •   The project itself. If possible, the recommended option is to place it on your GitHub.
+       But an email is also fine.
+   •   An initial design document (see below for more details).
+   •   The chat log with AI together with a detailed explanation of the checks you ran at
+       each stage. Screenshots would be great!
+   •   List the AI system(s) used, the programming language(s) used, and any other
+       technology used.
+   •   Any other information that might be relevant: Comments, unusual stories, bad
+       jokes, etc.
+
+All prompts must be written by you. You may not use any AI to generate, rewrite, or improve
+your prompts. You may use AI to help create testing tools or test data. You may also ask it
+to suggest small examples, but you must independently determine or verify the correct
+answers. You must perform and understand the verification yourself.
+
+While AI may handle the algorithm, implementation details, and coding, you must
+understand everything in the project. You may not just assume that something is okay
+without understanding it. (You do not need to manually verify every line of code, but you
+should understand the purpose and structure of every major part of the program.)
+
+When starting the project, before using AI, first create a general design of what you want
+the system to look like to users. This part does not need to include any algorithmic aspects.
+Think about how the system would look nice to the user and be easy to use.
+
+Use AI to create the system in steps. Each time, add another part and carefully test that it
+works. You are expected to be skeptical about everything. Check everything, ask why
+things work, and be suspicious. More generally, it is common to test three types of cases:
+
+    1. Standard inputs, especially small inputs where you can determine the correct
+       answer yourself.
+    2. Edge cases.
+    3. Randomly produced cases.
+
+Checking complicated systems with large inputs is tricky. Use AI to create tools or pieces of
+data to help with that. For example, you might like to create a second variant of your
+program with random input already in it. Did your tests lead you to change the system
+design? Did they expose bugs?
+
+While you need to understand the algorithm and running time, there is no need to submit
+that. Adam will ask about those in class, so please be ready to discuss that. Adam may
+also ask how various changes to the problem may affect the algorithm.
+
+Some projects involve problems for which libraries already exist that directly implement
+the required algorithm. You may not use such libraries unless explicitly permitted. Ordinary
+libraries for user interfaces, data structures, graphics, networking, etc are fine.
+

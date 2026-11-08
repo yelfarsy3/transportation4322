@@ -1,0 +1,1221 @@
+im working on a course project(attached is two relative files) and we'll be building step by step. i need to understand every major part of what we build so explain reasoning as we go and dont assume i'll accept anything just because it runs 
+im planniing to use python. suggest two or three optiions for the ui and tell me the tradeoffs before i pick one, if there's any objectively best one for the scope, given problem, say that. dont write any code as of yet, for now, restate the problem in your words, tell me what algorithm you'd use for the restock button, why/how it finds a cheapest plan and why a greedy algo would be bad, give counterexample if any. give the running time in terms of n1,n2,n3,m and explain how you derived the, the shipping cost doesnt depend on tem type, does it mean each item type is its own orpbolem, or do they interact?
+list decisions i need to make before we go ahead, include any edge cases you find and to make sure you exhuastively find all, be critically challenging and think crearively. and finally propose a step by step build plan where testing is fundamental after every step. go ahead.
+MTH 4322 Project 1: Transportation System
+After reviewing both PDFs, I think this is a good project for demonstrating algorithm design because the difficult part isn't displaying inventory. It's finding a provably cheapest shipping plan, including situations where an apparently good shipment must be reversed to achieve a better overall result.
+
+I would build this in Python, keep the optimization algorithm separate from the user interface, and test the algorithm against independently calculated answers before connecting it to the Restock button.
+
+One important course requirement: Professor Sheffer explicitly says that you must write your own AI prompts, create your initial user-facing design before using AI, and personally understand and verify the system. We can discuss alternatives, algorithms, and tests, but your submitted design and verification explanations should reflect your own decisions and understanding. (General Instructions, pp. 1–2.)
+
+1. Restating the problem
+Imagine you manage inventory for a retail chain with multiple warehouses and stores.
+
+You have four kinds of information:
+
+n
+1
+n 
+1
+​
+ : Number of item types, such as laptops, keyboards, and monitors.
+
+n
+2
+n 
+2
+​
+ : Number of warehouses, each holding different quantities of those items.
+
+n
+3
+n 
+3
+​
+ : Number of stores, each needing certain quantities of those items.
+
+A shipping-cost table giving the cost of transporting one unit from each warehouse to each store, regardless of item type.
+
+The PDF defines 
+m
+m as the total number of individual item units missing across all stores, not the number of item types or the number of warehouse–store pairs.
+
+Your program must let someone view and update inventory and store needs. When they press Restock, the system must calculate how to satisfy those needs at minimum total transportation cost. (Transportation, p. 1.)
+
+Small example
+Suppose we have one item type, keyboards, two warehouses, and two stores.
+
+Location
+
+Available or needed
+
+Warehouse A
+
+5 available
+
+Warehouse B
+
+4 available
+
+Store X
+
+3 needed
+
+Store Y
+
+4 needed
+
+Shipping costs per keyboard:
+
+Store X
+
+Store Y
+
+Warehouse A
+
+$2
+
+$5
+
+Warehouse B
+
+$4
+
+$1
+
+One optimal plan is:
+
+Shipment
+
+Quantity
+
+Cost
+
+A → X
+
+3
+
+$6
+
+B → Y
+
+4
+
+$4
+
+Total
+
+7
+
+$10
+
+The unused inventory is two keyboards at Warehouse A.
+
+This example is straightforward. The challenge arises when warehouses have overlapping responsibilities, different prices, and limited quantities.
+
+What I consider the project's actual success criteria
+The program must:
+
+Never ship inventory that a warehouse doesn't have.
+
+Never send a store more of an item than it needs.
+
+Meet every store's demand whenever that is possible.
+
+Find the lowest total shipping cost, not merely a reasonable cost.
+
+Handle insufficient inventory in an explicitly defined way.
+
+Remain reasonably efficient as the problem grows.
+
+The first three conditions establish a valid solution. The fourth establishes an optimal solution. These are two different things, and our tests need to distinguish them.
+
+2. The key observation: what are we optimizing?
+Let:
+
+s
+w
+i
+s 
+wi
+​
+  = stock of item 
+i
+i in warehouse 
+w
+w
+
+d
+j
+i
+d 
+ji
+​
+  = demand for item 
+i
+i at store 
+j
+j
+
+c
+w
+j
+c 
+wj
+​
+  = cost of shipping one unit from warehouse 
+w
+w to store 
+j
+j
+
+x
+w
+j
+i
+x 
+wji
+​
+  = number of units of item 
+i
+i shipped from warehouse 
+w
+w to store 
+j
+j
+
+The total cost is:
+
+∑
+i
+∑
+w
+∑
+j
+x
+w
+j
+i
+c
+w
+j
+i
+∑
+​
+  
+w
+∑
+​
+  
+j
+∑
+​
+ x 
+wji
+​
+ c 
+wj
+​
+ 
+​
+ 
+We want to minimize this, subject to warehouse inventory limits and store demand requirements.
+
+A crucial distinction: the problem is about choosing how much to ship between warehouses and stores, not finding the shortest geographical driving route.
+
+The assignment already gives us direct shipping prices. We don't need road maps or geographical shortest-path calculations.
+
+The right family of algorithms for this is minimum-cost flow, specifically the successive shortest augmenting path algorithm.
+
+This is a combinatorial graph algorithm, not a linear programming algorithm. That matters because your professor explicitly prohibits using a linear programming algorithm or an existing library that directly solves the required algorithm.
+
+3. The algorithm I'd use for Restock
+Minimum-cost flow, using successive shortest augmenting paths
+We turn each item type into a network, or graph.
+
+Flow network for one item type
+
+
+Arrows point from Source → Warehouses → Stores → Sink. The diagram omits reverse residual edges for readability.
+Each connection has a capacity (how many units may pass through it) and a cost (the price per unit).
+
+Connection
+
+Capacity
+
+Cost
+
+Source → Warehouse
+
+Available inventory
+
+0
+
+Warehouse → Store
+
+Up to the amount that could be shipped
+
+Given shipping price
+
+Store → Sink
+
+Store's required quantity
+
+0
+
+We can cap a warehouse-to-store edge at the smaller of that warehouse's stock and that store's demand. It doesn't need to be infinite.
+
+How the algorithm works
+Start with no shipments.
+
+Find the cheapest available path from Source to Sink through the current residual graph.
+
+Send as many units as the path's remaining capacities permit.
+
+Update all remaining capacities.
+
+Add reverse edges that allow previous shipments to be reduced or reassigned.
+
+Repeat until every unit of demand is satisfied, or no more flow can be sent.
+
+The fifth step is the reason this algorithm can do something greedy algorithms cannot.
+
+A reverse edge doesn't represent a truck physically returning an item. It represents correcting an earlier planning decision before the final shipment plan is approved.
+
+4. Why greedy fails: an actual counterexample
+Suppose two warehouses each have one laptop, and two stores each need one laptop.
+
+Shipping cost
+
+Store A
+
+Store B
+
+Warehouse 1
+
+$1
+
+$2
+
+Warehouse 2
+
+$2
+
+$100
+
+A greedy algorithm that repeatedly chooses the cheapest currently available shipment does this:
+
+Warehouse 1 → Store A: $1
+
+Warehouse 2 → Store B: $100
+
+GREEDY TOTAL
+
+$101
+But the optimal solution is:
+
+Warehouse 1 → Store B: $2
+
+Warehouse 2 → Store A: $2
+
+OPTIMAL TOTAL
+
+$4
+The greedy plan costs $97 more, even though it selected the cheapest individual shipment first.
+
+Here is how minimum-cost flow can recover:
+
+Initially, it might also send Warehouse 1's laptop to Store A for $1. But the next cheapest residual path can:
+
+Send Warehouse 2's laptop to Store A for $2.
+
+Reverse the previous Warehouse 1 → Store A allocation, removing $1.
+
+Redirect Warehouse 1's laptop to Store B for $2.
+
+The additional cost of that adjustment is 
+2
+−
+1
++
+2
+=
+3
+2−1+2=3, bringing the total to 
+1
++
+3
+=
+4
+1+3=4.
+
+This is the example I would absolutely include in testing and understand well enough to explain at the presentation.
+
+Why is the final plan guaranteed cheapest?
+The algorithm maintains an important invariant:
+
+After each augmentation, the current shipment plan has minimum cost among all feasible flows sending that same total number of units.
+
+The initial empty flow satisfies this. Selecting a minimum-cost augmenting path in the residual graph preserves the property because the residual graph represents both new shipments and permissible changes to earlier shipments.
+
+Therefore, when the algorithm has successfully sent all required units, there cannot be another feasible complete plan with lower cost.
+
+That is a standard result for successive shortest augmenting paths. 
+
+Algorithms for Competitive Programming
+
+One implementation detail matters: after adding reverse edges, some residual edges have negative costs. Ordinary Dijkstra is not automatically valid on that graph. We should either use Bellman–Ford initially, or use Dijkstra with a technique called vertex potentials, which makes the shortest-path calculations valid and faster.
+
+I favor eventually using Dijkstra with potentials, but first verifying the simpler version. We should not make the faster implementation until we understand the simpler one.
+
+5. Do different item types interact?
+Under the requirements as written, they do not interact mathematically.
+
+This follows from more than just shipping prices being independent of item type. The assignment also specifies warehouse stock and store demand separately for each item, and gives no shared transportation-capacity constraints.
+
+Imagine two item types: laptops and monitors.
+
+Warehouse A might have 10 laptops and zero monitors, while Warehouse B has zero laptops and 10 monitors. Even if both routes cost $3 per unit, laptops cannot satisfy monitor demand.
+
+We therefore solve:
+
+One minimum-cost transportation problem for laptops.
+
+One minimum-cost transportation problem for monitors.
+
+One problem for every other item type.
+
+Then add the optimal costs.
+
+Formally, if item 
+i
+i has minimum cost 
+C
+i
+∗
+C 
+i
+∗
+​
+ , the overall minimum is
+
+C
+total
+∗
+=
+∑
+i
+=
+1
+n
+1
+C
+i
+∗
+C 
+total
+∗
+​
+ = 
+i=1
+∑
+n 
+1
+​
+ 
+​
+ C 
+i
+∗
+​
+ 
+​
+ 
+Why? Because changing shipments of item A cannot affect the feasible shipments of item B. If an overall plan had a nonoptimal solution for one item, we could replace just that item's plan with a cheaper one without affecting the others.
+
+The common shipping-cost table can be reused, but each item's inventory limits, demands, flow, and residual graph still have to be considered separately.
+
+What would make the items interact?
+This changes immediately if we introduce rules such as:
+
+A truck can carry at most 50 units total, regardless of item type.
+
+A warehouse can dispatch at most 100 units per day across all items.
+
+Sending any truck on a route has a fixed starting charge.
+
+Combining different items in one shipment gives a discount.
+
+Some items require refrigeration or other shared transport resources.
+
+With these changes, independently optimizing every item can become globally wrong.
+
+None of those extra constraints appear in the PDF. I recommend not inventing them for the required version. We can discuss how they would change the algorithm, which is good preparation for Professor Sheffer's questions.
+
+6. Running time in 
+n
+1
+,
+n
+2
+,
+n
+3
+,
+m
+n 
+1
+​
+ ,n 
+2
+​
+ ,n 
+3
+​
+ ,m
+Let's derive this rather than simply memorize a formula.
+
+For one item type, the graph has:
+
+V
+=
+n
+2
++
+n
+3
++
+2
+V=n 
+2
+​
+ +n 
+3
+​
+ +2
+vertices: one per warehouse, one per store, plus Source and Sink.
+
+It has approximately:
+
+E
+=
+n
+2
+n
+3
++
+n
+2
++
+n
+3
+E=n 
+2
+​
+ n 
+3
+​
+ +n 
+2
+​
+ +n 
+3
+​
+ 
+forward edges. Reverse edges double this count at most, which doesn't change Big-O.
+
+Where do those edge counts come from?
+
+n
+2
+n
+3
+n 
+2
+​
+ n 
+3
+​
+  possible warehouse-to-store connections.
+
+n
+2
+n 
+2
+​
+  connections from Source to warehouses.
+
+n
+3
+n 
+3
+​
+  connections from stores to Sink.
+
+With a binary heap and Dijkstra using potentials, each shortest-path search takes approximately:
+
+O
+(
+E
+log
+⁡
+V
+)
+O(ElogV)
+Each augmentation sends at least one integer unit. Since there are 
+m
+m missing units in total across all items, there can be at most 
+m
+m augmentations altogether.
+
+Importantly, an augmentation can send 1, 20, or 10,000 units. We don't run a separate iteration for every item unit unless the bottlenecks force that.
+
+We also need time to read all inventory and demand values and build the per-item graphs.
+
+Let 
+k
+k be the number of item types with positive demand, so 
+k
+≤
+n
+1
+k≤n 
+1
+​
+  and, for integer demands, 
+k
+≤
+m
+k≤m.
+
+The total worst-case bound for the design I'm proposing is:
+
+O
+(
+n
+1
+(
+n
+2
++
+n
+3
+)
++
+n
+2
+n
+3
++
+k
+E
++
+m
+E
+log
+⁡
+V
+)
+O(n 
+1
+​
+ (n 
+2
+​
+ +n 
+3
+​
+ )+n 
+2
+​
+ n 
+3
+​
+ +kE+mElogV)
+​
+ 
+When 
+n
+2
+,
+n
+3
+≥
+1
+n 
+2
+​
+ ,n 
+3
+​
+ ≥1, a simpler worst-case expression is:
+
+O
+(
+n
+1
+n
+2
+n
+3
++
+m
+n
+2
+n
+3
+log
+⁡
+(
+n
+2
++
+n
+3
+)
+)
+O(n 
+1
+​
+ n 
+2
+​
+ n 
+3
+​
+ +mn 
+2
+​
+ n 
+3
+​
+ log(n 
+2
+​
+ +n 
+3
+​
+ ))
+​
+ 
+The terms have distinct meanings:
+
+Term
+
+Why it's there
+
+n
+1
+(
+n
+2
++
+n
+3
+)
+n 
+1
+​
+ (n 
+2
+​
+ +n 
+3
+​
+ )
+
+Read and check each item's stock and demand
+
+n
+2
+n
+3
+n 
+2
+​
+ n 
+3
+​
+ 
+
+Read the shared shipping-cost table
+
+k
+E
+kE
+
+Construct the active item-type graphs
+
+m
+E
+log
+⁡
+V
+mElogV
+
+Worst-case repeated shortest-path searches
+
+These are upper bounds, not promised actual execution times.
+
+A limitation worth knowing
+This implementation is polynomial in 
+m
+m, but it is not strongly polynomial in the size of the numerical inputs. If we have just a few warehouses and stores but enormous item quantities, the worst-case number of iterations can still be large.
+
+This doesn't make the algorithm incorrect. It means we should measure performance and avoid claiming that it is the fastest possible approach in every setting. More advanced minimum-cost-flow algorithms offer other theoretical tradeoffs, but add substantial implementation complexity.
+
+For the intended course scope, I'd favor this algorithm over a far more complicated solver that becomes difficult to verify and defend.
+
+7. Choosing the Python user interface
+There are three reasonable options. I would not build a custom HTML/CSS frontend or introduce a separate backend for this project's required scope.
+
+Streamlit in Snowflake
+Option 1: Streamlit
+
+My pick
+A browser-based dashboard built almost entirely in Python. It supports editable data tables, buttons, filters, and summary metrics.
+
+Advantages: Fastest route to a usable, attractive demo; excellent fit for inventory tables.
+
+Disadvantages: Script reruns and session-state behavior require care. Less control over advanced interface interactions.
+
+GitHub - 1966bc/Tkinterlite: a study on tkinter and sqlite · GitHub
+Option 2: Tkinter
+
+A traditional desktop application, using Python's standard GUI toolkit.
+
+Advantages: No major third-party UI framework; direct handling of user actions; easy to run as a local desktop program.
+
+Disadvantages: Editable inventory grids require more work, and a polished dashboard takes more effort.
+
+Expenses Tool Tutorial - Qt for Python
+Option 3: PySide6
+
+A more powerful framework for building professional desktop applications.
+
+Advantages: Excellent table handling, flexible layouts, and more sophisticated window controls.
+
+Disadvantages: More concepts, more implementation work, and extra dependencies. Likely unnecessary for this assignment.
+
+These tradeoffs are consistent with the documented editing capabilities of Streamlit's data editor, Tkinter's Treeview, and Qt's model/view tables. 
+
+Streamlit Docs
++2
+
+My recommendation is Streamlit, assuming this is a single-user local application demonstrated in class. It fits the required interactions without making interface development the hardest part of the project.
+
+If you want an actual desktop window and no browser, Tkinter is the simpler alternative. I would only choose PySide6 if building a polished desktop interface is an important goal in itself.
+
+Whichever you select, the optimizer should be ordinary Python code that knows nothing about the UI. That makes it easier to test and means a future UI change won't require rewriting the algorithm.
+
+8. Decisions we must make before implementation
+The professor deliberately leaves important behavior undefined. I would distinguish decisions that affect algorithm correctness from those affecting only the user experience.
+
+Decision
+
+My proposed default
+
+Importance
+
+Insufficient inventory
+
+Show shortages; don't execute an incomplete restock automatically
+
+Critical
+
+Meaning of Restock
+
+Calculate and preview first; require confirmation to apply
+
+Critical
+
+Item quantities
+
+Nonnegative whole numbers only
+
+Critical
+
+Shipping costs
+
+Nonnegative, entered and stored in cents
+
+Critical
+
+Shipping routes
+
+Every warehouse can ship directly to every store
+
+Critical
+
+Item substitution
+
+Not allowed
+
+Critical
+
+Shared truck capacities
+
+None
+
+Critical
+
+Updating quantities
+
+Explicit Add versus Set/Replace operations
+
+High
+
+Changing costs
+
+Allow editing the shipping-cost table
+
+High
+
+Initial data
+
+Load a prepared sample dataset
+
+High
+
+Saving data
+
+JSON file for this local project
+
+High
+
+Tied optimal solutions
+
+Return any minimum-cost plan
+
+Medium
+
+Cancel/undo a restock
+
+Support reset/restore or an undo mechanism
+
+Medium
+
+Multiple simultaneous users
+
+Out of scope for the required version
+
+Low
+
+Geography/route visualization
+
+Not necessary
+
+Low
+
+These are proposed choices, not additional instructor requirements.
+
+The most consequential decision: insufficient inventory
+There are at least three possible behaviors.
+
+A. All-or-nothing restocking. If even one item cannot be fully supplied, show a shortage report and do not apply the restock. This is my preferred initial version because it matches the requirement to restock all needs.
+
+B. Maximum possible restocking. Deliver as many units as possible, then minimize the cost of delivering that maximum number. Minimum-cost maximum-flow can handle this, but some stores may receive nothing if they are more expensive to serve.
+
+C. Priority-based restocking. Prioritize certain stores or distribute shortages fairly. This introduces new business rules and may change the optimization objective.
+
+For example, suppose we have 10 units available but two stores each need 10 units. Store A costs $1 per unit to supply; Store B costs $10.
+
+A minimum-cost partial shipment would send all 10 to A for $10, assuming there are no other constraints. That is cheapest, but is it an acceptable business decision?
+
+The assignment doesn't answer that question. It illustrates why mathematically optimal doesn't necessarily mean operationally desirable until the objective is defined precisely.
+
+I recommend A as the initial behavior and considering B as an optional enhancement.
+
+9. Edge cases and failure modes we should test
+I would organize these into categories so that we don't merely write a few happy-path tests.
+
+Testing coverage checklist
+
+0 of 41 checks marked
+
+A. Basic dimensions and quantities
+
+
+One warehouse, one store, one item type
+
+
+Multiple warehouses and stores
+
+
+All demands are zero
+
+
+A warehouse has zero inventory
+
+
+One item type has no stock anywhere
+
+
+Inventory exactly equals demand
+
+
+Inventory exceeds demand
+
+
+Zero warehouses, stores, or item types (reject or handle explicitly)
+
+B. Feasibility and optimization
+
+
+Enough total units, but not enough of a particular item
+
+
+The 2×2 greedy counterexample ($101 versus $4)
+
+
+A plan that requires reversing earlier allocations
+
+
+Several equally cheap optimal solutions
+
+
+Every route has the same price
+
+
+Some routes cost zero
+
+
+One warehouse is far cheaper but has limited inventory
+
+
+Some warehouses have stock of items no store needs
+
+
+High-cost routes are needed to satisfy all stores
+
+C. Data validity and numerical boundaries
+
+
+Negative inventory, demand, or shipping price
+
+
+Decimal item quantities
+
+
+Missing warehouse, store, item, or cost entry
+
+
+Duplicate IDs or mismatched table dimensions
+
+
+Empty text, invalid strings, or blank table cells
+
+
+Very large quantities and prices
+
+
+Currency arithmetic without floating-point rounding errors
+
+
+Malformed or corrupted saved data
+
+D. User interface and state
+
+
+Adding stock updates the displayed warehouse correctly
+
+
+Editing demand immediately invalidates an old plan
+
+
+Editing a shipping cost invalidates an old plan
+
+
+Clicking Restock twice does not ship twice
+
+
+Previewing a plan never mutates the original inventory
+
+
+Confirming a shipment updates all affected quantities
+
+
+Canceling a preview leaves all quantities unchanged
+
+
+Restarting or refreshing preserves data according to our chosen save policy
+
+
+An error during a confirmed update never applies half a plan
+
+E. Larger and adversarial inputs
+
+
+A large number of stores and warehouses
+
+
+A very large number of units with relatively few locations
+
+
+Many item types, but only one has demand
+
+
+Many zero-cost or tied-cost routes
+
+
+Random small instances compared against brute force
+
+
+Random large instances checked for feasibility and consistency
+
+
+Reordered warehouse/store lists produce the same minimum total cost
+
+This is a testing checklist, not a record of tests already performed.
+
+Three less-obvious problems I'd specifically watch for
+First: a plan can be feasible but still incorrect. A function might meet all demands, respect stock limits, and calculate the total correctly, yet produce $101 instead of $4. Ordinary validation won't catch that. We need tests of optimality, not just validity.
+
+Second: a failed restock must not partially change inventory. Suppose we calculate a plan, update three warehouses, and encounter an error on the fourth. Our application should not be left in a state where some shipments occurred and others did not. We should calculate and validate the complete plan before committing it.
+
+Third: we shouldn't confuse a solver result with a real shipment. A plan is only a proposal. Running the optimizer repeatedly should give the same answer on unchanged data. Inventory should change only after explicit confirmation. That distinction makes both the program and its tests much safer.
+
+10. How we verify the optimizer actually finds a minimum
+I would use three independent levels of verification.
+
+Level 1: Hand-calculated examples
+We start with cases where we know the exact answer, including the $10 example and the $4 counterexample above.
+
+These test our ability to reason about the answer independently of the implementation.
+
+Level 2: A brute-force reference for tiny cases
+For small cases, such as two warehouses and two stores with small integer quantities, we can enumerate every feasible shipping allocation.
+
+For each allocation, check its constraints, calculate its total cost, and retain the cheapest.
+
+This is too slow for large problems, but ideal as a testing oracle for small ones.
+
+We would then compare the minimum-cost-flow algorithm against the exhaustive solution for many randomly generated small instances.
+
+The two implementations use different reasoning, so an agreement is more meaningful than comparing two copies of the same algorithm.
+
+Level 3: Mathematical properties and randomized testing
+Even where brute force becomes impractical, we can check properties that every correct solution must satisfy:
+
+No inventory or demand becomes negative.
+
+Shipped quantities balance between warehouses and stores.
+
+Reported total cost equals the sum of quantity × price for every route.
+
+Increasing available warehouse inventory cannot increase the minimum cost of satisfying the same demand.
+
+Increasing all shipping prices by $1 per item must increase the optimal cost by exactly $m, when all demand is satisfied.
+
+Renaming or reordering warehouses and stores must not change the optimal total cost.
+
+One subtlety: two different optimal plans may have exactly the same cost. We should not treat a different-looking shipment allocation as a failure when both are optimal.
+
+11. Proposed step-by-step build plan
+Every phase should end with a verification checkpoint. If it fails, we fix that phase before adding more features.
+
+Define the user-facing design and rules
+
+You create the initial screen sketch and decide the required behavior, particularly shortage handling, preview versus confirmation, and data editing. This should be your own initial design, as required by the professor.
+
+Checkpoint: Walk through realistic user actions on paper. Identify any ambiguous transitions or missing screens.
+
+Design the Python data model
+
+Represent fixed item types, warehouses, stores, inventory, demands, and shipping prices. Keep the model independent of Streamlit or any other UI.
+
+Checkpoint: Create small test datasets, reject invalid entries, and confirm that totals are calculated correctly.
+
+Implement availability and shortage detection
+
+For each item type, compare total inventory against total demand. Return an explicit feasibility report.
+
+Checkpoint: Verify exact shortages, including cases where overall inventory is sufficient but one item type is unavailable.
+
+Create the independent small-case testing oracle
+
+Implement exhaustive enumeration for tiny instances as a test tool, without using an optimization library.
+
+Checkpoint: Independently calculate sample answers and verify that the oracle produces them.
+
+Implement the first minimum-cost-flow version
+
+Build the residual network and use shortest augmenting paths, initially favoring a simpler shortest-path method that handles negative residual costs.
+
+Checkpoint: Pass hand-calculated examples, the greedy counterexample, and the small exhaustive tests.
+
+Improve efficiency with Dijkstra and potentials
+
+Once correctness is established, optimize shortest-path searches without changing the solver's external behavior.
+
+Checkpoint: Compare the optimized version with the previous version and the brute-force oracle. Benchmark larger inputs.
+
+Add restock planning and confirmation
+
+Convert mathematical flow into understandable shipping instructions, costs, shortage messages, and post-restock inventory calculations.
+
+Checkpoint: Test preview, confirm, cancel, stale-plan rejection, and repeated clicks. Ensure no changes occur on failure.
+
+Build the user interface
+
+Connect status tables, inventory adjustments, demand adjustments, costs, and the Restock button to the already-tested Python logic.
+
+Checkpoint: Manually complete every user workflow and compare visible totals with the underlying data.
+
+Add persistence and shipment reporting
+
+Save and reload program state, present warehouse-to-store instructions, and show total cost clearly.
+
+Checkpoint: Restart the application, reload valid data, reject corrupted data, and check that a confirmed restock remains consistent.
+
+Final adversarial tests and project submission
+
+Run edge cases, random tests, performance tests, and full interface demonstrations. Review the project with the instructor's requirements.
+
+Checkpoint: Have a working project, your initial design, your AI chat log, documented checks and screenshots, and a list of technologies ready. Prepare to explain the algorithm, complexity, and possible rule changes.
+
+The general-instructions PDF recommends GitHub for the project, but permits email. It also says the algorithm and running-time discussion do not have to be submitted separately, although you must be ready to explain both in class.
+
+12. What I would deliberately leave out
+I would not start with live databases, user accounts, a separate frontend and backend, distributed store/warehouse programs, real maps, or external logistics APIs.
+
+The server/store/warehouse separation is explicitly optional and advanced in the assignment. Adding it now creates many more things that could go wrong without strengthening the core optimization result.
+
+I also would not use NetworkX's built-in minimum-cost-flow solver, SciPy optimization functions, or any other library that directly solves the required transportation problem. We should implement the algorithm ourselves using normal Python data structures.
+
+13. The choices to settle now
+Here are the decisions I'd want from you before we move into the actual design and first implementation phase. I've filled in my recommendations so you can challenge them rather than starting from nothing.
+
+Python UI framework
+
+
+Streamlit (recommended)
+
+Tkinter
+
+PySide6
+Insufficient inventory
+
+Reject incomplete restock (recommended)
+
+
+Ship as much as possible, then minimize cost
+
+Add store-priority rules
+What should Restock do?
+
+
+Preview plan, then confirm (recommended)
+
+Apply immediately
+Save inventory between sessions
+
+
+JSON file (recommended)
+
+CSV files
+
+Don't persist changes initially
+My preferred direction is a Streamlit interface backed by a separately tested Python minimum-cost-flow implementation, using a strict shortage policy, explicit preview and confirmation, and JSON persistence.
+
+But I would make the first actual milestone your own initial interface design and behavior decisions, rather than writing the optimizer immediately. That follows the course instructions and gives us a clear contract against which to challenge every part of the implementation.

@@ -1,0 +1,23 @@
+System for participating in a technical interview:
+
+Never start by writing code! Instead:
+  1. When reasonable, paraphrase and repeat the question back at the interviewer.
+      If you cannot, ask for clarification.
+  2. When reasonable, clarify the assumptions. For example:
+          a. How is the input stored?
+          b. Are the numbers sorted?
+          c. Am I allowed to edit the input?
+          d. Can I assume that this is a doubly linked list, rather than singly linked?
+  3. Come up with test cases:
+          a. At least one simple test case, with no issues and nothing special
+              happening.
+          b. Edge cases.
+  4. Come up with approaches, discuss them with the interviewer, and work out
+      how these would run on the test cases.
+
+Only when the interviewer seems happy with your idea, start coding.
+
+While writing the code, say out loud what you are currently working on.
+
+After the code is done, run the code over the examples “by hand”. Don’t compile yet.
+
