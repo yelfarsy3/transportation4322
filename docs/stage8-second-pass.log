@@ -1,4 +1,4 @@
-test_app_runs_and_reruns_without_exceptions (test_app.AppSmokeTests.test_app_runs_and_reruns_without_exceptions) ... 2026-11-08 20:18:12.740 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+test_app_runs_and_reruns_without_exceptions (test_app.AppSmokeTests.test_app_runs_and_reruns_without_exceptions) ... 2026-11-08 20:22:00.367 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
 ok
 test_catalog_order_does_not_mix_items (test_availability.AvailabilityTests.test_catalog_order_does_not_mix_items) ... ok
 test_exact_excess_shortage_and_zero_boundaries (test_availability.AvailabilityTests.test_exact_excess_shortage_and_zero_boundaries) ... ok
@@ -89,6 +89,6 @@ test_report_construction_rejects_invalid_counts (test_validation_boundaries.Vali
 test_supported_limit_roundtrips (test_validation_boundaries.ValidationBoundaryTests.test_supported_limit_roundtrips) ... ok
 
 ----------------------------------------------------------------------
-Ran 88 tests in 1.374s
+Ran 88 tests in 1.398s
 
 OK

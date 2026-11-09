@@ -1,4 +1,4 @@
-test_app_runs_and_reruns_without_exceptions (test_app.AppSmokeTests.test_app_runs_and_reruns_without_exceptions) ... 2026-11-08 20:21:04.009 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+test_app_runs_and_reruns_without_exceptions (test_app.AppSmokeTests.test_app_runs_and_reruns_without_exceptions) ... 2026-11-08 20:21:57.256 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
 ok
 test_catalog_order_does_not_mix_items (test_availability.AvailabilityTests.test_catalog_order_does_not_mix_items) ... ok
 test_exact_excess_shortage_and_zero_boundaries (test_availability.AvailabilityTests.test_exact_excess_shortage_and_zero_boundaries) ... ok
@@ -76,7 +76,7 @@ test_leftover_temp_not_loaded_and_cleanup_error_not_false_failure (test_storage.
 test_malformed_files_rejected_without_reset (test_storage.StorageTests.test_malformed_files_rejected_without_reset) ... ok
 test_partial_reopen_and_replenish (test_storage.StorageTests.test_partial_reopen_and_replenish) ... ok
 test_preview_cancel_and_noops_never_write (test_storage.StorageTests.test_preview_cancel_and_noops_never_write) ... ok
-test_protected_targets_symlinks_and_missing_parent (test_storage.StorageTests.test_protected_targets_symlinks_and_missing_parent) ... FAIL
+test_protected_targets_symlinks_and_missing_parent (test_storage.StorageTests.test_protected_targets_symlinks_and_missing_parent) ... ok
 test_reset_preserves_sample_and_blocks_old_preview (test_storage.StorageTests.test_reset_preserves_sample_and_blocks_old_preview) ... ok
 test_stale_second_session_and_manual_same_revision_change (test_storage.StorageTests.test_stale_second_session_and_manual_same_revision_change) ... ok
 test_unicode_and_numeric_boundary_roundtrip (test_storage.StorageTests.test_unicode_and_numeric_boundary_roundtrip) ... ok
@@ -88,16 +88,7 @@ test_malformed_json_errors_are_normalized (test_validation_boundaries.Validation
 test_report_construction_rejects_invalid_counts (test_validation_boundaries.ValidationBoundaryTests.test_report_construction_rejects_invalid_counts) ... ok
 test_supported_limit_roundtrips (test_validation_boundaries.ValidationBoundaryTests.test_supported_limit_roundtrips) ... ok
 
-======================================================================
-FAIL: test_protected_targets_symlinks_and_missing_parent (test_storage.StorageTests.test_protected_targets_symlinks_and_missing_parent)
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/Users/youssefelfarsy/.codex/.chatgpt-projects/g-p-6aa703ad56f88191adfd4ddec6d7f944/transportation4322/tests/test_storage.py", line 163, in test_protected_targets_symlinks_and_missing_parent
-    with self.assertRaises(StorageError): JsonStore(loop/'state.json')
-         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
-AssertionError: StorageError not raised
+Ran 88 tests in 1.404s
 
-----------------------------------------------------------------------
-Ran 88 tests in 1.347s
-
-FAILED (failures=1)
+OK

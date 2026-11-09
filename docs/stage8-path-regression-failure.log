@@ -1,0 +1,103 @@
+test_app_runs_and_reruns_without_exceptions (test_app.AppSmokeTests.test_app_runs_and_reruns_without_exceptions) ... 2026-11-08 20:21:04.009 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_catalog_order_does_not_mix_items (test_availability.AvailabilityTests.test_catalog_order_does_not_mix_items) ... ok
+test_exact_excess_shortage_and_zero_boundaries (test_availability.AvailabilityTests.test_exact_excess_shortage_and_zero_boundaries) ... ok
+test_large_counts_without_per_unit_iteration (test_availability.AvailabilityTests.test_large_counts_without_per_unit_iteration) ... ok
+test_multiple_locations_and_mixed_items (test_availability.AvailabilityTests.test_multiple_locations_and_mixed_items) ... ok
+test_no_mutation_and_independent_snapshots (test_availability.AvailabilityTests.test_no_mutation_and_independent_snapshots) ... ok
+test_original_ui_totals (test_availability.AvailabilityTests.test_original_ui_totals) ... ok
+test_partial_ui_does_not_substitute_items (test_availability.AvailabilityTests.test_partial_ui_does_not_substitute_items) ... ok
+test_prices_do_not_limit_availability (test_availability.AvailabilityTests.test_prices_do_not_limit_availability) ... ok
+test_raw_input_requires_validation_first (test_availability.AvailabilityTests.test_raw_input_requires_validation_first) ... ok
+test_seeded_cases_against_unit_matching (test_availability.AvailabilityTests.test_seeded_cases_against_unit_matching) ... ok
+test_budget_never_returns_partial_optimum (test_brute_force_reference.BruteForceReferenceTests.test_budget_never_returns_partial_optimum) ... ok
+test_exhaustive_two_by_two_domain (test_brute_force_reference.BruteForceReferenceTests.test_exhaustive_two_by_two_domain) ... ok
+test_inputs_unchanged_and_output_immutable (test_brute_force_reference.BruteForceReferenceTests.test_inputs_unchanged_and_output_immutable) ... ok
+test_invalid_inputs (test_brute_force_reference.BruteForceReferenceTests.test_invalid_inputs) ... ok
+test_manual_greedy_counterexample (test_brute_force_reference.BruteForceReferenceTests.test_manual_greedy_counterexample) ... ok
+test_manual_original_and_partial_ui (test_brute_force_reference.BruteForceReferenceTests.test_manual_original_and_partial_ui) ... ok
+test_price_shift_scaling_and_permutation (test_brute_force_reference.BruteForceReferenceTests.test_price_shift_scaling_and_permutation) ... ok
+test_seeded_rectangular_instances (test_brute_force_reference.BruteForceReferenceTests.test_seeded_rectangular_instances) ... ok
+test_ties_and_free_shipping (test_brute_force_reference.BruteForceReferenceTests.test_ties_and_free_shipping) ... ok
+test_units_take_priority_over_cost (test_brute_force_reference.BruteForceReferenceTests.test_units_take_priority_over_cost) ... ok
+test_zero_exact_excess_and_shortage (test_brute_force_reference.BruteForceReferenceTests.test_zero_exact_excess_and_shortage) ... ok
+test_bad_catalogs (test_data_model.DataModelTests.test_bad_catalogs) ... ok
+test_bad_edits_do_not_change_state (test_data_model.DataModelTests.test_bad_edits_do_not_change_state) ... ok
+test_invalid_numeric_values (test_data_model.DataModelTests.test_invalid_numeric_values) ... ok
+test_json_errors_and_duplicate_keys (test_data_model.DataModelTests.test_json_errors_and_duplicate_keys) ... ok
+test_missing_and_extra_matrix_references (test_data_model.DataModelTests.test_missing_and_extra_matrix_references) ... ok
+test_names_are_labels_not_references (test_data_model.DataModelTests.test_names_are_labels_not_references) ... ok
+test_partial_ui_input_retains_other_cells (test_data_model.DataModelTests.test_partial_ui_input_retains_other_cells) ... ok
+test_prices_and_noops (test_data_model.DataModelTests.test_prices_and_noops) ... ok
+test_quantity_edits_are_isolated (test_data_model.DataModelTests.test_quantity_edits_are_isolated) ... ok
+test_roundtrip (test_data_model.DataModelTests.test_roundtrip) ... ok
+test_sample_matches_ui (test_data_model.DataModelTests.test_sample_matches_ui) ... ok
+test_schema_and_revision (test_data_model.DataModelTests.test_schema_and_revision) ... ok
+test_seeded_edit_sequences_against_plain_dictionary (test_data_model.DataModelTests.test_seeded_edit_sequences_against_plain_dictionary) ... ok
+test_singleton_zero_and_large_integer (test_data_model.DataModelTests.test_singleton_zero_and_large_integer) ... ok
+test_snapshot_protects_against_aliasing (test_data_model.DataModelTests.test_snapshot_protects_against_aliasing) ... ok
+test_all_changes_invalidate_but_noops_and_failures_preserve_preview (test_operations.OperationsTests.test_all_changes_invalidate_but_noops_and_failures_preserve_preview) ... ok
+test_corrupt_plan_fields_and_projections (test_operations.OperationsTests.test_corrupt_plan_fields_and_projections) ... ok
+test_empty_plan_and_revision_overflow_do_not_change_state (test_operations.OperationsTests.test_empty_plan_and_revision_overflow_do_not_change_state) ... ok
+test_exhaustive_action_sequences_against_scalar_model (test_operations.OperationsTests.test_exhaustive_action_sequences_against_scalar_model) ... ok
+test_exhaustive_tiny_confirm_and_cancel (test_operations.OperationsTests.test_exhaustive_tiny_confirm_and_cancel) ... ok
+test_full_snapshot_not_just_revision (test_operations.OperationsTests.test_full_snapshot_not_just_revision) ... ok
+test_handle_identity_replacement_foreign_and_reset_replay (test_operations.OperationsTests.test_handle_identity_replacement_foreign_and_reset_replay) ... ok
+test_partial_then_replenish_then_complete (test_operations.OperationsTests.test_partial_then_replenish_then_complete) ... ok
+test_preview_cancel_and_repeated_confirmation (test_operations.OperationsTests.test_preview_cancel_and_repeated_confirmation) ... ok
+test_validator_checks_feasibility_not_independent_optimality (test_operations.OperationsTests.test_validator_checks_feasibility_not_independent_optimality) ... ok
+test_bulk_augmentation_and_exact_large_arithmetic (test_optimizer.OptimizerTests.test_bulk_augmentation_and_exact_large_arithmetic) ... ok
+test_catalog_order_and_duplicate_names (test_optimizer.OptimizerTests.test_catalog_order_and_duplicate_names) ... ok
+test_cost_does_not_reduce_maximum_fulfillment (test_optimizer.OptimizerTests.test_cost_does_not_reduce_maximum_fulfillment) ... ok
+test_exhaustive_two_by_two (test_optimizer.OptimizerTests.test_exhaustive_two_by_two) ... ok
+test_larger_instances_price_shift_and_more_stock (test_optimizer.OptimizerTests.test_larger_instances_price_shift_and_more_stock) ... ok
+test_mixed_items_cannot_substitute (test_optimizer.OptimizerTests.test_mixed_items_cannot_substitute) ... ok
+test_original_ui (test_optimizer.OptimizerTests.test_original_ui) ... ok
+test_partial_ui (test_optimizer.OptimizerTests.test_partial_ui) ... ok
+test_pure_repeated_calculation_and_immutable_output (test_optimizer.OptimizerTests.test_pure_repeated_calculation_and_immutable_output) ... ok
+test_raw_input_rejected (test_optimizer.OptimizerTests.test_raw_input_rejected) ... ok
+test_reverse_edge_reassigns_greedy_first_choice (test_optimizer.OptimizerTests.test_reverse_edge_reassigns_greedy_first_choice) ... ok
+test_same_revision_does_not_replace_source_snapshot (test_optimizer.OptimizerTests.test_same_revision_does_not_replace_source_snapshot) ... ok
+test_seeded_multiple_item_rectangular_cases (test_optimizer.OptimizerTests.test_seeded_multiple_item_rectangular_cases) ... ok
+test_zero_exact_excess_shortage_and_ties (test_optimizer.OptimizerTests.test_zero_exact_excess_shortage_and_ties) ... ok
+test_both_methods_exhaustive_against_reference (test_optimizer_potentials.PotentialsTests.test_both_methods_exhaustive_against_reference) ... ok
+test_distances_finish_before_potential_update (test_optimizer_potentials.PotentialsTests.test_distances_finish_before_potential_update) ... ok
+test_invalid_method_rejected_even_when_no_flow (test_optimizer_potentials.PotentialsTests.test_invalid_method_rejected_even_when_no_flow) ... ok
+test_negative_reduced_cost_guard (test_optimizer_potentials.PotentialsTests.test_negative_reduced_cost_guard) ... ok
+test_reverse_path_after_first_augmentation (test_optimizer_potentials.PotentialsTests.test_reverse_path_after_first_augmentation) ... ok
+test_zero_stock_unreachable_vertices_and_zero_prices (test_optimizer_potentials.PotentialsTests.test_zero_stock_unreachable_vertices_and_zero_prices) ... ok
+test_commit_revision_catalog_and_type_checks (test_storage.StorageTests.test_commit_revision_catalog_and_type_checks) ... ok
+test_failed_edits_reset_and_missing_save_preserve_session (test_storage.StorageTests.test_failed_edits_reset_and_missing_save_preserve_session) ... ok
+test_failed_reload_preserves_current_session (test_storage.StorageTests.test_failed_reload_preserves_current_session) ... ok
+test_fresh_process_reads_saved_demand (test_storage.StorageTests.test_fresh_process_reads_saved_demand) ... ok
+test_initialize_load_and_no_silent_overwrite (test_storage.StorageTests.test_initialize_load_and_no_silent_overwrite) ... ok
+test_interruption_after_publication_never_double_deducts (test_storage.StorageTests.test_interruption_after_publication_never_double_deducts) ... ok
+test_leftover_temp_not_loaded_and_cleanup_error_not_false_failure (test_storage.StorageTests.test_leftover_temp_not_loaded_and_cleanup_error_not_false_failure) ... ok
+test_malformed_files_rejected_without_reset (test_storage.StorageTests.test_malformed_files_rejected_without_reset) ... ok
+test_partial_reopen_and_replenish (test_storage.StorageTests.test_partial_reopen_and_replenish) ... ok
+test_preview_cancel_and_noops_never_write (test_storage.StorageTests.test_preview_cancel_and_noops_never_write) ... ok
+test_protected_targets_symlinks_and_missing_parent (test_storage.StorageTests.test_protected_targets_symlinks_and_missing_parent) ... FAIL
+test_reset_preserves_sample_and_blocks_old_preview (test_storage.StorageTests.test_reset_preserves_sample_and_blocks_old_preview) ... ok
+test_stale_second_session_and_manual_same_revision_change (test_storage.StorageTests.test_stale_second_session_and_manual_same_revision_change) ... ok
+test_unicode_and_numeric_boundary_roundtrip (test_storage.StorageTests.test_unicode_and_numeric_boundary_roundtrip) ... ok
+test_write_flush_fsync_and_replace_failures (test_storage.StorageTests.test_write_flush_fsync_and_replace_failures) ... ok
+test_all_stored_numeric_fields_reject_above_limit (test_validation_boundaries.ValidationBoundaryTests.test_all_stored_numeric_fields_reject_above_limit) ... ok
+test_limit_edits_and_revision_overflow_are_atomic (test_validation_boundaries.ValidationBoundaryTests.test_limit_edits_and_revision_overflow_are_atomic) ... ok
+test_malformed_ids_have_consistent_errors (test_validation_boundaries.ValidationBoundaryTests.test_malformed_ids_have_consistent_errors) ... ok
+test_malformed_json_errors_are_normalized (test_validation_boundaries.ValidationBoundaryTests.test_malformed_json_errors_are_normalized) ... ok
+test_report_construction_rejects_invalid_counts (test_validation_boundaries.ValidationBoundaryTests.test_report_construction_rejects_invalid_counts) ... ok
+test_supported_limit_roundtrips (test_validation_boundaries.ValidationBoundaryTests.test_supported_limit_roundtrips) ... ok
+
+======================================================================
+FAIL: test_protected_targets_symlinks_and_missing_parent (test_storage.StorageTests.test_protected_targets_symlinks_and_missing_parent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/youssefelfarsy/.codex/.chatgpt-projects/g-p-6aa703ad56f88191adfd4ddec6d7f944/transportation4322/tests/test_storage.py", line 163, in test_protected_targets_symlinks_and_missing_parent
+    with self.assertRaises(StorageError): JsonStore(loop/'state.json')
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: StorageError not raised
+
+----------------------------------------------------------------------
+Ran 88 tests in 1.347s
+
+FAILED (failures=1)

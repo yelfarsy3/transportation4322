@@ -309,8 +309,8 @@ confirmation is rejected, and reload reconciles the state without a second deduc
 Critique-driven additions: explicit test that validate_plan checks feasibility,
 not global optimality; forged preview handles cannot inject a different plan.
 Added revision-only stale snapshot regression and failed-edit/reset persistence
-checks, not just confirmation failures. No runtime bug surfaced in the final
-implementations; expected injected failures are not real application failures.
+checks, not just confirmation failures. The initial failure-injection tests passed; the later path-validation regression
+and correction are recorded below. Expected injected failures are not data-loss events.
 
 Ran the documented temporary-file demonstration: preview 12 units/2000 cents;
 reopened demand 2 monitors; replenished B and previewed 2 units/200 cents; final
@@ -328,8 +328,18 @@ persistence is not guaranteed. No backups, corruption auto-repair, publication,
 submission, or real deliveries were performed.
 
 
-Final Stage 8 path review identified an additional malformed-destination edge:
-resolving a looping parent symlink can raise an OS error before load/save handling.
-Normalized that path-resolution failure to StorageError, added a permanent loop
-regression, and reran the full 88-test suite, persistent audit, and stricter-numeric
-second pass successfully on the final source. Original references still match.
+Final Stage 8 path review added a regression for a looping parent symlink. The
+first rerun FAILED (1 failure in 88 tests): non-strict Path.resolve left the loop
+unresolved, so JsonStore construction did not raise StorageError as expected.
+The prior audit/second-pass logs at that point were from before this final change;
+they were not fresh passing evidence. Failed output is preserved separately in
+stage8-path-regression-failure.log. An interim commit preceded inspection of that
+failure; it is superseded by the correction checkpoint, not treated as acceptance.
+
+Corrected _check_target to resolve the already-required parent strictly and check
+that it is a directory. After inspecting the correction, reran the complete suite,
+persistent action/process/mutation audit, and numeric-limit second pass. Observed
+exit 0 for the full command chain; **88 tests passed in each full run**, all 512
+persistent traces passed, both real process-interruption checks passed, and all
+three deliberate defects were detected. Final acceptance is based on these fresh
+logs. No further runtime source changes followed those runs.

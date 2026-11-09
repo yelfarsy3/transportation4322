@@ -32,6 +32,11 @@ class JsonStore:
         if self.path.suffix.lower() != '.json' or self.path.is_symlink():
             raise StorageError('State must use a separate JSON file, not a sample, reference or symlink')
         try:
+            # Non-strict resolve can leave a symlink loop unresolved. The parent
+            # must already exist, so strict resolution exposes loops/missing dirs.
+            parent = self.path.parent.resolve(strict=True)
+            if not parent.is_dir():
+                raise StorageError('The state destination parent must be a directory')
             resolved = self.path.resolve()
         except (OSError, RuntimeError) as error:
             raise StorageError(f'Cannot resolve state path: {error}') from error
