@@ -1,0 +1,6 @@
+PASS: all 512 length-three persistent traces over eight actions; disk/memory/model agree at every step
+PASS: actual process exit before replacement; recovered complete old state
+PASS: actual process exit after replacement; recovered complete new state
+PASS: tests detected deliberately active preview check removed
+PASS: tests detected deliberately source snapshot check removed
+PASS: tests detected deliberately persistent commit skipped

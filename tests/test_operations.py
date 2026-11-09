@@ -74,6 +74,18 @@ class OperationsTests(unittest.TestCase):
         b=state.with_shipping_cost('warehouse_a','store_x',2)
         self.assertEqual(a.revision,b.revision)
         with self.assertRaises(ValidationError): apply_restock(b,compute_restock_plan(a))
+        data=state.to_dict(); data['revision']+=1
+        with self.assertRaises(ValidationError): validate_plan(State.from_dict(data),compute_restock_plan(state))
+
+    def test_validator_checks_feasibility_not_independent_optimality(self):
+        state=single_item_state([1,1],[1,1],[[100,200],[200,10000]])
+        optimal=compute_restock_plan(state)
+        diagonal=(replace(optimal.shipments[0],warehouse_id='w0',store_id='s0',unit_cost_cents=100),
+                  replace(optimal.shipments[1],warehouse_id='w1',store_id='s1',unit_cost_cents=10000))
+        feasible=replace(optimal,shipments=diagonal,total_cost_cents=10100)
+        validate_plan(state,feasible)  # Expected: no false claim to prove optimality.
+        session=RestockSession(state); genuine=session.preview()
+        with self.assertRaises(PreviewError): session.confirm(replace(genuine,plan=feasible))
 
     def test_corrupt_plan_fields_and_projections(self):
         state=sample_state(); plan=compute_restock_plan(state); first=plan.shipments[0]

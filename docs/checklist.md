@@ -31,9 +31,10 @@ Recorded 2026-11-08. Deadlines below are not evidence of submission status.
 - [x] Stage 4 check marked done by the user; original edit preserved.
 - [x] Stage 5 Bellman–Ford minimum-cost maximum-flow: agent-verified.
 - [x] Stage 6 Dijkstra with potentials, comparisons, complexity and benchmarks: agent-verified.
-- [ ] Student explanation/verification for Stages 5–6 (joint implementation authorized).
-- [ ] Stage 7 preview, cancellation, stale-plan checks, once-only confirmation.
-- [ ] Stage 8 atomic JSON persistence and restart/reset checks.
+- [x] User reported reviewing/verifying Stages 5–6 in chat on 2026-11-08.
+- [x] Stage 7 preview, cancellation, stale-plan checks, once-only confirmation: agent-verified.
+- [x] Stage 8 atomic JSON persistence and restart/reset checks: agent-verified.
+- [ ] Student personal explanation/verification for Stages 7–8.
 - [ ] Stage 9 approved five UI states and browser walkthrough.
 - [ ] Stage 10 complete demonstration and submission materials.
 
@@ -48,7 +49,7 @@ Recorded 2026-11-08. Deadlines below are not evidence of submission status.
 | AI, language and technology list | General instructions p. 1 | Codex, Python, Streamlit; dependencies recorded |
 | Understand algorithm and runtime | General instructions p. 2; assignment p. 1 | Discuss as implemented; separate written submission not required |
 | No linear programming or direct algorithm library | Assignment p. 1; general instructions p. 2 | Two handwritten flow solvers plus testing reference; no optimization library |
-| Own AI prompts; own verification | General instructions p. 1 | No prompts generated; Stages 2–4 marked done; Stages 5–6 personal explanation pending |
+| Own AI prompts; own verification | General instructions p. 1 | No prompts generated; Stages 2–6 confirmed; Stages 7–8 personal explanation pending |
 | Attendance | Policy p. 1 | No attendance claims made |
 
 ## Practice log
@@ -68,3 +69,7 @@ explanation quality not assessed; revisit before Stage 5.
 2026-11-08 Stages 5–6: residual reassignment, shortest augmenting paths, potentials,
 reduced costs and time complexity. Personal explanation quality unassessed; revisit
 using the two new understanding documents before Stage 7.
+
+2026-11-08 Stages 7–8: snapshot identity, stale confirmation, copy-before-commit,
+atomic replacement, lost acknowledgments, reload and outstanding demand. Revisit
+with the two new understanding checks before Stage 9.

@@ -96,11 +96,25 @@ class _Preview:
 
 class RestockSession:
     """One local user's application session. Previews are never persisted."""
-    def __init__(self, state):
+    def __init__(self, state, *, store=None):
         if not isinstance(state, State):
             raise TypeError('RestockSession requires a validated State')
         self._state = state
         self._pending = None
+        self._store = store
+
+    @classmethod
+    def open(cls, store):
+        """Open an existing save; explicit store.initialize handles first use."""
+        return cls(store.load(), store=store)
+
+    def reload(self):
+        if self._store is None:
+            raise PreviewError('This session has no persistent store to reload')
+        state = self._store.load()
+        self._state = state
+        self._pending = None
+        return state
 
     @property
     def state(self):
@@ -125,6 +139,9 @@ class RestockSession:
         self._pending = None
 
     def _commit(self, candidate):
+        if self._store is not None:
+            # Publish in-memory state and retire the preview only after saving.
+            self._store.commit(self._state, candidate)
         self._state = candidate
         self._pending = None
         return candidate

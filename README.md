@@ -2,12 +2,12 @@
 
 Working folder: `/Users/youssefelfarsy/.codex/.chatgpt-projects/g-p-6aa703ad56f88191adfd4ddec6d7f944/transportation4322`
 
-Stages 1–6 are implemented and agent-tested. The user has marked the Stage 2–4
-checks done and authorized Stages 5 and 6 together. Their personal explanation
-checks for Stages 5–6 remain separate from agent test evidence.
+Stages 1–8 are implemented and agent-tested. The user has confirmed reviewing
+and verifying Stages 5–6. Stages 7–8 personal explanations remain separate from
+agent verification.
 This is not yet a usable restocking application. The Streamlit app is a launch
-check; the tested optimizer can be called from Python. Confirmation, saving
-edited state, and the five-screen interface come later.
+check. The optimizer, preview/confirmation workflow and persistent storage can
+be used from Python. Stage 9 will connect the approved five-screen interface.
 
 ## Run
 
@@ -39,6 +39,12 @@ and its tests use Python's standard library. There is no optimization library.
 - `app.py`: minimal Streamlit startup screen only.
 - `data_model.py`: validated immutable state, dictionary/JSON conversion, quantity
   and shipping-price edits. No file writes, routing decisions, or UI dependency.
+- `operations.py`: RestockSession owns preview/cancel/confirm, edits, reset and
+  reload; validation independently checks plan feasibility and consistency.
+- `storage.py`: JsonStore loads validated state and atomically publishes complete
+  JSON transitions; the original sample is protected.
+- `tests/test_operations.py`, `tests/test_storage.py`, `tests/audit_transactions.py`:
+  workflow traces, fault injection, process interruption and restart checks.
 - `optimizer.py`: pure minimum-cost maximum-flow planning; default Dijkstra
   with potentials, plus retained `method="bellman_ford"` baseline. Returns
   immutable shipments, costs, projections and exact source State.
@@ -111,11 +117,12 @@ No linear programming and no library that directly solves the required algorithm
 
 ## Evidence and limitations
 
-See `docs/stage6-tests.log`: 63 tests passed, including all prior tests and both
-solver methods. `docs/stage6-independent-audit.log` records the two-method audit
-and measured benchmarks. `docs/stage6-second-pass.log` records a full repeat
-with the minimum configurable integer-conversion digit limit (640). Earlier
-stage logs are retained separately. Expected
+See `docs/stage8-tests.log`: 88 tests passed, including all prior tests.
+`docs/stage8-independent-audit.log` records 512 persistent action traces, actual
+process interruptions and deliberate defects. `docs/stage8-second-pass.log`
+records a full repeat with the minimum configurable integer-conversion limit
+(640). `docs/stage8-optimizer-regression.log` repeats the independent solver
+audit. Earlier stage logs are retained separately. Expected
 sample totals are 9 keyboards/5 monitors in stock and 7 keyboards/3 monitors
 needed. These totals were checked directly against the PDF; the $14/$20 cost examples now also match exhaustive enumeration and
 hand-worked lower bounds. Both production methods also reproduce these results.
@@ -132,5 +139,28 @@ Do not submit these agent checks as if you personally performed them.
 Stage 3 explanation and runnable personal check: `docs/stage3-understanding-check.md`.
 Stage 4 explanation and runnable personal check: `docs/stage4-understanding-check.md`.
 Stages 5 and 6: `docs/stage5-understanding-check.md` and
-`docs/stage6-understanding-check.md`. Next is Stage 7 preview/confirmation
-transactions; no plan is currently applied or saved by the optimizer.
+`docs/stage6-understanding-check.md`. Stages 7 and 8: `docs/stage7-understanding-check.md` and
+`docs/stage8-understanding-check.md`. The next stage is the complete Streamlit UI.
+The optimizer remains pure; RestockSession handles confirmation and storage.
+
+
+## Persistent workflow (backend)
+
+`data/current_state.json` is initialized separately from `data/sample.json` and
+ignored by Git. To open it in Python, use `RestockSession.open(JsonStore())`.
+Call `preview()`, inspect `preview.plan`, then `confirm(preview)` or `cancel(preview)`.
+Changes through `edit_quantity`, `edit_shipping_cost` and `reset` are saved when
+using a store-backed session. `reload()` loads current disk state and discards
+pending previews. A new session also requires a new preview.
+
+First-run initialization is explicit: `store.initialize(validated_sample)` creates
+only a missing save. Existing, malformed or unreadable data is never silently
+replaced. The Stage 8 understanding document contains a complete runnable demo
+that uses a temporary file, leaving the real working save untouched.
+
+Full snapshot comparisons detect sequential stale saves. Simultaneous writers
+are outside this single-user scope; comparison plus replacement is not a locked
+multi-process transaction. Atomic local replacement and file fsync were tested
+with process exits; directory-entry durability under power loss is not promised.
+After a lost acknowledgment, reload: disk may already contain the committed
+state. A retry of the old preview cannot deduct twice against that new state.

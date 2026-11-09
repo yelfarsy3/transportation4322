@@ -3,7 +3,8 @@
 Date: 2026-11-08 (America/New_York). Checks below were performed by Codex,
 not by the student unless explicitly attributed. Stage 2 was subsequently confirmed
 by the user below; their Stage 3 and Stage 4 exercises are also marked done.
-Stages 5–6 personal explanations remain separate from agent verification.
+The user subsequently reported verifying Stages 5–6. Stages 7–8 personal
+explanations remain separate from agent verification.
 
 ## Stage 1
 
@@ -269,3 +270,66 @@ Reviewed transition ordering before proceeding: all validation/candidate buildin
 occurs before session state mutation; confirmation clears the handle only after
 commit; original sample remains unchanged. Stage 7 in-memory gate passed. Stage 8
 will insert the persistent commit before publishing the candidate in memory.
+
+
+## Stage 8 — 2026-11-08
+
+Added JsonStore and store-backed RestockSession.open/reload/commit. Snapshot checks
+compare full validated states. Writes stage JSON in the same directory, flush and
+fsync the file, then atomically replace the current save. Initial creation uses an
+atomic no-clobber hard link. Memory updates and preview retirement follow success.
+Reset keeps the current revision sequence; sample/reference targets are protected.
+
+Final commands and observed outcomes:
+
+- `.venv/bin/python -B -m unittest discover -s tests -v > docs/stage8-tests.log 2>&1`:
+  exit 0; **88 tests passed**. Includes 2,401 four-action in-memory traces, malformed
+  plan fields, all prior algorithm tests, 15 storage tests, same-revision conflicts,
+  actual fresh-process reload, Unicode/large-number round trips and failure cases.
+- `.venv/bin/python -B tests/audit_transactions.py > docs/stage8-independent-audit.log 2>&1`:
+  exit 0; all **512** length-three persistent traces over eight actions matched a
+  separate scalar model at every step, on disk and in memory. Real child processes
+  exited immediately before replacement (exit 23: complete old state recovered)
+  and after replacement (exit 24: complete new state recovered). Orphan staging
+  files were ignored. Three in-memory defect variants were caught by assertion
+  failures: missing active-handle checks, missing source checks, skipped disk commit.
+- `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v > docs/stage8-second-pass.log 2>&1`:
+  exit 0; **88 tests passed again** under the stricter numeric-conversion setting.
+- `.venv/bin/python -B tests/audit_stage6.py > docs/stage8-optimizer-regression.log 2>&1`:
+  exit 0; both solvers still match 65,536 exhaustive cases, 300 small multi-item
+  cases and 150 larger certified cases. Existing defect checks and benchmark reran.
+
+Fault checks: temporary-file creation, partial write, flush, fsync, replace,
+cleanup, corrupted/missing file, stale second session, invalid revision/catalog,
+reset/edit failure, and interruption after successful publication but before
+acknowledgment. Before-publication failures preserve original bytes and memory.
+After-publication interruption may leave memory old and disk new: repeated stale
+confirmation is rejected, and reload reconciles the state without a second deduction.
+
+Critique-driven additions: explicit test that validate_plan checks feasibility,
+not global optimality; forged preview handles cannot inject a different plan.
+Added revision-only stale snapshot regression and failed-edit/reset persistence
+checks, not just confirmation failures. No runtime bug surfaced in the final
+implementations; expected injected failures are not real application failures.
+
+Ran the documented temporary-file demonstration: preview 12 units/2000 cents;
+reopened demand 2 monitors; replenished B and previewed 2 units/200 cents; final
+outstanding monitors 0. Output in stage8-demo.log. Then explicitly initialized
+`data/current_state.json` from the original sample (revision 0). That file is
+ignored by Git, remains separate from sample.json, and was reloaded successfully.
+
+Stage 7 checkpoint: 73159ec. Stage 8 agent gate passed. Personal verification
+remains for the student. All original PDFs and student-edited understanding files
+are preserved. The UI is still the setup screen; Stage 9 has not started.
+
+Limits: finite exhaustive domains only; one local user, no simultaneous-writer
+locking. No parent-directory fsync, so sudden power-loss or network-filesystem
+persistence is not guaranteed. No backups, corruption auto-repair, publication,
+submission, or real deliveries were performed.
+
+
+Final Stage 8 path review identified an additional malformed-destination edge:
+resolving a looping parent symlink can raise an OS error before load/save handling.
+Normalized that path-resolution failure to StorageError, added a permanent loop
+regression, and reran the full 88-test suite, persistent audit, and stricter-numeric
+second pass successfully on the final source. Original references still match.
