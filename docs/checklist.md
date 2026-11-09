@@ -45,7 +45,7 @@ Updated 2026-11-09. Deadlines below are not evidence of submission status.
 | Item | Source | Status / next action |
 |---|---|---|
 | Nov 12, 17, 19 project presentations | Syllabus p. 1, tentative | Verify assigned date and newer announcements; no deadline inferred |
-| Project itself, GitHub recommended or email | General instructions p. 1 | Prepared for private GitHub push; not submitted to the instructor |
+| Project itself, GitHub recommended or email | General instructions p. 1 | Pushed to private yelfarsy3/transportation4322; not submitted to the instructor |
 | Initial design | General instructions p. 1 | Preserve original and accurately describe design history |
 | AI chat log and detailed stage checks | General instructions p. 1 | Preserve current chat and linked prior chats; student adds personal evidence |
 | AI, language and technology list | General instructions p. 1 | Codex, Python, Streamlit; dependencies recorded |

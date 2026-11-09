@@ -1,5 +1,7 @@
 # MTH 4322 Transportation System
 
+Private repository: [yelfarsy3/transportation4322](https://github.com/yelfarsy3/transportation4322).
+
 A local Python + Streamlit application for warehouse inventory, store demand,
 and minimum-cost restocking. It calculates shipment instructions; it does not
 book deliveries. Run the commands below from this project folder. No personal

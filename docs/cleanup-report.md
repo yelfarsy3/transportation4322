@@ -24,3 +24,11 @@ is retained, including historical local paths and the existing Git author identi
 Those facts are documented, not falsely described as scrubbed from history.
 No force-push or history rewrite is needed. Instructor submission, complete chat
 export and student verification remain separate from this repository backup.
+
+## Push result
+
+Created https://github.com/yelfarsy3/transportation4322 and independently verified
+its visibility as private using the GitHub connector. `git push -u origin main`
+succeeded; local main now tracks origin/main. Original stage history is included.
+Working inventory, virtual environment, credentials and fresh local test outputs
+are excluded. No instructor access was granted and no course submission occurred.
