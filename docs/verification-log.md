@@ -247,3 +247,25 @@ introduced. All original reference files and student-edited verification documen
 remain unchanged. Agent implementation gates for Stages 5 and 6 are complete.
 Student understanding is not inferred from those results. Stage 7 has not started.
 No browser changes, live delivery, persistence, publication or submission occurred.
+
+
+## Stage 7 — 2026-11-08
+
+User reported reviewing/verifying Stages 5–6 and explicitly authorized Stages 7–8.
+Added independent plan validation, pure candidate application, and RestockSession
+with identity-bound active previews. All edits/reset invalidate active previews
+except no-ops/failed edits. Full source equality prevents same-revision branches.
+No zero-shipment confirmation. Revision increments once per successful transition.
+
+`.venv/bin/python -B -m unittest discover -s tests -v > docs/stage7-tests.log 2>&1`:
+exit 0; **72 tests passed**, including 9 new operation tests. Finite exhaustive
+coverage: 81 tiny capacity configurations with both solvers, and 2,401 action
+sequences of length four over seven actions, checked step-by-step against a
+separate scalar model. Tests also cover stale/canceled/replaced/foreign handles,
+repeat confirmation, partial fulfillment then replenishment, malformed plan fields,
+boolean projections, price/stock/demand changes, no-ops, and revision overflow.
+
+Reviewed transition ordering before proceeding: all validation/candidate building
+occurs before session state mutation; confirmation clears the handle only after
+commit; original sample remains unchanged. Stage 7 in-memory gate passed. Stage 8
+will insert the persistent commit before publishing the candidate in memory.
