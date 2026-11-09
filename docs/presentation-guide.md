@@ -81,7 +81,7 @@ Streamlit script execution; browser checks additionally exercise grid editing.
 
 Finite tests provide evidence, not a proof over all inputs. Correctness arguments
 and invariants still matter. Faster measured time on this machine is not a universal
-speed guarantee. Prepared benchmarks are in `stage10-optimizer-audit.log`.
+speed guarantee. Prepared benchmarks are in `evidence/stage10-optimizer-audit.log`.
 
 ## Personal verification gate
 

@@ -9,7 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
-    with (ROOT / "docs/server-smoke.log").open("w") as log:
+    evidence = ROOT / "docs" / "evidence"
+    evidence.mkdir(parents=True, exist_ok=True)
+    with (evidence / "local-server-smoke.log").open("w") as log:
         for attempt in range(2):
             process = subprocess.Popen(
                 [sys.executable, "-m", "streamlit", "run", str(ROOT / "app.py"),
@@ -20,7 +22,7 @@ def main():
             try:
                 for _ in range(60):
                     if process.poll() is not None:
-                        raise RuntimeError("Server exited; see docs/server-smoke.log")
+                        raise RuntimeError("Server exited; see docs/evidence/local-server-smoke.log")
                     try:
                         with urllib.request.urlopen(
                             "http://127.0.0.1:18522/_stcore/health", timeout=1

@@ -70,7 +70,7 @@ performance guarantees or a broad benchmark study.
 | 30 × 30 × 3 | 0.072483 s | 0.030051 s | 2.41× |
 | 60 × 60 × 3 | 0.694003 s | 0.202872 s | 3.42× |
 
-Raw results: `stage6-independent-audit.log`. Timing depends on the machine and input;
+Raw results: `evidence/stage6-independent-audit.log`. Timing depends on the machine and input;
 the asymptotic improvement follows from the algorithm, not these four timings.
 
 ## Verification and reproducibility

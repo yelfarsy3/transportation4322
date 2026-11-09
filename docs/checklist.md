@@ -38,14 +38,14 @@ Updated 2026-11-09. Deadlines below are not evidence of submission status.
 - [x] Stage 9 approved five UI states, atomic batch editing and agent browser walkthrough.
 - [x] Stage 10 technical validation: 113 tests in three environments/settings, audits, browser demo, screenshots and presentation guide.
 - [ ] Stage 10 student completion: personal checks/explanation, full chat export, design history, current course instructions and actual submission.
-- [ ] Cleanup: intentionally deferred at the user’s request.
+- [x] Cleanup: evidence grouped, local outputs/credentials ignored, links and preserved files verified.
 
 ## Course dates, deliverables and next actions
 
 | Item | Source | Status / next action |
 |---|---|---|
 | Nov 12, 17, 19 project presentations | Syllabus p. 1, tentative | Verify assigned date and newer announcements; no deadline inferred |
-| Project itself, GitHub recommended or email | General instructions p. 1 | Local work only; not published or submitted |
+| Project itself, GitHub recommended or email | General instructions p. 1 | Prepared for private GitHub push; not submitted to the instructor |
 | Initial design | General instructions p. 1 | Preserve original and accurately describe design history |
 | AI chat log and detailed stage checks | General instructions p. 1 | Preserve current chat and linked prior chats; student adds personal evidence |
 | AI, language and technology list | General instructions p. 1 | Codex, Python, Streamlit; dependencies recorded |

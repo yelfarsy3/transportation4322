@@ -127,5 +127,8 @@ to miss the final uncommitted cell. Keyboard cell completion and subsequent
 batch saving were verified. No claim is made for clipboard block paste,
 screen-reader certification, mobile browsers or cross-browser coverage.
 
-Original references, historical logs and student edits are retained. Cleanup,
-GitHub publication and submission have not been performed.
+Original references, historical logs and student edits are retained. Historical
+logs are organized under `docs/evidence/`; new local test logs are ignored.
+The stage history and evidence may contain local machine paths; keep this
+repository private unless those materials have been reviewed for public release.
+Assignment submission has not been performed.

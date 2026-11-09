@@ -1,0 +1,50 @@
+# Verification evidence
+
+Historical test outputs, preserved byte-for-byte during cleanup on 2026-11-09.
+They were moved here from `docs/`; prose references were updated accordingly.
+Old output may contain machine paths and injected-failure tracebacks. They are
+execution evidence, not portable setup instructions. They and the existing Git
+history are retained in the private repository. No credentials were intentionally
+recorded.
+
+Start with [the final verification report](../stage9-10-verification.md).
+New local test output should use a `local-` filename (ignored by Git) so it does
+not overwrite historical evidence.
+
+## Preserved log checksums (SHA-256)
+
+```text
+6d8ee7330f02a5af7a82808d28a0b213247aa167eaa264d09a5e33b98604e3b3  batch-edit-tests.log
+628907e127aa60e96ea2db5f9b79a7e1a6749328862966a38b1cdfd4183ec3b7  server-smoke.log
+62795f742375c5cbf9f7d6d65bb299b5d8573be3fc348a700ed06ec6c2a82b6b  stage1-server.log
+63831e77c9ae18269c0997eb9fa597da9891ebc9077e4578d2d147d9281617ca  stage10-fresh-install.log
+439ce3d5024f328eb234bfa42e9a09ff5754b549c51f21463af0fe67d0469299  stage10-fresh-server-detail.log
+8d63d9d5f7332412a4ade5528c0a647e711c4214a930ba5206956e638f4b8f37  stage10-fresh-server.log
+3ff418c7ca4fe27af82be91edf39c95c375a0f15771c9f52b89e8336052a3505  stage10-fresh-tests.log
+b6f1fc0dcb7e4c9a2047b9692b54040fd86f1a98b24bb34251d07da88902fce9  stage10-optimizer-audit.log
+1441a9b3cfa8242cdff8d1338edc559b8c9d33eced4794eeb3bdf26914e9c148  stage10-second-pass.log
+3a859d2f48665acea76a04807bc5da3b649d7e3af448118bec07f34c6243a1ab  stage10-transactions-audit.log
+627a8f78d3c990fceb19e02e71b7dbd6d1e08ac674442dffa08f53a8f4eb8ae4  stage2-tests.log
+40dc54e84c478ded70ff14503de1d3256423e96beaecdbc1d6443e0b4c0313e2  stage3-tests.log
+2d8bc7e85bfd53ba4c52bc22e90dc5bb2d6af87ac7cd0ee56eae7c387771e341  stage4-independent-audit.log
+ef595e45e79c17c78c2731fc40d86a8106a48de60c06f8bb2e80fbf75f9d7275  stage4-second-pass.log
+2d133dd4309b3ddd774a4f41f1b2b844ed14808ec56b9a600fc7553fe9e64b0b  stage4-tests.log
+c1d32a7f00430d0badff8ba0f906bb9e6db689b3dc9ce50138be3b3253f28ad2  stage5-independent-audit.log
+00196788285ad8f307424ad4fd1fed8d95ca17e07c6dce868327f07e53fb0530  stage5-tests.log
+45f088e8b8c1a60cfe1ffc0367171719dbace77515c4e57390de9a68a111dbdb  stage6-independent-audit.log
+2d8bc7e85bfd53ba4c52bc22e90dc5bb2d6af87ac7cd0ee56eae7c387771e341  stage6-reference-regression.log
+c1d32a7f00430d0badff8ba0f906bb9e6db689b3dc9ce50138be3b3253f28ad2  stage6-regression-audit.log
+fe0cec4536a85b86c0892f32e967f15205f5395db0f7358927f3e9326e9123a2  stage6-second-pass.log
+c3ab532d9d6c2ac8f899918addf4348bc6a6e0cdc4b532bac53b93957e686f41  stage6-tests.log
+a317a5bf3b121e91b88632dd70518edd7a46525ab01e21b8fc37391e58394d82  stage7-tests.log
+049694cd27c9aefdb3a347f99d0edee69a1bb5adb9489f1aed93bd014e32e29e  stage8-demo.log
+3a859d2f48665acea76a04807bc5da3b649d7e3af448118bec07f34c6243a1ab  stage8-independent-audit.log
+2e168a114e693189f6c157816aaa351781f8caa7fb6cf1d4d78e09c2bcbb5506  stage8-optimizer-regression.log
+01dc27f1236df606692a4f53ecc87cb69b5562cda374074b80d68d6bb3842d66  stage8-path-regression-failure.log
+4da6d826292d62f04390ba4f2432aad3dbfd85693ce711be3f4b367eb6690526  stage8-second-pass.log
+ba3e03d75515313f430a067226aa20b06f5155ae9a3bbea3aa68058b3ae2dd40  stage8-tests.log
+45599d75f14e57dc69528ea1e44b2aead9855c1b89fa18cc131e577be7f1f564  stage9-final-tests.log
+1f4bba6e80f7a65e22d209874051184190e960ae2969aff8fa4ec778a9b8a2af  stage9-tests.log
+4c38e7e5f0359a5c22d7841b93e80e0de8fc74495689ab8b16f805ca6b2a5165  stage9-ui-tests.log
+f2b39cc3f3f2ea7ddd7ff3ad6b059b3b391a1ec543f80893ab128e206bbe0645  validation-fixes-tests.log
+```

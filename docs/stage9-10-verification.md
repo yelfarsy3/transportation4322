@@ -1,7 +1,7 @@
 # Stages 9–10 verification report
 
 Agent verification, 2026-11-09. Stage 9 implementation checkpoint: `42d0e2e`.
-Original references and student changes were preserved. Cleanup remains deferred.
+Original references and student changes were preserved. Cleanup was completed afterward; see `cleanup-report.md`.
 
 ## Observed results
 
@@ -9,13 +9,13 @@ Commands below ran from the project folder unless noted. All exited successfully
 
 | Check | Command / procedure | Result | Evidence |
 |---|---|---|---|
-| Final complete suite | `.venv/bin/python -B -m unittest discover -s tests -v` | 113 passed, 4.718 s | `stage9-final-tests.log` |
-| Strict conversion repeat | `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v` | 113 passed, 5.040 s | `stage10-second-pass.log` |
-| Independent optimizer audit | `.venv/bin/python -B tests/audit_stage6.py` | 65,536 exhaustive 2x2 cases, 300 seeded small multi-item cases, 150 larger certified cases; both methods agree | `stage10-optimizer-audit.log` |
-| Persistence audit | `.venv/bin/python -B tests/audit_transactions.py` | 512 action traces; actual exits before/after replacement recover complete old/new state; three deliberate defects caught | `stage10-transactions-audit.log` |
-| Fresh installation | New venv; `python -m pip install -r requirements-lock.txt`; `python -m pip check` | Installed locked dependencies; no broken requirements | `stage10-fresh-install.log` |
-| Fresh project suite | New venv's `python -B -m unittest discover -s tests -v` | 113 passed, 7.690 s; includes full/partial application workflows | `stage10-fresh-tests.log` |
-| Fresh server cycles | New venv's `python -B tests/smoke_server.py` | HTTP 200 twice, both exits 0 | `stage10-fresh-server.log`, `stage10-fresh-server-detail.log` |
+| Final complete suite | `.venv/bin/python -B -m unittest discover -s tests -v` | 113 passed, 4.718 s | `evidence/stage9-final-tests.log` |
+| Strict conversion repeat | `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v` | 113 passed, 5.040 s | `evidence/stage10-second-pass.log` |
+| Independent optimizer audit | `.venv/bin/python -B tests/audit_stage6.py` | 65,536 exhaustive 2x2 cases, 300 seeded small multi-item cases, 150 larger certified cases; both methods agree | `evidence/stage10-optimizer-audit.log` |
+| Persistence audit | `.venv/bin/python -B tests/audit_transactions.py` | 512 action traces; actual exits before/after replacement recover complete old/new state; three deliberate defects caught | `evidence/stage10-transactions-audit.log` |
+| Fresh installation | New venv; `python -m pip install -r requirements-lock.txt`; `python -m pip check` | Installed locked dependencies; no broken requirements | `evidence/stage10-fresh-install.log` |
+| Fresh project suite | New venv's `python -B -m unittest discover -s tests -v` | 113 passed, 7.690 s; includes full/partial application workflows | `evidence/stage10-fresh-tests.log` |
+| Fresh server cycles | New venv's `python -B tests/smoke_server.py` | HTTP 200 twice, both exits 0 | `evidence/stage10-fresh-server.log`, `evidence/stage10-fresh-server-detail.log` |
 | Browser workflows | Isolated temporary save, local browser | All five states, two-cell batch, restart persistence, no-stock guard, reset, full/partial confirmation | `screenshots/`, `verification-log.md` |
 
 The fresh project was copied into
@@ -73,4 +73,4 @@ Student understanding and personal verification are not inferred from agent test
 The complete chat export, truthful initial-design history, current course deadline
 and submission-channel verification, and actual publication/submission still need
 attention. The AI-use inventory explicitly identifies the incomplete chat record.
-No submission or publication occurred. Cleanup has intentionally not been done.
+No submission or publication occurred. Cleanup was deferred at that gate and completed afterward.

@@ -19,10 +19,10 @@ explanations remain separate from agent verification.
 - `.venv/bin/python -m pip check`: no broken requirements found.
 - `.venv/bin/python -m pip freeze > requirements-lock.txt`: captured installed versions.
 - First local server attempt failed with socket PermissionError under restricted execution;
-  traceback preserved in `stage1-server.log`.
+  traceback preserved in `evidence/stage1-server.log`.
 - `.venv/bin/python tests/smoke_server.py` with local-server permission:
   two launches returned HTTP 200 and body `ok`; both processes stopped with exit 0.
-  Output from the server itself is in `server-smoke.log`.
+  Output from the server itself is in `evidence/server-smoke.log`.
 - `git init`: created a separate repository in this project.
 
 Technical setup gate passed. Browser visual walkthrough and student review remain pending.
@@ -34,7 +34,7 @@ AppTest is execution evidence, not a screenshot or browser interaction test.
   plan, and UI sample. SHA-256 checks established that the Desktop assignment
   and UI PDFs match the recovered chat attachments. Original files were not edited.
 - Implemented `data_model.py`, `data/sample.json`, and `tests/test_data_model.py`.
-- `.venv/bin/python -m unittest discover -s tests -v > docs/stage2-tests.log 2>&1`:
+- `.venv/bin/python -m unittest discover -s tests -v > docs/evidence/stage2-tests.log 2>&1`:
   **16 tests passed**, including 15 model tests and 1 app smoke test; 0 failures.
   The seeded test uses seed 4322 for 250 independent dictionary-checked set edits.
   Subcases cover invalid numbers, schemas, catalogs and matrix references.
@@ -83,7 +83,7 @@ Stage 2 gate is satisfied for progression to Stage 3.
 - Independent count check: 200 seeded random states (seed 4323), 1–4 items,
   warehouses and stores, quantities 0–5; a test-only unit pairing loop determines
   expected shipped and remaining units without the production min formula.
-- `.venv/bin/python -m unittest discover -s tests -v > docs/stage3-tests.log 2>&1`:
+- `.venv/bin/python -m unittest discover -s tests -v > docs/evidence/stage3-tests.log 2>&1`:
   exit 0; **26 tests passed** (10 new plus 16 existing), zero failures.
   Existing AppTest emits its benign missing-ScriptRunContext warning as before.
 - Executed the runnable example in `stage3-understanding-check.md`: original rows
@@ -114,7 +114,7 @@ Added six regression tests covering malformed identifiers and JSON, the maximum
 accepted value, maximum+1, 5001-digit quantities, atomic add/revision overflow,
 no-op at maximum revision, and invalid availability construction.
 
-Command: `.venv/bin/python -B -m unittest discover -s tests -v > docs/validation-fixes-tests.log 2>&1`.
+Command: `.venv/bin/python -B -m unittest discover -s tests -v > docs/evidence/validation-fixes-tests.log 2>&1`.
 Observed: exit 0, **32 tests passed**, 0 failures. Reviewed changes against the three
 reproduced gaps before starting Stage 4. Numeric bound is an implementation choice,
 not an instructor requirement. The original student verification files remain intact.
@@ -134,16 +134,16 @@ These bounds keep a deliberately exponential testing tool from running indefinit
 
 Observed commands and outcomes on the final code:
 
-1. `.venv/bin/python -B -m unittest discover -s tests -v > docs/stage4-tests.log 2>&1`
+1. `.venv/bin/python -B -m unittest discover -s tests -v > docs/evidence/stage4-tests.log 2>&1`
    — exit 0, **43 tests passed**. Includes 6,561 exhaustive 2x2 cases with quantities
    and prices 0–2 against per-unit assignments, 200 seeded rectangular reference
    cases (seed 4324), all previous tests, and validation regressions.
-2. `.venv/bin/python -B tests/audit_reference.py > docs/stage4-independent-audit.log 2>&1`
+2. `.venv/bin/python -B tests/audit_reference.py > docs/evidence/stage4-independent-audit.log 2>&1`
    — exit 0, **65,536 exhaustive 2x2 cases** with quantities and prices 0–3 matched
    a flat-matrix enumeration. The two exhaustive domains overlap. All three
    deliberately broken in-memory variants were detected by assertion failures:
    wrong objective priority, omitted maximum route quantity, wrong store price.
-3. `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v > docs/stage4-second-pass.log 2>&1`
+3. `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v > docs/evidence/stage4-second-pass.log 2>&1`
    — exit 0, **43 tests passed again** under the minimum configurable digit limit.
    This environment setting affected only that process, not the global setup.
 4. Direct example execution: keyboards (7 units,1000 cents), original monitors
@@ -174,10 +174,10 @@ optimizer.py with successive shortest augmenting paths and Bellman–Ford, rever
 capacities/negative costs, full bottleneck augmentation, immutable plan output,
 projected stock/demand, and exact source snapshot. No persistence or UI mutation.
 
-Final pre-Stage-6 command: `.venv/bin/python -B -m unittest discover -s tests -v > docs/stage5-tests.log 2>&1`:
+Final pre-Stage-6 command: `.venv/bin/python -B -m unittest discover -s tests -v > docs/evidence/stage5-tests.log 2>&1`:
 exit 0, **57 tests passed**. Includes 6,561 exhaustive cases, 400 seeded multi-item
 rectangular cases (seed 4325), 30 larger price-shift/more-stock checks, all prior tests.
-`.venv/bin/python -B tests/audit_optimizer.py > docs/stage5-independent-audit.log 2>&1`:
+`.venv/bin/python -B tests/audit_optimizer.py > docs/evidence/stage5-independent-audit.log 2>&1`:
 exit 0; **65,536** exhaustive 2x2 cases match flat enumeration; 200 larger cases
 (seed 54325) pass an independently reconstructed residual-cycle certificate using
 Floyd–Warshall. Certificate rejects the known greedy allocation. Three deliberate
@@ -206,10 +206,10 @@ final route costs. Exact input State retained; no confirmation/persistence added
 
 Commands and observed results on the final code:
 
-- `.venv/bin/python -B -m unittest discover -s tests -v > docs/stage6-tests.log 2>&1`:
+- `.venv/bin/python -B -m unittest discover -s tests -v > docs/evidence/stage6-tests.log 2>&1`:
   exit 0, **63 tests passed**. Includes 6,561 exhaustive cases comparing BOTH methods
   to the Stage 4 oracle, plus all previous tests and six potential-specific tests.
-- `.venv/bin/python -B tests/audit_stage6.py > docs/stage6-independent-audit.log 2>&1`:
+- `.venv/bin/python -B tests/audit_stage6.py > docs/evidence/stage6-independent-audit.log 2>&1`:
   exit 0. Both methods match flat enumeration on **65,536** exhaustive 2x2 cases,
   quantities/prices 0–3. 300 seeded multi-item cases match Stage 4; 150 larger
   multi-item cases have equal objectives and independently certified residual
@@ -217,12 +217,12 @@ Commands and observed results on the final code:
 - Deliberately omitting potential updates, reversing potential signs, and charging
   reduced distances as currency were all rejected by runtime checks (three errors
   per defective variant). Real source files were not modified by these checks.
-- `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v > docs/stage6-second-pass.log 2>&1`:
+- `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v > docs/evidence/stage6-second-pass.log 2>&1`:
   exit 0, **63 tests passed again**.
-- `.venv/bin/python -B tests/audit_optimizer.py > docs/stage6-regression-audit.log 2>&1`:
+- `.venv/bin/python -B tests/audit_optimizer.py > docs/evidence/stage6-regression-audit.log 2>&1`:
   exit 0; Stage 5 exhaustive/certificate/mutation audit also passes with the new
   default Dijkstra implementation.
-- `.venv/bin/python -B tests/audit_reference.py > docs/stage6-reference-regression.log 2>&1`:
+- `.venv/bin/python -B tests/audit_reference.py > docs/evidence/stage6-reference-regression.log 2>&1`:
   exit 0; independent Stage 4 reference audit still passes.
 
 Paired benchmark (seed 64322), Python 3.14.7 arm64 Darwin, warmed methods, alternating
@@ -258,7 +258,7 @@ with identity-bound active previews. All edits/reset invalidate active previews
 except no-ops/failed edits. Full source equality prevents same-revision branches.
 No zero-shipment confirmation. Revision increments once per successful transition.
 
-`.venv/bin/python -B -m unittest discover -s tests -v > docs/stage7-tests.log 2>&1`:
+`.venv/bin/python -B -m unittest discover -s tests -v > docs/evidence/stage7-tests.log 2>&1`:
 exit 0; **72 tests passed**, including 9 new operation tests. Finite exhaustive
 coverage: 81 tiny capacity configurations with both solvers, and 2,401 action
 sequences of length four over seven actions, checked step-by-step against a
@@ -282,20 +282,20 @@ Reset keeps the current revision sequence; sample/reference targets are protecte
 
 Final commands and observed outcomes:
 
-- `.venv/bin/python -B -m unittest discover -s tests -v > docs/stage8-tests.log 2>&1`:
+- `.venv/bin/python -B -m unittest discover -s tests -v > docs/evidence/stage8-tests.log 2>&1`:
   exit 0; **88 tests passed**. Includes 2,401 four-action in-memory traces, malformed
   plan fields, all prior algorithm tests, 15 storage tests, same-revision conflicts,
   actual fresh-process reload, Unicode/large-number round trips and failure cases.
-- `.venv/bin/python -B tests/audit_transactions.py > docs/stage8-independent-audit.log 2>&1`:
+- `.venv/bin/python -B tests/audit_transactions.py > docs/evidence/stage8-independent-audit.log 2>&1`:
   exit 0; all **512** length-three persistent traces over eight actions matched a
   separate scalar model at every step, on disk and in memory. Real child processes
   exited immediately before replacement (exit 23: complete old state recovered)
   and after replacement (exit 24: complete new state recovered). Orphan staging
   files were ignored. Three in-memory defect variants were caught by assertion
   failures: missing active-handle checks, missing source checks, skipped disk commit.
-- `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v > docs/stage8-second-pass.log 2>&1`:
+- `PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v > docs/evidence/stage8-second-pass.log 2>&1`:
   exit 0; **88 tests passed again** under the stricter numeric-conversion setting.
-- `.venv/bin/python -B tests/audit_stage6.py > docs/stage8-optimizer-regression.log 2>&1`:
+- `.venv/bin/python -B tests/audit_stage6.py > docs/evidence/stage8-optimizer-regression.log 2>&1`:
   exit 0; both solvers still match 65,536 exhaustive cases, 300 small multi-item
   cases and 150 larger certified cases. Existing defect checks and benchmark reran.
 
@@ -356,7 +356,7 @@ matrices against the expected snapshot, commit once, advance revision once, and
 invalidate prior previews only after successful persistence. Kept the existing
 single-cell helpers for Add/Set/Remove. New tests cover 81 four-cell batches,
 invalid batches, stale snapshots, no-ops and failed writes. Initial batch suite:
-92 tests passed (`batch-edit-tests.log`).
+92 tests passed (`evidence/batch-edit-tests.log`).
 
 The UI now connects all five approved states through common preview/confirmation
 renderers. One form contains inventory, demand and price drafts; Save applies all
@@ -369,7 +369,7 @@ changes until reload, preserving recovery from an uncertain acknowledgment.
 Verification progression: 13 initial AppTest workflows passed, then 108 full-suite
 tests passed, then critique additions increased the final suite to **113 tests**.
 Final command `.venv/bin/python -B -m unittest discover -s tests -v` exited 0,
-4.718 seconds; output `stage9-final-tests.log`. Added UI checks for failed confirm,
+4.718 seconds; output `evidence/stage9-final-tests.log`. Added UI checks for failed confirm,
 stale edits, maximum 300-digit values, ambiguous display labels, and all 16 binary
 2x2 supply/demand combinations with independently checked objectives and displayed
 projections. Expected injected storage exceptions are logged; tests remain passing.
@@ -424,3 +424,16 @@ student's own explanation/checks, full conversation export, truthful design hist
 current instructor updates and actual submission. These are not marked completed
 by agent execution. Initial browser interference and cell-completion limitations
 remain candidly documented rather than being described as disproved or fixed.
+
+## 2026-11-09 — Authorized cleanup and private GitHub preparation
+
+Preserved and committed the student's existing verification annotations. Grouped
+33 original logs under `docs/evidence/` with byte comparisons and checksum index;
+prose references now use the relocated paths (historical log contents unchanged).
+Added documentation index and local-data/secret/output ignore rules. Updated the
+server smoke script to avoid overwriting old evidence. Removed generated caches
+only. Regression: 113 tests passed (5.210 s); both server cycles HTTP 200/exit 0.
+Relative documentation links resolve; references/sample unchanged; focused
+credential-pattern scan found no matches. See `cleanup-report.md` for scope.
+User explicitly chose private yelfarsy3/transportation4322; historical paths and
+Git author metadata remain in the preserved stage history.
