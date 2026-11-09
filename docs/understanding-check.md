@@ -47,5 +47,5 @@ PY
 Expected: before 5 keyboards/2 monitors, after 8 keyboards/2 monitors; removing
 9 is rejected, leaving 8/2. Record what you actually observe and explain why.
 
-Student verification: **pending**. No understanding or personal test completion
+Student verification: Done. No understanding or personal test completion
 has been inferred from the agent's test results.

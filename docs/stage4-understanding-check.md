@@ -120,6 +120,6 @@ The two printed results have (units, cost_cents) equal to (2,400) and (5,1000).
 Also explain why a tied optimum may have a different shipment matrix and why a
 budget-exhausted run must return no claimed optimum.
 
-Student Stage 4 verification: pending. Record personal observations accurately.
+Student Stage 4 verification: done. Record personal observations accurately.
 After this gate, Stage 5 implements the production minimum-cost-flow algorithm
 and uses this reference to check its results on tiny instances.

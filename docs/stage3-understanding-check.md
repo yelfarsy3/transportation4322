@@ -75,5 +75,5 @@ The final original demand is still `2`. The tests include zero-demand, zero-stoc
 exact-supply and mixed-item cases as well as 200 seeded tiny random inputs checked
 by unit matching. Unit matching verifies counts only, not optimal route costs.
 
-Stage 3 student verification: pending. Record your actual observations separately
+Stage 3 student verification: done. Record your actual observations separately
 from the agent's test evidence. Stage 4 is the tiny exhaustive route/cost checker.
