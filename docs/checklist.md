@@ -1,6 +1,6 @@
 # Course and project checklist
 
-Recorded 2026-11-08. Deadlines below are not evidence of submission status.
+Updated 2026-11-09. Deadlines below are not evidence of submission status.
 
 ## Source inventory and authority
 
@@ -35,8 +35,10 @@ Recorded 2026-11-08. Deadlines below are not evidence of submission status.
 - [x] Stage 7 preview, cancellation, stale-plan checks, once-only confirmation: agent-verified.
 - [x] Stage 8 atomic JSON persistence and restart/reset checks: agent-verified.
 - [ ] Student personal explanation/verification for Stages 7–8.
-- [ ] Stage 9 approved five UI states and browser walkthrough.
-- [ ] Stage 10 complete demonstration and submission materials.
+- [x] Stage 9 approved five UI states, atomic batch editing and agent browser walkthrough.
+- [x] Stage 10 technical validation: 113 tests in three environments/settings, audits, browser demo, screenshots and presentation guide.
+- [ ] Stage 10 student completion: personal checks/explanation, full chat export, design history, current course instructions and actual submission.
+- [ ] Cleanup: intentionally deferred at the user’s request.
 
 ## Course dates, deliverables and next actions
 

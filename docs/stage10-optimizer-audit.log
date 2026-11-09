@@ -1,0 +1,12 @@
+PASS: both methods match flat enumeration on all 65536 2x2 cases, quantities/costs 0..3
+PASS: 300 seeded multi-item cases, both methods versus Stage 4 enumeration
+PASS: 150 larger multi-item cases; identical objectives and independent residual-cycle certificates
+PASS: rejected potential updates omitted (0 assertion failures, 3 errors)
+PASS: rejected potential signs reversed (0 assertion failures, 3 errors)
+PASS: rejected reduced distance charged as currency (0 assertion failures, 3 errors)
+BENCHMARK: Python 3.14.7, arm64, Darwin; median of 3 runs
+warehouses,stores,items,bellman_ford_seconds,dijkstra_seconds,BF/Dijkstra
+4,4,2,0.000180,0.000135,1.33
+12,12,3,0.004491,0.002472,1.82
+30,30,3,0.072958,0.030628,2.38
+60,60,3,0.692739,0.204924,3.38

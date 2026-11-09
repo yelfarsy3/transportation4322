@@ -1,166 +1,131 @@
 # MTH 4322 Transportation System
 
-Working folder: `/Users/youssefelfarsy/.codex/.chatgpt-projects/g-p-6aa703ad56f88191adfd4ddec6d7f944/transportation4322`
+A local Python + Streamlit application for warehouse inventory, store demand,
+and minimum-cost restocking. It calculates shipment instructions; it does not
+book deliveries. Run the commands below from this project folder. No personal
+computer path is required.
 
-Stages 1–8 are implemented and agent-tested. The user has confirmed reviewing
-and verifying Stages 5–6. Stages 7–8 personal explanations remain separate from
-agent verification.
-This is not yet a usable restocking application. The Streamlit app is a launch
-check. The optimizer, preview/confirmation workflow and persistent storage can
-be used from Python. Stage 9 will connect the approved five-screen interface.
+## Set up and run
 
-## Run
-
-From this folder:
-
-```sh
-.venv/bin/python -m unittest discover -s tests -v
-.venv/bin/python -m streamlit run app.py --server.address=127.0.0.1 --browser.gatherUsageStats=false
-```
-
-Stop the app with Ctrl-C. It opens locally; it does not arrange deliveries.
-
-To reproduce setup on another machine with Python 3.14:
+Tested with Python 3.14.7 and Streamlit 1.67.0 on macOS arm64. A fresh virtual
+environment and a separate project copy were tested on the same computer;
+other operating systems have not been verified.
 
 ```sh
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-lock.txt
 .venv/bin/python -m pip check
-.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python -B -m unittest discover -s tests -v
+.venv/bin/python -m streamlit run app.py --server.address=127.0.0.1
 ```
 
-The original environment was macOS 27.0.1 arm64, Python 3.14.7, Streamlit 1.67.0.
-The lock file records installed versions; a clean second-machine install has not
-been tested. Streamlit is the only direct third-party dependency. The data model
-and its tests use Python's standard library. There is no optimization library.
+Open the local URL printed in the terminal. Stop with Ctrl-C. On Windows, virtual
+environment executables are under `.venv\Scripts\` instead of `.venv/bin/`;
+that platform has not been tested.
 
-## Files and responsibilities
+On first use, choose **Create sample workspace**. Working data is saved in
+`data/current_state.json`, separate from the protected `data/sample.json`.
+Existing invalid data is reported rather than silently overwritten.
 
-- `app.py`: minimal Streamlit startup screen only.
-- `data_model.py`: validated immutable state, dictionary/JSON conversion, quantity
-  and shipping-price edits. No file writes, routing decisions, or UI dependency.
-- `operations.py`: RestockSession owns preview/cancel/confirm, edits, reset and
-  reload; validation independently checks plan feasibility and consistency.
-- `storage.py`: JsonStore loads validated state and atomically publishes complete
-  JSON transitions; the original sample is protected.
-- `tests/test_operations.py`, `tests/test_storage.py`, `tests/audit_transactions.py`:
-  workflow traces, fault injection, process interruption and restart checks.
-- `optimizer.py`: pure minimum-cost maximum-flow planning; default Dijkstra
-  with potentials, plus retained `method="bellman_ford"` baseline. Returns
-  immutable shipments, costs, projections and exact source State.
-- `tests/test_optimizer.py`, `tests/test_optimizer_potentials.py`: solver cases,
-  exhaustive comparisons and potential-specific regressions.
-- `tests/audit_optimizer.py`, `tests/audit_stage6.py`: independent exhaustive
-  checks, residual-cycle certificates, deliberate defects and paired benchmarks.
-- `availability.py`: per-item supply, demand, maximum shippable units and shortages;
-  no routing or cost optimization.
-- `data/sample.json`: exact main-screen dataset from the approved UI, with costs
-  converted to cents. Never overwrite it with working inventory.
-- `tests/test_availability.py`: hand-calculated cases and 200 seeded tiny cases
-  checked by unit matching.
-- `tests/brute_force_reference.py`: bounded exhaustive reference for one item;
-  testing only, independent of production logic.
-- `tests/test_brute_force_reference.py`: manual cases, 6,561 exhaustive cases,
-  200 seeded cases and failure checks.
-- `tests/audit_reference.py`: second pass over 65,536 cases with a third method
-  plus three deliberate in-memory defect checks.
-- `tests/test_validation_boundaries.py`: regressions for all three audit findings.
-- `tests/test_data_model.py`: sample, invalid-input, boundary, isolation, and
-  seeded edit tests. `tests/test_app.py`: app execution and rerun check.
-- `tests/smoke_server.py`: explicit two-cycle server startup/health/shutdown check;
-  uses local port 18522 and requires permission to open a local socket.
-- `docs/reference/`: copies of references; original sources remain untouched.
-- `docs/approved-plan.md`: recovered plan, including original chat citation tokens
-  that are not independently resolvable source citations.
-- `docs/verification-log.md`: actual commands, results, failures, limitations.
-- `docs/checklist.md`: stages, source inventory, course deliverables and dates.
-- `docs/understanding-check.md`: explanation and student verification exercise.
+## Edit and restock
 
-## Data contract
+1. Double-click a quantity or price cell. Finish each cell with Enter or Tab,
+   check that the grid shows the intended value, and continue editing other cells.
+2. **Save all changes** validates all three tables and saves the batch once.
+   One invalid value rejects the whole batch. **Discard table edits** restores
+   saved values. Unsaved browser drafts do not survive page reloads.
+3. For a single adjustment, expand **Add, set or remove one quantity**. Choose
+   warehouse stock or store demand, item, operation and quantity, then **Save
+   quantity**. Save or discard table edits before using this shortcut.
+4. **Preview restock** calculates from saved values. Unsaved table changes must
+   first be saved or discarded. Preview and Cancel do not modify inventory.
+5. Review shipments, cost, projected stock and remaining demand. **Confirm
+   restock** or **Approve partial restock** saves the change exactly once.
+   Confirmation is disabled when no units can ship.
 
-Catalogs map stable IDs to display names. Inventory maps warehouse IDs to item
-quantities; demand maps store IDs to missing item quantities. Shipping prices map
-warehouse IDs to store IDs, independent of item type. Every required cell must
-exist: a missing price never silently becomes a free route.
+Quantities use whole nonnegative numbers. Prices use dollars with at most two
+decimal places, such as `2`, `2.5` or `2.50`; no currency symbols, commas or
+rounding. Text entry preserves exact integers and cents, including values beyond
+JavaScript's safe integer range. Each stored integer is limited to 300 decimal
+digits. Counts in the tables are final totals, not increments.
 
-Quantities, prices in cents, and revisions must be nonnegative Python integers.
-Booleans, floats, numeric strings, NaN and infinity are rejected. Zero is valid.
-No rounding occurs. A future UI must explicitly convert money entry to cents.
-Each stored integer is limited to `10**300 - 1` (300 decimal digits), including
-revision. This explicit bound keeps accepted state serializable under the tested
-Python JSON settings, even at Python's minimum configurable digit limit of 640.
-An edit exceeding the bound fails without changing state. Computed totals are
-not restricted by the per-cell bound. UI input limits will be decided and tested
-when input widgets are built.
+A grid edits one active cell at a time, but **one Save can commit many edited
+cells across all tables**. Batch saving prevents a half-updated scenario becoming
+visible to the optimizer. The original one-cell Python methods remain useful for
+Add/Set/Remove; they do not limit the batch interface.
 
-There must be at least one item, warehouse, and store. This is an explicit project
-choice, not an instructor requirement. Each catalog has unique IDs; duplicate
-JSON keys are rejected. Display names may repeat, and IDs are scoped to their
-catalog (warehouse and store namespaces are distinct). Names cannot be blank or
-have leading/trailing whitespace. Catalogs remain fixed during ordinary edits.
+**Saved data and reset** contains Reload and an explicitly confirmed sample
+reset. Reload discards drafts and previews. After a save error, changes pause
+until reload succeeds; a save may have completed before its acknowledgment was
+lost. Never repeat an old confirmation to recover.
 
-`State` copies and freezes nested mappings. `to_dict()` returns a detached copy.
-`with_quantity()` supports set, add and remove; it rejects removing too much.
-`with_shipping_cost()` sets one price in integer cents. Successful changes return
-a new validated state with revision increased once; no-ops return the old state.
-Failed changes leave the old state untouched. Revision alone is not a globally
-unique identity: Stage 7 must also handle resets/branches and stale previews.
+For an isolated demo, set `TRANSPORTATION_STATE_PATH` to a separate `.json` file
+in an existing directory before starting Streamlit. The default path is resolved
+relative to the program, not to the terminal's current directory.
 
-For n1 items, n2 warehouses and n3 stores, validation and snapshot copying cost
-O(n1(n2+n3) + n2*n3) time and space, ignoring string lengths and integer bit sizes.
-An edit currently copies and revalidates the whole state for clarity and safety.
-Direct cell reads use dictionary lookup. Availability/shortage functions are implemented in `availability.py`.
+## Algorithm and scope
 
-Implemented optimization contract: independently for each item, maximize shipped
-units, then minimize cost. Fairness and shared route capacity are outside scope.
-No linear programming and no library that directly solves the required algorithm.
+For each item independently, ship `min(total stock, total demand)` units, then
+minimize shipping cost. The handwritten successive-shortest-path solver uses
+Dijkstra with vertex potentials and residual reverse edges. Bellman–Ford remains
+available as a checked baseline. No linear programming or external optimization
+library is used. Streamlit and its dependencies provide the interface only.
 
-## Evidence and limitations
+The original sample ships **10 units for $14.00**. Changing Store Y's monitor
+demand from 2 to 6 ships **12 units for $20.00**, leaving 2 monitors outstanding.
+Outstanding demand survives restarts. Fairness, shared vehicle capacity,
+changing catalogs, concurrent writers and real delivery booking are outside scope.
 
-See `docs/stage8-tests.log`: 88 tests passed, including all prior tests.
-`docs/stage8-independent-audit.log` records 512 persistent action traces, actual
-process interruptions and deliberate defects. `docs/stage8-second-pass.log`
-records a full repeat with the minimum configurable integer-conversion limit
-(640). `docs/stage8-optimizer-regression.log` repeats the independent solver
-audit. Earlier stage logs are retained separately. Expected
-sample totals are 9 keyboards/5 monitors in stock and 7 keyboards/3 monitors
-needed. These totals were checked directly against the PDF; the $14/$20 cost examples now also match exhaustive enumeration and
-hand-worked lower bounds. Both production methods also reproduce these results.
+## Main files
 
-Streamlit AppTest checks script execution, not browser appearance. Its official
-documentation is https://docs.streamlit.io/develop/api-reference/app-testing/st.testing.v1.apptest.
-The server health probe returned HTTP 200 twice and both processes exited 0.
-No server is intentionally left running. No GitHub publication or submission occurred.
+| File | Responsibility |
+|---|---|
+| `app.py` | Five UI states, forms and action handling |
+| `ui_model.py` | Exact text/number conversion and table labels |
+| `data_model.py` | Validated immutable state and individual edits |
+| `availability.py` | Per-item stock, demand and shortages |
+| `optimizer.py` | Pure planning with two handwritten solvers |
+| `operations.py` | Batch edits, preview/cancel/confirm, reload/reset |
+| `storage.py` | Validated JSON loading and atomic save replacement |
+| `tests/` | Unit/workflow tests, independent references and audits |
+| `docs/reference/` | Preserved assignment, course rules and initial design |
 
-AI: OpenAI Codex in the desktop app. Student understanding, personally performed
-checks, and an accurate initial-design history must be recorded separately.
-Do not submit these agent checks as if you personally performed them.
+## Verification and presentation
 
-Stage 3 explanation and runnable personal check: `docs/stage3-understanding-check.md`.
-Stage 4 explanation and runnable personal check: `docs/stage4-understanding-check.md`.
-Stages 5 and 6: `docs/stage5-understanding-check.md` and
-`docs/stage6-understanding-check.md`. Stages 7 and 8: `docs/stage7-understanding-check.md` and
-`docs/stage8-understanding-check.md`. The next stage is the complete Streamlit UI.
-The optimizer remains pure; RestockSession handles confirmation and storage.
+Stages 1–9 are implemented. Stage 10 technical validation and presentation
+preparation are recorded in [the final verification report](docs/stage9-10-verification.md).
+Final evidence includes **113 passing tests**, a separate fresh-environment run,
+a strict integer-limit repeat, exhaustive small cases, random cases, process
+interruption tests, browser workflows and screenshots. Exhaustive means the
+specified finite domains, not every possible input or browser interaction.
 
+Additional repeatable checks:
 
-## Persistent workflow (backend)
+```sh
+.venv/bin/python -B tests/audit_stage6.py
+.venv/bin/python -B tests/audit_transactions.py
+PYTHONINTMAXSTRDIGITS=640 .venv/bin/python -B -m unittest discover -s tests -v
+```
 
-`data/current_state.json` is initialized separately from `data/sample.json` and
-ignored by Git. To open it in Python, use `RestockSession.open(JsonStore())`.
-Call `preview()`, inspect `preview.plan`, then `confirm(preview)` or `cancel(preview)`.
-Changes through `edit_quantity`, `edit_shipping_cost` and `reset` are saved when
-using a store-backed session. `reload()` loads current disk state and discards
-pending previews. A new session also requires a new preview.
+See [demonstration and explanation guide](docs/presentation-guide.md),
+[screenshots](docs/screenshots/README.md), [verification history](docs/verification-log.md),
+[course checklist](docs/checklist.md), and [AI-use record](docs/ai-use-record.md).
+The student's own checks, understanding, full chat export and actual submission
+remain separate requirements; agent test results do not establish those.
 
-First-run initialization is explicit: `store.initialize(validated_sample)` creates
-only a missing save. Existing, malformed or unreadable data is never silently
-replaced. The Stage 8 understanding document contains a complete runnable demo
-that uses a temporary file, leaving the real working save untouched.
+## Limitations
 
-Full snapshot comparisons detect sequential stale saves. Simultaneous writers
-are outside this single-user scope; comparison plus replacement is not a locked
-multi-process transaction. Atomic local replacement and file fsync were tested
-with process exits; directory-entry durability under power loss is not promised.
-After a lost acknowledgment, reload: disk may already contain the committed
-state. A retry of the old preview cannot deduct twice against that new state.
+Local, single-user use only. Snapshot comparisons catch sequential stale saves,
+but are not multi-process locking. Same-directory file replacement and file
+`fsync` protect complete local writes; power-loss durability of directory entries
+and network filesystems are not promised. There is no automatic backup or
+corruption repair. Keep a separate backup of working data when needed.
+
+The browser grid must finish a cell edit before saving; check the displayed
+value after Enter/Tab. Very fast automated typing/submit sequences were observed
+to miss the final uncommitted cell. Keyboard cell completion and subsequent
+batch saving were verified. No claim is made for clipboard block paste,
+screen-reader certification, mobile browsers or cross-browser coverage.
+
+Original references, historical logs and student edits are retained. Cleanup,
+GitHub publication and submission have not been performed.

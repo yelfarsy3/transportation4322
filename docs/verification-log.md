@@ -399,3 +399,28 @@ additional runtime library, or external optimization solver was introduced. Brow
 keyboard cell editing was checked; full accessibility certification and other
 browsers/mobile platforms were not. Layout implements the draft's workflow, with
 an authorized combined batch-save action rather than separate table saves.
+
+## 2026-11-09 — Stage 10 final technical validation
+
+Stage 9 checkpoint `42d0e2e` passed before final delivery preparation. No runtime
+source edits followed the final 113-test suite. Repeated the suite under the
+minimum configurable integer conversion limit: 113 passed (5.040 s). Installed
+locked dependencies into a fresh venv in a separate project copy: pip check found
+no broken requirements. That copy's complete suite passed 113 tests (7.690 s),
+including first-run initialization and full/partial workflows. Two fresh-server
+health/start/stop cycles returned HTTP 200 and exit 0. Independent solver and
+persistence audits passed again; exact commands, counts and benchmark figures
+are consolidated in `stage9-10-verification.md` and accompanying logs.
+
+Prepared portable README, five actual browser screenshots, presentation study
+and demonstration guide, and factual AI/technology inventory. The latter explicitly
+states that recovered transcripts are partial and cannot replace full chat export.
+Checked README for personal paths; none remain. `git diff --check` reported no
+whitespace errors. Original PDF hashes and student edits were checked separately.
+All demonstration servers were stopped. No cleanup, publication or submission.
+
+Stage 10 technical preparation is complete; course completion still requires the
+student's own explanation/checks, full conversation export, truthful design history,
+current instructor updates and actual submission. These are not marked completed
+by agent execution. Initial browser interference and cell-completion limitations
+remain candidly documented rather than being described as disproved or fixed.
