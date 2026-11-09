@@ -159,6 +159,26 @@ class RestockSession:
         candidate = self._state.with_shipping_cost(warehouse_id, store_id, cents)
         return self._state if candidate is self._state else self._commit(candidate)
 
+    def edit_tables(self, *, expected_state, inventory=None, demand=None, shipping_costs_cents=None):
+        """Validate and save an entire draft once, never one cell at a time.
+
+        Each supplied table must have the exact original IDs and dimensions.
+        Unsupplied tables remain unchanged. A single invalid cell rejects all edits.
+        The caller must supply the snapshot on which its draft was based.
+        """
+        if not isinstance(expected_state, State) or expected_state != self._state:
+            raise ValidationError('Data changed while editing; reload before saving this draft')
+        data = self._state.to_dict()
+        for name, table in (('inventory', inventory), ('demand', demand),
+                            ('shipping_costs_cents', shipping_costs_cents)):
+            if table is not None:
+                data[name] = table
+        checked = State.from_dict(data)
+        if checked == self._state:
+            return self._state
+        data['revision'] += 1
+        return self._commit(State.from_dict(data))
+
     def reset(self, sample):
         if not isinstance(sample, State):
             raise TypeError('Reset requires a validated sample State')

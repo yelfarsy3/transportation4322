@@ -1,0 +1,46 @@
+test_bad_cell_rejects_every_edit_and_discard_recovers (test_app.AppWorkflowTests.test_bad_cell_rejects_every_edit_and_discard_recovers) ... 2026-11-09 10:23:38.729 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:39.298 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:39.298 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_corrupt_save_reload_and_startup_preserve_file (test_app.AppWorkflowTests.test_corrupt_save_reload_and_startup_preserve_file) ... 2026-11-09 10:23:39.353 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:39.438 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_dirty_shortcut_is_blocked (test_app.AppWorkflowTests.test_dirty_shortcut_is_blocked) ... 2026-11-09 10:23:39.487 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:39.541 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_exact_large_values_remain_text (test_app.AppWorkflowTests.test_exact_large_values_remain_text) ... 2026-11-09 10:23:39.558 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:39.610 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:39.610 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_failed_save_blocks_changes_until_reload (test_app.AppWorkflowTests.test_failed_save_blocks_changes_until_reload) ... 2026-11-09 10:23:39.651 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:39.703 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_first_run_is_explicit (test_app.AppWorkflowTests.test_first_run_is_explicit) ... 2026-11-09 10:23:39.749 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:39.800 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_full_preview_cancel_confirm_and_restart (test_app.AppWorkflowTests.test_full_preview_cancel_confirm_and_restart) ... 2026-11-09 10:23:39.884 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:40.037 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_missing_parent_reports_error_without_creating_it (test_app.AppWorkflowTests.test_missing_parent_reports_error_without_creating_it) ... 2026-11-09 10:23:40.089 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:40.141 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_multi_table_save_and_dirty_preview_guard (test_app.AppWorkflowTests.test_multi_table_save_and_dirty_preview_guard) ... 2026-11-09 10:23:40.189 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:40.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:40.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:40.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_partial_all_five_screens_and_persisted_unmet_demand (test_app.AppWorkflowTests.test_partial_all_five_screens_and_persisted_unmet_demand) ... 2026-11-09 10:23:40.293 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:40.344 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-09 10:23:40.396 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_quantity_shortcut_add_remove_set_and_invalid (test_app.AppWorkflowTests.test_quantity_shortcut_add_remove_set_and_invalid) ... 2026-11-09 10:23:40.466 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_reset_requires_confirmation_and_clears_preview (test_app.AppWorkflowTests.test_reset_requires_confirmation_and_clears_preview) ... 2026-11-09 10:23:40.590 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_stale_disk_confirmation_never_deducts (test_app.AppWorkflowTests.test_stale_disk_confirmation_never_deducts) ... 2026-11-09 10:23:40.688 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 2.056s
+
+OK

@@ -343,3 +343,59 @@ exit 0 for the full command chain; **88 tests passed in each full run**, all 512
 persistent traces passed, both real process-interruption checks passed, and all
 three deliberate defects were detected. Final acceptance is based on these fresh
 logs. No further runtime source changes followed those runs.
+
+## 2026-11-09 — Stage 9 interface and batch editing
+
+Continued the saved work rather than recreating the project. Preserved all original
+references, prior logs and the student's three edited understanding documents.
+The README's machine-specific path was an earlier setup locator, not a runtime
+requirement; the portable replacement uses project-relative commands.
+
+Implemented atomic `RestockSession.edit_tables`: validate complete supplied
+matrices against the expected snapshot, commit once, advance revision once, and
+invalidate prior previews only after successful persistence. Kept the existing
+single-cell helpers for Add/Set/Remove. New tests cover 81 four-cell batches,
+invalid batches, stale snapshots, no-ops and failed writes. Initial batch suite:
+92 tests passed (`batch-edit-tests.log`).
+
+The UI now connects all five approved states through common preview/confirmation
+renderers. One form contains inventory, demand and price drafts; Save applies all
+valid edits together, Discard restores saved values, and dirty drafts block preview
+and the quantity shortcut. Count/price text parsing avoids floats and browser
+integer precision loss. Duplicate-looking catalog labels are disambiguated; internal
+column IDs cannot collide with catalog IDs. Reset is explicit. Save failures pause
+changes until reload, preserving recovery from an uncertain acknowledgment.
+
+Verification progression: 13 initial AppTest workflows passed, then 108 full-suite
+tests passed, then critique additions increased the final suite to **113 tests**.
+Final command `.venv/bin/python -B -m unittest discover -s tests -v` exited 0,
+4.718 seconds; output `stage9-final-tests.log`. Added UI checks for failed confirm,
+stale edits, maximum 300-digit values, ambiguous display labels, and all 16 binary
+2x2 supply/demand combinations with independently checked objectives and displayed
+projections. Expected injected storage exceptions are logged; tests remain passing.
+
+Browser checks used separate temporary JSON, never the normal working save.
+All five states were inspected and captured under `screenshots/`. The final
+isolated run at loopback port 18524 demonstrated an exact two-cell batch in one
+revision (1→2), partial preview 12/$20, confirmed Y's 2 monitors outstanding,
+reopened persistence, no-stock disabled confirmation, reset, full preview 10/$14,
+and full confirmation with all demand zero (final revision 5). Server was stopped,
+exit 0. These are agent checks, not student-performed checks.
+
+Browser findings: the initial port-18523 walkthrough saw the disk change relative
+to its session twice; stale operations were rejected. The source of those changes
+was not established, so that run was not treated as a clean acceptance demo. The
+new isolated save/server reproduced the intended full and partial flows without
+those conflicts. A rapid automation sequence typed/finished/submitted before the
+last grid value was observed committed; only the earlier edit was submitted.
+Finishing each cell with Tab, observing the displayed value, then Save verified
+both changes together. The UI and README explicitly document this grid boundary;
+we do not claim block-paste support or that an unfinished cell is saved.
+
+Used native Streamlit forms, visible labels, headings, neutral pre-submit validation,
+and explicit success/error text. Consulted modern-web-guidance forms/accessibility
+and official Streamlit editor/form/AppTest documentation. No custom HTML/CSS/JS,
+additional runtime library, or external optimization solver was introduced. Browser
+keyboard cell editing was checked; full accessibility certification and other
+browsers/mobile platforms were not. Layout implements the draft's workflow, with
+an authorized combined batch-save action rather than separate table saves.
