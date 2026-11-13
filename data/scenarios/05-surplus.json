@@ -1,0 +1,65 @@
+{
+  "title": "Surplus",
+  "purpose": "Stock exceeds demand, so the plan chooses which warehouses keep their units.",
+  "tags": [],
+  "expected": {
+    "units": 12,
+    "cost_cents": 3050
+  },
+  "state": {
+    "schema_version": 1,
+    "revision": 0,
+    "items": {
+      "printers": "Printers"
+    },
+    "warehouses": {
+      "east": "East hub",
+      "west": "West hub",
+      "south": "South hub"
+    },
+    "stores": {
+      "mall": "Mall",
+      "campus": "Campus",
+      "airport": "Airport shop"
+    },
+    "inventory": {
+      "east": {
+        "printers": 8
+      },
+      "west": {
+        "printers": 7
+      },
+      "south": {
+        "printers": 6
+      }
+    },
+    "demand": {
+      "mall": {
+        "printers": 4
+      },
+      "campus": {
+        "printers": 5
+      },
+      "airport": {
+        "printers": 3
+      }
+    },
+    "shipping_costs_cents": {
+      "east": {
+        "mall": 200,
+        "campus": 900,
+        "airport": 600
+      },
+      "west": {
+        "mall": 700,
+        "campus": 300,
+        "airport": 800
+      },
+      "south": {
+        "mall": 400,
+        "campus": 500,
+        "airport": 250
+      }
+    }
+  }
+}

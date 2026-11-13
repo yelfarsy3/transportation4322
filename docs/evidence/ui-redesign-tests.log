@@ -1,0 +1,278 @@
+# Reassignment cascade + full suite — 2026-11-13 01:12 EST
+# Command: PYTHONINTMAXSTRDIGITS=640 python -B -m unittest discover -s tests -v
+ok
+Persistent state operation failed
+Traceback (most recent call last):
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/data_model.py", line 90, in from_json
+    data = json.loads(text, object_pairs_hook=_unique_object)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/__init__.py", line 365, in loads
+    return cls(**kw).decode(s)
+           ~~~~~~~~~~~~~~~~^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 361, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ~~~~~~~~~~~~~~^^^^^^^^
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/storage.py", line 53, in load
+    return State.from_json(self.path.read_text(encoding='utf-8'))
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/data_model.py", line 94, in from_json
+    raise ValidationError(f"Invalid JSON: {error}") from error
+data_model.ValidationError: Invalid JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/app.py", line 198, in sidebar
+    controller.reload()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/operations.py", line 114, in reload
+    state = self._store.load()
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/storage.py", line 55, in load
+    raise StorageError(f'Cannot load state from {self.path}: {error}') from error
+storage.StorageError: Cannot load state from /var/folders/p_/n1vdxrj147g7_xz3dhbqstcr0000gn/T/tmpteodmu2g/state.json: Invalid JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+ok
+ok
+ok
+ok
+Persistent state operation failed
+Traceback (most recent call last):
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/storage.py", line 108, in _write_atomic
+    os.replace(temp_path, self.path)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1241, in _execute_mock_call
+    raise effect
+OSError: injected
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/app.py", line 305, in preview_screen
+    controller.confirm(preview)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/operations.py", line 155, in confirm
+    return self._commit(candidate)
+           ~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/operations.py", line 147, in _commit
+    self._store.commit(self._state, candidate)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/storage.py", line 90, in commit
+    self._write_atomic(payload, create_only=False)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/storage.py", line 112, in _write_atomic
+    raise StorageError(f'Cannot save state to {self.path}: {error}') from error
+storage.StorageError: Cannot save state to /var/folders/p_/n1vdxrj147g7_xz3dhbqstcr0000gn/T/tmp89j18gcn/state.json: injected
+ok
+Persistent state operation failed
+Traceback (most recent call last):
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/storage.py", line 108, in _write_atomic
+    os.replace(temp_path, self.path)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1241, in _execute_mock_call
+    raise effect
+OSError: injected
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/app.py", line 277, in inventory_screen
+    controller.edit_tables(expected_state=state, **tables)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/operations.py", line 183, in edit_tables
+    return self._commit(State.from_dict(data))
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/operations.py", line 147, in _commit
+    self._store.commit(self._state, candidate)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/storage.py", line 90, in commit
+    self._write_atomic(payload, create_only=False)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/storage.py", line 112, in _write_atomic
+    raise StorageError(f'Cannot save state to {self.path}: {error}') from error
+storage.StorageError: Cannot save state to /var/folders/p_/n1vdxrj147g7_xz3dhbqstcr0000gn/T/tmpd076_o3e/state.json: injected
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+Persistent state operation failed
+Traceback (most recent call last):
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/app.py", line 305, in preview_screen
+    controller.confirm(preview)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/operations.py", line 155, in confirm
+    return self._commit(candidate)
+           ~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/operations.py", line 147, in _commit
+    self._store.commit(self._state, candidate)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/storage.py", line 89, in commit
+    raise StorageConflict('Saved state changed; reload and create a new preview')
+storage.StorageConflict: Saved state changed; reload and create a new preview
+ok
+Persistent state operation failed
+Traceback (most recent call last):
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/app.py", line 277, in inventory_screen
+    controller.edit_tables(expected_state=state, **tables)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/operations.py", line 183, in edit_tables
+    return self._commit(State.from_dict(data))
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/operations.py", line 147, in _commit
+    self._store.commit(self._state, candidate)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/youssefelfarsy/Desktop/transportation4322-backup-20261112-234843/storage.py", line 89, in commit
+    raise StorageConflict('Saved state changed; reload and create a new preview')
+storage.StorageConflict: Saved state changed; reload and create a new preview
+ok
+test_catalog_order_does_not_mix_items (test_availability.AvailabilityTests.test_catalog_order_does_not_mix_items) ... ok
+test_exact_excess_shortage_and_zero_boundaries (test_availability.AvailabilityTests.test_exact_excess_shortage_and_zero_boundaries) ... ok
+test_large_counts_without_per_unit_iteration (test_availability.AvailabilityTests.test_large_counts_without_per_unit_iteration) ... ok
+test_multiple_locations_and_mixed_items (test_availability.AvailabilityTests.test_multiple_locations_and_mixed_items) ... ok
+test_no_mutation_and_independent_snapshots (test_availability.AvailabilityTests.test_no_mutation_and_independent_snapshots) ... ok
+test_original_ui_totals (test_availability.AvailabilityTests.test_original_ui_totals) ... ok
+test_partial_ui_does_not_substitute_items (test_availability.AvailabilityTests.test_partial_ui_does_not_substitute_items) ... ok
+test_prices_do_not_limit_availability (test_availability.AvailabilityTests.test_prices_do_not_limit_availability) ... ok
+test_raw_input_requires_validation_first (test_availability.AvailabilityTests.test_raw_input_requires_validation_first) ... ok
+test_seeded_cases_against_unit_matching (test_availability.AvailabilityTests.test_seeded_cases_against_unit_matching) ... ok
+test_exhaustive_four_cell_batches (test_batch_edits.BatchEditTests.test_exhaustive_four_cell_batches) ... ok
+test_failure_noop_and_stale_draft (test_batch_edits.BatchEditTests.test_failure_noop_and_stale_draft) ... ok
+test_multiple_tables_one_revision_one_save (test_batch_edits.BatchEditTests.test_multiple_tables_one_revision_one_save) ... ok
+test_one_bad_cell_rejects_entire_batch (test_batch_edits.BatchEditTests.test_one_bad_cell_rejects_entire_batch) ... ok
+test_budget_never_returns_partial_optimum (test_brute_force_reference.BruteForceReferenceTests.test_budget_never_returns_partial_optimum) ... ok
+test_exhaustive_two_by_two_domain (test_brute_force_reference.BruteForceReferenceTests.test_exhaustive_two_by_two_domain) ... ok
+test_inputs_unchanged_and_output_immutable (test_brute_force_reference.BruteForceReferenceTests.test_inputs_unchanged_and_output_immutable) ... ok
+test_invalid_inputs (test_brute_force_reference.BruteForceReferenceTests.test_invalid_inputs) ... ok
+test_manual_greedy_counterexample (test_brute_force_reference.BruteForceReferenceTests.test_manual_greedy_counterexample) ... ok
+test_manual_original_and_partial_ui (test_brute_force_reference.BruteForceReferenceTests.test_manual_original_and_partial_ui) ... ok
+test_price_shift_scaling_and_permutation (test_brute_force_reference.BruteForceReferenceTests.test_price_shift_scaling_and_permutation) ... ok
+test_seeded_rectangular_instances (test_brute_force_reference.BruteForceReferenceTests.test_seeded_rectangular_instances) ... ok
+test_ties_and_free_shipping (test_brute_force_reference.BruteForceReferenceTests.test_ties_and_free_shipping) ... ok
+test_units_take_priority_over_cost (test_brute_force_reference.BruteForceReferenceTests.test_units_take_priority_over_cost) ... ok
+test_zero_exact_excess_and_shortage (test_brute_force_reference.BruteForceReferenceTests.test_zero_exact_excess_and_shortage) ... ok
+test_bellman_ford_takes_the_same_paths (test_cascade.ReassignmentCascadeTests.test_bellman_ford_takes_the_same_paths) ... ok
+test_cheapest_first_pays_39_and_certificate_finds_the_fix (test_cascade.ReassignmentCascadeTests.test_cheapest_first_pays_39_and_certificate_finds_the_fix) ... ok
+test_each_cheapest_path_is_unique (test_cascade.ReassignmentCascadeTests.test_each_cheapest_path_is_unique)
+At every step, list every simple residual path from spare stock to unmet ... ok
+test_exact_augmenting_paths (test_cascade.ReassignmentCascadeTests.test_exact_augmenting_paths) ... ok
+test_exhaustive_optimum_is_unique_and_avoids_cheapest_route (test_cascade.ReassignmentCascadeTests.test_exhaustive_optimum_is_unique_and_avoids_cheapest_route) ... ok
+test_flow_table_after_every_path (test_cascade.ReassignmentCascadeTests.test_flow_table_after_every_path) ... ok
+test_path_costs_rise_and_sum_to_total (test_cascade.ReassignmentCascadeTests.test_path_costs_rise_and_sum_to_total) ... ok
+test_bad_catalogs (test_data_model.DataModelTests.test_bad_catalogs) ... ok
+test_bad_edits_do_not_change_state (test_data_model.DataModelTests.test_bad_edits_do_not_change_state) ... ok
+test_invalid_numeric_values (test_data_model.DataModelTests.test_invalid_numeric_values) ... ok
+test_json_errors_and_duplicate_keys (test_data_model.DataModelTests.test_json_errors_and_duplicate_keys) ... ok
+test_missing_and_extra_matrix_references (test_data_model.DataModelTests.test_missing_and_extra_matrix_references) ... ok
+test_names_are_labels_not_references (test_data_model.DataModelTests.test_names_are_labels_not_references) ... ok
+test_partial_ui_input_retains_other_cells (test_data_model.DataModelTests.test_partial_ui_input_retains_other_cells) ... ok
+test_prices_and_noops (test_data_model.DataModelTests.test_prices_and_noops) ... ok
+test_quantity_edits_are_isolated (test_data_model.DataModelTests.test_quantity_edits_are_isolated) ... ok
+test_roundtrip (test_data_model.DataModelTests.test_roundtrip) ... ok
+test_sample_matches_ui (test_data_model.DataModelTests.test_sample_matches_ui) ... ok
+test_schema_and_revision (test_data_model.DataModelTests.test_schema_and_revision) ... ok
+test_seeded_edit_sequences_against_plain_dictionary (test_data_model.DataModelTests.test_seeded_edit_sequences_against_plain_dictionary) ... ok
+test_singleton_zero_and_large_integer (test_data_model.DataModelTests.test_singleton_zero_and_large_integer) ... ok
+test_snapshot_protects_against_aliasing (test_data_model.DataModelTests.test_snapshot_protects_against_aliasing) ... ok
+ok
+test_large_network_is_declined_with_reason (test_explorer.TraceTests.test_large_network_is_declined_with_reason) ... ok
+test_payload_uses_strings_and_labels (test_explorer.TraceTests.test_payload_uses_strings_and_labels) ... ok
+test_script_breakout_is_escaped (test_explorer.TraceTests.test_script_breakout_is_escaped) ... ok
+test_trace_replays_to_exact_plan_on_random_networks (test_explorer.TraceTests.test_trace_replays_to_exact_plan_on_random_networks) ... ok
+test_tracing_does_not_change_solver_result (test_explorer.TraceTests.test_tracing_does_not_change_solver_result) ... ok
+test_all_changes_invalidate_but_noops_and_failures_preserve_preview (test_operations.OperationsTests.test_all_changes_invalidate_but_noops_and_failures_preserve_preview) ... ok
+test_corrupt_plan_fields_and_projections (test_operations.OperationsTests.test_corrupt_plan_fields_and_projections) ... ok
+test_empty_plan_and_revision_overflow_do_not_change_state (test_operations.OperationsTests.test_empty_plan_and_revision_overflow_do_not_change_state) ... ok
+test_exhaustive_action_sequences_against_scalar_model (test_operations.OperationsTests.test_exhaustive_action_sequences_against_scalar_model) ... ok
+test_exhaustive_tiny_confirm_and_cancel (test_operations.OperationsTests.test_exhaustive_tiny_confirm_and_cancel) ... ok
+test_full_snapshot_not_just_revision (test_operations.OperationsTests.test_full_snapshot_not_just_revision) ... ok
+test_handle_identity_replacement_foreign_and_reset_replay (test_operations.OperationsTests.test_handle_identity_replacement_foreign_and_reset_replay) ... ok
+test_partial_then_replenish_then_complete (test_operations.OperationsTests.test_partial_then_replenish_then_complete) ... ok
+test_preview_cancel_and_repeated_confirmation (test_operations.OperationsTests.test_preview_cancel_and_repeated_confirmation) ... ok
+test_validator_checks_feasibility_not_independent_optimality (test_operations.OperationsTests.test_validator_checks_feasibility_not_independent_optimality) ... ok
+test_bulk_augmentation_and_exact_large_arithmetic (test_optimizer.OptimizerTests.test_bulk_augmentation_and_exact_large_arithmetic) ... ok
+test_catalog_order_and_duplicate_names (test_optimizer.OptimizerTests.test_catalog_order_and_duplicate_names) ... ok
+test_cost_does_not_reduce_maximum_fulfillment (test_optimizer.OptimizerTests.test_cost_does_not_reduce_maximum_fulfillment) ... ok
+test_exhaustive_two_by_two (test_optimizer.OptimizerTests.test_exhaustive_two_by_two) ... ok
+test_larger_instances_price_shift_and_more_stock (test_optimizer.OptimizerTests.test_larger_instances_price_shift_and_more_stock) ... ok
+test_mixed_items_cannot_substitute (test_optimizer.OptimizerTests.test_mixed_items_cannot_substitute) ... ok
+test_original_ui (test_optimizer.OptimizerTests.test_original_ui) ... ok
+test_partial_ui (test_optimizer.OptimizerTests.test_partial_ui) ... ok
+test_pure_repeated_calculation_and_immutable_output (test_optimizer.OptimizerTests.test_pure_repeated_calculation_and_immutable_output) ... ok
+test_raw_input_rejected (test_optimizer.OptimizerTests.test_raw_input_rejected) ... ok
+test_reverse_edge_reassigns_greedy_first_choice (test_optimizer.OptimizerTests.test_reverse_edge_reassigns_greedy_first_choice) ... ok
+test_same_revision_does_not_replace_source_snapshot (test_optimizer.OptimizerTests.test_same_revision_does_not_replace_source_snapshot) ... ok
+test_seeded_multiple_item_rectangular_cases (test_optimizer.OptimizerTests.test_seeded_multiple_item_rectangular_cases) ... ok
+test_zero_exact_excess_shortage_and_ties (test_optimizer.OptimizerTests.test_zero_exact_excess_shortage_and_ties) ... ok
+test_both_methods_exhaustive_against_reference (test_optimizer_potentials.PotentialsTests.test_both_methods_exhaustive_against_reference) ... ok
+test_distances_finish_before_potential_update (test_optimizer_potentials.PotentialsTests.test_distances_finish_before_potential_update) ... ok
+test_invalid_method_rejected_even_when_no_flow (test_optimizer_potentials.PotentialsTests.test_invalid_method_rejected_even_when_no_flow) ... ok
+test_negative_reduced_cost_guard (test_optimizer_potentials.PotentialsTests.test_negative_reduced_cost_guard) ... ok
+test_reverse_path_after_first_augmentation (test_optimizer_potentials.PotentialsTests.test_reverse_path_after_first_augmentation) ... ok
+test_zero_stock_unreachable_vertices_and_zero_prices (test_optimizer_potentials.PotentialsTests.test_zero_stock_unreachable_vertices_and_zero_prices) ... ok
+test_certificate_matches_brute_force_on_every_max_allocation (test_scenarios.CertificateTests.test_certificate_matches_brute_force_on_every_max_allocation)
+For random tiny networks, enumerate maximum allocations: the certificate ... ok
+test_short_allocation_is_not_optimal (test_scenarios.CertificateTests.test_short_allocation_is_not_optimal) ... ok
+test_load_replaces_ids_advances_revision_and_clears_preview (test_scenarios.LoadScenarioTests.test_load_replaces_ids_advances_revision_and_clears_preview) ... ok
+test_load_respects_stale_save_protection (test_scenarios.LoadScenarioTests.test_load_respects_stale_save_protection) ... ok
+test_regular_commit_still_refuses_catalog_change (test_scenarios.LoadScenarioTests.test_regular_commit_still_refuses_catalog_change) ... ok
+test_working_file_cannot_be_a_scenario_file (test_scenarios.LoadScenarioTests.test_working_file_cannot_be_a_scenario_file) ... ok
+ok
+test_about_ten_complete_scenarios (test_scenarios.ScenarioFileTests.test_about_ten_complete_scenarios) ... ok
+test_both_search_methods_agree_and_certificate_holds (test_scenarios.ScenarioFileTests.test_both_search_methods_agree_and_certificate_holds) ... ok
+test_brute_force_agrees_where_enumerable (test_scenarios.ScenarioFileTests.test_brute_force_agrees_where_enumerable) ... ok
+test_greedy_trap_is_caught_by_certificate (test_scenarios.ScenarioFileTests.test_greedy_trap_is_caught_by_certificate) ... ok
+test_reassignment_claims_are_checked (test_scenarios.ScenarioFileTests.test_reassignment_claims_are_checked) ... ok
+test_stored_expectations_match_plan (test_scenarios.ScenarioFileTests.test_stored_expectations_match_plan) ... ok
+test_commit_revision_catalog_and_type_checks (test_storage.StorageTests.test_commit_revision_catalog_and_type_checks) ... ok
+test_failed_edits_reset_and_missing_save_preserve_session (test_storage.StorageTests.test_failed_edits_reset_and_missing_save_preserve_session) ... ok
+test_failed_reload_preserves_current_session (test_storage.StorageTests.test_failed_reload_preserves_current_session) ... ok
+test_fresh_process_reads_saved_demand (test_storage.StorageTests.test_fresh_process_reads_saved_demand) ... ok
+test_initialize_load_and_no_silent_overwrite (test_storage.StorageTests.test_initialize_load_and_no_silent_overwrite) ... ok
+test_interruption_after_publication_never_double_deducts (test_storage.StorageTests.test_interruption_after_publication_never_double_deducts) ... ok
+test_leftover_temp_not_loaded_and_cleanup_error_not_false_failure (test_storage.StorageTests.test_leftover_temp_not_loaded_and_cleanup_error_not_false_failure) ... ok
+test_malformed_files_rejected_without_reset (test_storage.StorageTests.test_malformed_files_rejected_without_reset) ... ok
+test_partial_reopen_and_replenish (test_storage.StorageTests.test_partial_reopen_and_replenish) ... ok
+test_preview_cancel_and_noops_never_write (test_storage.StorageTests.test_preview_cancel_and_noops_never_write) ... ok
+test_protected_targets_symlinks_and_missing_parent (test_storage.StorageTests.test_protected_targets_symlinks_and_missing_parent) ... ok
+test_reset_preserves_sample_and_blocks_old_preview (test_storage.StorageTests.test_reset_preserves_sample_and_blocks_old_preview) ... ok
+test_stale_second_session_and_manual_same_revision_change (test_storage.StorageTests.test_stale_second_session_and_manual_same_revision_change) ... ok
+test_unicode_and_numeric_boundary_roundtrip (test_storage.StorageTests.test_unicode_and_numeric_boundary_roundtrip) ... ok
+test_write_flush_fsync_and_replace_failures (test_storage.StorageTests.test_write_flush_fsync_and_replace_failures) ... ok
+test_catalog_ids_cannot_collide_with_ui_columns (test_ui_model.UIConversionTests.test_catalog_ids_cannot_collide_with_ui_columns) ... ok
+test_display_labels_remain_unique_when_names_look_like_ids (test_ui_model.UIConversionTests.test_display_labels_remain_unique_when_names_look_like_ids) ... ok
+test_exact_money_round_trip (test_ui_model.UIConversionTests.test_exact_money_round_trip) ... ok
+test_invalid_money_and_counts (test_ui_model.UIConversionTests.test_invalid_money_and_counts) ... ok
+test_tables_roundtrip_and_shape_rejection (test_ui_model.UIConversionTests.test_tables_roundtrip_and_shape_rejection) ... ok
+test_all_stored_numeric_fields_reject_above_limit (test_validation_boundaries.ValidationBoundaryTests.test_all_stored_numeric_fields_reject_above_limit) ... ok
+test_limit_edits_and_revision_overflow_are_atomic (test_validation_boundaries.ValidationBoundaryTests.test_limit_edits_and_revision_overflow_are_atomic) ... ok
+test_malformed_ids_have_consistent_errors (test_validation_boundaries.ValidationBoundaryTests.test_malformed_ids_have_consistent_errors) ... ok
+test_malformed_json_errors_are_normalized (test_validation_boundaries.ValidationBoundaryTests.test_malformed_json_errors_are_normalized) ... ok
+test_report_construction_rejects_invalid_counts (test_validation_boundaries.ValidationBoundaryTests.test_report_construction_rejects_invalid_counts) ... ok
+test_supported_limit_roundtrips (test_validation_boundaries.ValidationBoundaryTests.test_supported_limit_roundtrips) ... ok
+
+----------------------------------------------------------------------
+Ran 139 tests in 6.375s
+
+OK

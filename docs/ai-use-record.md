@@ -22,6 +22,18 @@ required full AI chat log or the student's own verification.
 - This session did not generate, rewrite or improve student AI prompts. The
   instructor requires the student's own prompts, understanding and checks.
 
+## 2026-11-12/13 continuation (Claude Code)
+
+- AI used: Claude Code (Anthropic), model `claude-opus-5-5`, in a local terminal
+  session with browser automation for checks.
+- Work: the algorithm explorer replay, then a UI redesign, scenarios, an
+  optimality certificate and a cheapest-first comparison. See `ui-redesign.md`.
+- Prompt provenance: the redesign brief was drafted by Claude in this same chat at
+  the student's request, then pasted back by the student with "let's go, do it".
+  Record this honestly; it is not an independently written student prompt.
+- Fonts: Barlow and Barlow Semi Condensed from the Google Fonts repository, SIL
+  Open Font License 1.1 (`static/fonts/OFL.txt`). No new Python packages.
+
 ## Required record still to assemble
 
 The available earlier transcript and approved-plan recovery are **partial** chat

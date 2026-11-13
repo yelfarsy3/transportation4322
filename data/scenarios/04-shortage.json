@@ -1,0 +1,65 @@
+{
+  "title": "Shortage",
+  "purpose": "Demand exceeds stock, so the plan chooses which stores stay short at the lowest cost.",
+  "tags": [],
+  "expected": {
+    "units": 10,
+    "cost_cents": 2300
+  },
+  "state": {
+    "schema_version": 1,
+    "revision": 0,
+    "items": {
+      "tablets": "Tablets"
+    },
+    "warehouses": {
+      "east": "East hub",
+      "west": "West hub",
+      "south": "South hub"
+    },
+    "stores": {
+      "mall": "Mall",
+      "campus": "Campus",
+      "airport": "Airport shop"
+    },
+    "inventory": {
+      "east": {
+        "tablets": 5
+      },
+      "west": {
+        "tablets": 3
+      },
+      "south": {
+        "tablets": 2
+      }
+    },
+    "demand": {
+      "mall": {
+        "tablets": 6
+      },
+      "campus": {
+        "tablets": 5
+      },
+      "airport": {
+        "tablets": 4
+      }
+    },
+    "shipping_costs_cents": {
+      "east": {
+        "mall": 300,
+        "campus": 600,
+        "airport": 900
+      },
+      "west": {
+        "mall": 500,
+        "campus": 200,
+        "airport": 700
+      },
+      "south": {
+        "mall": 800,
+        "campus": 400,
+        "airport": 100
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "title": "Skipped items",
+  "purpose": "One item has no demand and one has no stock; only the third is planned.",
+  "tags": [],
+  "expected": {
+    "units": 8,
+    "cost_cents": 1800
+  },
+  "state": {
+    "schema_version": 1,
+    "revision": 0,
+    "items": {
+      "headsets": "Headsets",
+      "webcams": "Webcams",
+      "cables": "Cables"
+    },
+    "warehouses": {
+      "a": "Warehouse A",
+      "b": "Warehouse B"
+    },
+    "stores": {
+      "x": "Store X",
+      "y": "Store Y"
+    },
+    "inventory": {
+      "a": {
+        "headsets": 6,
+        "webcams": 0,
+        "cables": 7
+      },
+      "b": {
+        "headsets": 4,
+        "webcams": 0,
+        "cables": 2
+      }
+    },
+    "demand": {
+      "x": {
+        "headsets": 0,
+        "webcams": 3,
+        "cables": 4
+      },
+      "y": {
+        "headsets": 0,
+        "webcams": 5,
+        "cables": 4
+      }
+    },
+    "shipping_costs_cents": {
+      "a": {
+        "x": 200,
+        "y": 300
+      },
+      "b": {
+        "x": 100,
+        "y": 400
+      }
+    }
+  }
+}

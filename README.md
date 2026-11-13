@@ -56,7 +56,21 @@ cells across all tables**. Batch saving prevents a half-updated scenario becomin
 visible to the optimizer. The original one-cell Python methods remain useful for
 Add/Set/Remove; they do not limit the batch interface.
 
-**Saved data and reset** contains Reload and an explicitly confirmed sample
+## Scenarios and the network board
+
+The sidebar's **Scenarios** list loads one of eleven prepared cases (greedy trap,
+chained reassignment, a reassignment cascade, shortage, surplus, ties, free routes, skipped items,
+independent items, a 4×5 stress test and the sample). Loading asks for
+confirmation and replaces all working data; the scenario files never change.
+
+The preview shows each item's plan on a network board. **Explore algorithm**
+replays the augmenting paths the planner selected, one route at a time, with
+reassignments in red; Previous/Next step through paths and **Details** shows
+rates, remaining room and Dijkstra potentials. **Why this plan is optimal**
+summarises an independent check, and the cheapest-first comparison shows what a
+greedy plan would cost.
+
+**Saved data and reset** in the sidebar contains Reload and an explicitly confirmed sample
 reset. Reload discards drafts and previews. After a save error, changes pause
 until reload succeeds; a save may have completed before its acknowledgment was
 lost. Never repeat an old confirmation to recover.
@@ -89,6 +103,10 @@ changing catalogs, concurrent writers and real delivery booking are outside scop
 | `optimizer.py` | Pure planning with two handwritten solvers |
 | `operations.py` | Batch edits, preview/cancel/confirm, reload/reset |
 | `storage.py` | Validated JSON loading and atomic save replacement |
+| `explorer.py` | Network board and guided replay (presentation only) |
+| `teaching.py` | Optimality certificate and cheapest-first comparison |
+| `scenarios.py` | Read-only scenario files in `data/scenarios/` |
+| `theme.py` | Shared design tokens; colors come from `.streamlit/config.toml` |
 | `tests/` | Unit/workflow tests, independent references and audits |
 | `docs/reference/` | Preserved assignment, course rules and initial design |
 
@@ -96,7 +114,8 @@ changing catalogs, concurrent writers and real delivery booking are outside scop
 
 Stages 1–9 are implemented. Stage 10 technical validation and presentation
 preparation are recorded in [the final verification report](docs/stage9-10-verification.md).
-Final evidence includes **113 passing tests**, a separate fresh-environment run,
+Final evidence includes **113 passing tests** at Stage 10 (139 after the
+2026-11-13 [UI redesign](docs/ui-redesign.md)), a separate fresh-environment run,
 a strict integer-limit repeat, exhaustive small cases, random cases, process
 interruption tests, browser workflows and screenshots. Exhaustive means the
 specified finite domains, not every possible input or browser interaction.

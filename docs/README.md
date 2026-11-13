@@ -6,7 +6,8 @@
 - [Approved plan](approved-plan.md): original ten-stage roadmap.
 - [Verification history](verification-log.md): chronological findings and corrections.
 - [Evidence](evidence/README.md): original logs with preservation checksums.
-- [Screenshots](screenshots/README.md): five actual interface states.
+- [Screenshots](screenshots/README.md): interface states, scenario loading and replay.
+- [UI redesign](ui-redesign.md): design plan, layout choice, scenarios and verification.
 - [AI-use record](ai-use-record.md): technology inventory and chat-export requirements.
 - `reference/`: preserved original course/design materials and recovered planning text.
 - `*understanding-check.md`: learning exercises and student verification notes.

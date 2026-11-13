@@ -1,6 +1,73 @@
+# Single source for shared color and type tokens. theme.py reads this file so the
+# explorer board uses the same values. Contrast checked to WCAG AA (see docs).
+[server]
+enableStaticServing = true
+
 [theme]
 base = "light"
-primaryColor = "#2459A6"
+# signal: actions and links on the light chart ground
+primaryColor = "#0A6E80"
+# chart: page ground
+backgroundColor = "#EDF1F4"
+# slate: inputs, table headers, panels
+secondaryBackgroundColor = "#DCE4EA"
+# ink: body text
+textColor = "#13283A"
+linkColor = "#0A6E80"
+borderColor = "#C3CFD8"
+dataframeBorderColor = "#C3CFD8"
+dataframeHeaderBackgroundColor = "#DCE4EA"
+# reassignment / error red on light ground
+redColor = "#B3372F"
+redTextColor = "#B3372F"
+showWidgetBorder = true
+baseRadius = "6px"
+buttonRadius = "full"
+font = "Barlow, sans-serif"
+headingFont = "Barlow Semi Condensed, Barlow, sans-serif"
+codeFont = "Barlow, monospace"
+headingFontWeights = [700, 700, 600, 600, 600, 600]
+metricValueFontWeight = 700
+
+[[theme.fontFaces]]
+family = "Barlow"
+url = "app/static/fonts/Barlow-Regular.ttf"
+weight = 400
+
+[[theme.fontFaces]]
+family = "Barlow"
+url = "app/static/fonts/Barlow-Medium.ttf"
+weight = 500
+
+[[theme.fontFaces]]
+family = "Barlow"
+url = "app/static/fonts/Barlow-SemiBold.ttf"
+weight = 600
+
+[[theme.fontFaces]]
+family = "Barlow Semi Condensed"
+url = "app/static/fonts/BarlowSemiCondensed-Medium.ttf"
+weight = 500
+
+[[theme.fontFaces]]
+family = "Barlow Semi Condensed"
+url = "app/static/fonts/BarlowSemiCondensed-SemiBold.ttf"
+weight = 600
+
+[[theme.fontFaces]]
+family = "Barlow Semi Condensed"
+url = "app/static/fonts/BarlowSemiCondensed-Bold.ttf"
+weight = 700
+
+[theme.sidebar]
+# harbor: the dispatch console, same navy as the network board
+backgroundColor = "#0F2233"
+secondaryBackgroundColor = "#1A3550"
+# mist
+textColor = "#E7EEF3"
+borderColor = "#2E4B63"
+# glow
+linkColor = "#52DCEB"
 
 [browser]
 gatherUsageStats = false

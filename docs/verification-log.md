@@ -442,3 +442,32 @@ Private GitHub repository creation succeeded; connector metadata confirmed priva
 visibility. `git push -u origin main` succeeded and established branch tracking.
 Repository: https://github.com/yelfarsy3/transportation4322. No force-push, public
 release, collaborator invitation or instructor submission occurred.
+
+## 2026-11-13 — UI redesign, scenarios and algorithm explorer (Claude Code)
+
+Implemented the student's pasted brief (design rationale in `ui-redesign.md`).
+Added the network board and guided replay (`explorer.py`), an opt-in path trace in
+`optimizer.py` that leaves results unchanged (tested: traced and untraced solver
+outputs equal; 300 random networks replay to the exact plan), ten read-only
+scenarios, a confirmed Load scenario operation, an independent optimality
+certificate and a cheapest-first comparison (`teaching.py`), a shared theme with
+self-hosted Barlow fonts, and a wide sidebar layout.
+
+Results: 132 tests passed (`evidence/ui-redesign-tests.log`). The certificate was
+compared with brute force on every maximum allocation of 120 random tiny networks.
+Nine scenarios match brute force; all ten match Bellman–Ford, their stored totals
+and the certificate. Browser checks covered every screen, scenario loading,
+replay with reassignment, Details, Pause, Previous/Next and forced reduced motion.
+
+Corrections made during verification: a session key collided with a button key;
+a stubbed commit in an existing test required the original call signature; the
+explorer kept an "animating" flag after Next, which made Previous land on a
+non-existent path; markdown stripped the headline class (now a keyed container).
+Exact 1366×768 and 1920×1080 viewports, screen readers and other browsers were
+not tested. Nothing was committed, pushed or submitted.
+
+Added the Reassignment cascade (3×3, one item, 7 units): six augmenting paths with
+five reassignment steps; the $1 route is used first and fully undone. Its test pins
+the exact trace, confirms a unique cheapest path at each step and a unique optimum
+among all 19 complete plans, and shows cheapest-first pays $39 versus $30.
+Full suite: 139 tests passed (`evidence/ui-redesign-tests.log`).

@@ -1,0 +1,52 @@
+{
+  "title": "Greedy trap",
+  "purpose": "Taking the cheapest route first costs $44; the optimum reassigns it and pays $16.",
+  "tags": [
+    "reassignment"
+  ],
+  "expected": {
+    "units": 8,
+    "cost_cents": 1600
+  },
+  "state": {
+    "schema_version": 1,
+    "revision": 0,
+    "items": {
+      "chairs": "Chairs"
+    },
+    "warehouses": {
+      "north": "North depot",
+      "south": "South depot"
+    },
+    "stores": {
+      "x": "Store X",
+      "y": "Store Y"
+    },
+    "inventory": {
+      "north": {
+        "chairs": 4
+      },
+      "south": {
+        "chairs": 4
+      }
+    },
+    "demand": {
+      "x": {
+        "chairs": 4
+      },
+      "y": {
+        "chairs": 4
+      }
+    },
+    "shipping_costs_cents": {
+      "north": {
+        "x": 100,
+        "y": 200
+      },
+      "south": {
+        "x": 200,
+        "y": 1000
+      }
+    }
+  }
+}

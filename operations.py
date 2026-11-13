@@ -138,10 +138,13 @@ class RestockSession:
         self._require_active(preview)
         self._pending = None
 
-    def _commit(self, candidate):
+    def _commit(self, candidate, *, replace_catalog=False):
         if self._store is not None:
             # Publish in-memory state and retire the preview only after saving.
-            self._store.commit(self._state, candidate)
+            if replace_catalog:
+                self._store.commit(self._state, candidate, replace_catalog=True)
+            else:
+                self._store.commit(self._state, candidate)
         self._state = candidate
         self._pending = None
         return candidate
@@ -189,3 +192,15 @@ class RestockSession:
         # Even resetting identical quantities changes revision and cancels preview.
         data['revision'] = self._state.revision + 1
         return self._commit(State.from_dict(data))
+
+    def load_scenario(self, scenario_state):
+        """Replace all working data with a scenario (caller obtains explicit consent).
+
+        Unlike reset, IDs may differ. The scenario file itself is never written;
+        revision still advances once, so stale-save protection applies.
+        """
+        if not isinstance(scenario_state, State):
+            raise TypeError('Load requires a validated scenario State')
+        data = scenario_state.to_dict()
+        data['revision'] = self._state.revision + 1
+        return self._commit(State.from_dict(data), replace_catalog=True)

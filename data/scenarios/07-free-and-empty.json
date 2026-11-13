@@ -1,0 +1,65 @@
+{
+  "title": "Free routes, empty locations",
+  "purpose": "Zero-cost routes, a warehouse with no stock and a store needing nothing.",
+  "tags": [],
+  "expected": {
+    "units": 10,
+    "cost_cents": 200
+  },
+  "state": {
+    "schema_version": 1,
+    "revision": 0,
+    "items": {
+      "paper": "Paper reams"
+    },
+    "warehouses": {
+      "main": "Main warehouse",
+      "annex": "Annex",
+      "closed": "Closed depot"
+    },
+    "stores": {
+      "office": "Office",
+      "school": "School",
+      "library": "Library"
+    },
+    "inventory": {
+      "main": {
+        "paper": 6
+      },
+      "annex": {
+        "paper": 4
+      },
+      "closed": {
+        "paper": 0
+      }
+    },
+    "demand": {
+      "office": {
+        "paper": 5
+      },
+      "school": {
+        "paper": 0
+      },
+      "library": {
+        "paper": 5
+      }
+    },
+    "shipping_costs_cents": {
+      "main": {
+        "office": 0,
+        "school": 100,
+        "library": 200
+      },
+      "annex": {
+        "office": 300,
+        "school": 0,
+        "library": 0
+      },
+      "closed": {
+        "office": 0,
+        "school": 0,
+        "library": 0
+      }
+    }
+  }
+}

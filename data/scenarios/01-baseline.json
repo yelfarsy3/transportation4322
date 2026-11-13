@@ -1,0 +1,55 @@
+{
+  "title": "Course sample",
+  "purpose": "The original two-warehouse, two-store sample; every route choice is direct.",
+  "tags": [],
+  "expected": {
+    "units": 10,
+    "cost_cents": 1400
+  },
+  "state": {
+    "schema_version": 1,
+    "revision": 0,
+    "items": {
+      "keyboards": "Keyboards",
+      "monitors": "Monitors"
+    },
+    "warehouses": {
+      "warehouse_a": "Warehouse A",
+      "warehouse_b": "Warehouse B"
+    },
+    "stores": {
+      "store_x": "Store X",
+      "store_y": "Store Y"
+    },
+    "inventory": {
+      "warehouse_a": {
+        "keyboards": 5,
+        "monitors": 2
+      },
+      "warehouse_b": {
+        "keyboards": 4,
+        "monitors": 3
+      }
+    },
+    "demand": {
+      "store_x": {
+        "keyboards": 3,
+        "monitors": 1
+      },
+      "store_y": {
+        "keyboards": 4,
+        "monitors": 2
+      }
+    },
+    "shipping_costs_cents": {
+      "warehouse_a": {
+        "store_x": 200,
+        "store_y": 500
+      },
+      "warehouse_b": {
+        "store_x": 400,
+        "store_y": 100
+      }
+    }
+  }
+}

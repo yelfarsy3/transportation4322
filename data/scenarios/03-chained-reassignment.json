@@ -1,0 +1,67 @@
+{
+  "title": "Chained reassignment",
+  "purpose": "One augmenting path undoes two earlier allocations in a row.",
+  "tags": [
+    "reassignment"
+  ],
+  "expected": {
+    "units": 4,
+    "cost_cents": 1000
+  },
+  "state": {
+    "schema_version": 1,
+    "revision": 0,
+    "items": {
+      "lamps": "Desk lamps"
+    },
+    "warehouses": {
+      "harbor": "Harbor",
+      "airport": "Airport",
+      "rail": "Rail yard"
+    },
+    "stores": {
+      "downtown": "Downtown",
+      "midtown": "Midtown",
+      "uptown": "Uptown"
+    },
+    "inventory": {
+      "harbor": {
+        "lamps": 1
+      },
+      "airport": {
+        "lamps": 2
+      },
+      "rail": {
+        "lamps": 1
+      }
+    },
+    "demand": {
+      "downtown": {
+        "lamps": 2
+      },
+      "midtown": {
+        "lamps": 1
+      },
+      "uptown": {
+        "lamps": 1
+      }
+    },
+    "shipping_costs_cents": {
+      "harbor": {
+        "downtown": 400,
+        "midtown": 200,
+        "uptown": 1000
+      },
+      "airport": {
+        "downtown": 200,
+        "midtown": 200,
+        "uptown": 400
+      },
+      "rail": {
+        "downtown": 200,
+        "midtown": 100,
+        "uptown": 1200
+      }
+    }
+  }
+}

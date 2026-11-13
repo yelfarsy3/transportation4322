@@ -1,0 +1,79 @@
+{
+  "title": "Items plan independently",
+  "purpose": "Three items share one rate table but start in different places, so each takes different routes.",
+  "tags": [],
+  "expected": {
+    "units": 27,
+    "cost_cents": 7800
+  },
+  "state": {
+    "schema_version": 1,
+    "revision": 0,
+    "items": {
+      "phones": "Phones",
+      "chargers": "Chargers",
+      "cases": "Cases"
+    },
+    "warehouses": {
+      "north": "North depot",
+      "central": "Central depot",
+      "south": "South depot"
+    },
+    "stores": {
+      "x": "Store X",
+      "y": "Store Y",
+      "z": "Store Z"
+    },
+    "inventory": {
+      "north": {
+        "phones": 9,
+        "chargers": 0,
+        "cases": 2
+      },
+      "central": {
+        "phones": 0,
+        "chargers": 9,
+        "cases": 3
+      },
+      "south": {
+        "phones": 0,
+        "chargers": 0,
+        "cases": 4
+      }
+    },
+    "demand": {
+      "x": {
+        "phones": 3,
+        "chargers": 3,
+        "cases": 3
+      },
+      "y": {
+        "phones": 3,
+        "chargers": 3,
+        "cases": 3
+      },
+      "z": {
+        "phones": 3,
+        "chargers": 3,
+        "cases": 3
+      }
+    },
+    "shipping_costs_cents": {
+      "north": {
+        "x": 100,
+        "y": 400,
+        "z": 700
+      },
+      "central": {
+        "x": 400,
+        "y": 100,
+        "z": 400
+      },
+      "south": {
+        "x": 700,
+        "y": 400,
+        "z": 100
+      }
+    }
+  }
+}

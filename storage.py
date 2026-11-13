@@ -13,6 +13,7 @@ from data_model import State, ValidationError
 PROJECT = Path(__file__).resolve().parent
 SAMPLE_PATH = PROJECT / 'data' / 'sample.json'
 DEFAULT_STATE_PATH = PROJECT / 'data' / 'current_state.json'
+SCENARIO_DIR = PROJECT / 'data' / 'scenarios'
 
 
 class StorageError(RuntimeError):
@@ -42,6 +43,7 @@ class JsonStore:
             raise StorageError(f'Cannot resolve state path: {error}') from error
         if (resolved == SAMPLE_PATH.resolve()
                 or resolved.is_relative_to((PROJECT / 'docs' / 'reference').resolve())
+                or resolved.is_relative_to(SCENARIO_DIR.resolve())
                 or resolved.is_relative_to((PROJECT.parent / 'sources').resolve())):
             raise StorageError('State must use a separate JSON file, not a sample, reference or symlink')
 
@@ -68,15 +70,19 @@ class JsonStore:
         payload = self._payload(sample)
         self._write_atomic(payload, create_only=True)
 
-    def commit(self, expected, candidate):
-        """Save one complete transition, only if disk still matches expected."""
+    def commit(self, expected, candidate, *, replace_catalog=False):
+        """Save one complete transition, only if disk still matches expected.
+
+        replace_catalog=True is reserved for an explicitly confirmed scenario
+        load, the one transition allowed to change item and location IDs.
+        """
         self._check_target()
         if not isinstance(expected, State) or not isinstance(candidate, State):
             raise StorageError('Commit requires validated source and candidate states')
         if candidate.revision != expected.revision + 1:
             raise StorageError('A commit must advance revision exactly once')
         for catalog in ('items', 'warehouses', 'stores'):
-            if set(getattr(expected, catalog)) != set(getattr(candidate, catalog)):
+            if not replace_catalog and set(getattr(expected, catalog)) != set(getattr(candidate, catalog)):
                 raise StorageError('A commit cannot add or remove catalog IDs')
         payload = self._payload(candidate)
         if self.load() != expected:

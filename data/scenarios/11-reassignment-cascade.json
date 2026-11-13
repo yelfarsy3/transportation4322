@@ -1,0 +1,67 @@
+{
+  "title": "Reassignment cascade",
+  "purpose": "The cheapest route ($1) is used first, then fully undone over five reassignments; the optimum pays $30, cheapest-first $39.",
+  "tags": [
+    "reassignment"
+  ],
+  "expected": {
+    "units": 7,
+    "cost_cents": 3000
+  },
+  "state": {
+    "schema_version": 1,
+    "revision": 0,
+    "items": {
+      "bikes": "Bikes"
+    },
+    "warehouses": {
+      "north": "North",
+      "central": "Central",
+      "south": "South"
+    },
+    "stores": {
+      "a": "Store A",
+      "b": "Store B",
+      "c": "Store C"
+    },
+    "inventory": {
+      "north": {
+        "bikes": 3
+      },
+      "central": {
+        "bikes": 2
+      },
+      "south": {
+        "bikes": 2
+      }
+    },
+    "demand": {
+      "a": {
+        "bikes": 3
+      },
+      "b": {
+        "bikes": 3
+      },
+      "c": {
+        "bikes": 1
+      }
+    },
+    "shipping_costs_cents": {
+      "north": {
+        "a": 300,
+        "b": 1000,
+        "c": 900
+      },
+      "central": {
+        "a": 100,
+        "b": 400,
+        "c": 500
+      },
+      "south": {
+        "a": 200,
+        "b": 600,
+        "c": 800
+      }
+    }
+  }
+}

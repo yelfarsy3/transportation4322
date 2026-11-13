@@ -117,8 +117,13 @@ def _shortest_path_dijkstra(graph, source, potentials):
     return distance, previous
 
 
-def _solve_item(stock, need, costs, *, method='dijkstra'):
-    """Internal solver on validated counts; returns matrix, cost, augmentation count."""
+def _solve_item(stock, need, costs, *, method='dijkstra', trace=None):
+    """Internal solver on validated counts; returns matrix, cost, augmentation count.
+
+    If trace is a list, one read-only record per augmenting path is appended
+    (vertex sequence source→sink, amount, original-cost sum, potentials). Recording
+    never alters the search, so traced and untraced runs are identical.
+    """
     nw, ns = len(stock), len(need)
     source, sink = nw + ns, nw + ns + 1
     graph = [[] for _ in range(nw + ns + 2)]
@@ -160,6 +165,10 @@ def _solve_item(stock, need, costs, *, method='dijkstra'):
         flow += amount
         cost += amount * path_cost
         augmentations += 1
+        if trace is not None:
+            trace.append({'vertices': (source, *(graph[v][i].to for v, i in reversed(path))),
+                          'amount': amount, 'path_cost': path_cost,
+                          'potentials': tuple(potentials) if method == 'dijkstra' else None})
     allocation = tuple(tuple(min(stock[w], need[s]) - routes[w][s].capacity
                              for s in range(ns)) for w in range(nw))
     if cost != sum(allocation[w][s] * costs[w][s] for w in range(nw) for s in range(ns)):
@@ -207,3 +216,26 @@ def compute_restock_plan(state: State, *, method='dijkstra') -> _RestockPlan:
                     units += quantity
     return _RestockPlan(state, tuple(shipments), units, total_cost,
                         _freeze_matrix(inventory), _freeze_matrix(demand))
+
+
+def trace_restock_plan(state: State):
+    """Replay record for the explorer: the augmenting paths compute_restock_plan selects.
+
+    Vertex numbering per item: warehouses 0..W-1, stores W..W+S-1, then source, sink.
+    It records chosen paths only, not the shortest-path search that found them.
+    """
+    if not isinstance(state, State):
+        raise TypeError('trace_restock_plan requires a validated State')
+    warehouses, stores = tuple(state.warehouses), tuple(state.stores)
+    costs = [[state.shipping_costs_cents[w][s] for s in stores] for w in warehouses]
+    items = []
+    for item in state.items:
+        stock = [state.inventory[w][item] for w in warehouses]
+        need = [state.demand[s][item] for s in stores]
+        if not any(stock) or not any(need):
+            continue
+        paths = []
+        allocation, cost, _ = _solve_item(stock, need, costs, trace=paths)
+        items.append({'item_id': item, 'stock': tuple(stock), 'need': tuple(need),
+                      'paths': tuple(paths), 'allocation': allocation, 'cost_cents': cost})
+    return tuple(items)

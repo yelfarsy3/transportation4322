@@ -1,0 +1,112 @@
+{
+  "title": "Regional stress test",
+  "purpose": "Four warehouses, five stores and three items: too large to enumerate, so it is checked by proof instead.",
+  "tags": [
+    "reassignment"
+  ],
+  "expected": {
+    "units": 137,
+    "cost_cents": 42125
+  },
+  "state": {
+    "schema_version": 1,
+    "revision": 0,
+    "items": {
+      "tvs": "Televisions",
+      "speakers": "Speakers",
+      "consoles": "Consoles"
+    },
+    "warehouses": {
+      "n": "North",
+      "e": "East",
+      "s": "South",
+      "w": "West"
+    },
+    "stores": {
+      "a": "Store A",
+      "b": "Store B",
+      "c": "Store C",
+      "d": "Store D",
+      "f": "Store F"
+    },
+    "inventory": {
+      "n": {
+        "tvs": 20,
+        "speakers": 12,
+        "consoles": 5
+      },
+      "e": {
+        "tvs": 14,
+        "speakers": 18,
+        "consoles": 9
+      },
+      "s": {
+        "tvs": 9,
+        "speakers": 15,
+        "consoles": 11
+      },
+      "w": {
+        "tvs": 17,
+        "speakers": 6,
+        "consoles": 4
+      }
+    },
+    "demand": {
+      "a": {
+        "tvs": 11,
+        "speakers": 14,
+        "consoles": 7
+      },
+      "b": {
+        "tvs": 16,
+        "speakers": 10,
+        "consoles": 6
+      },
+      "c": {
+        "tvs": 9,
+        "speakers": 12,
+        "consoles": 9
+      },
+      "d": {
+        "tvs": 13,
+        "speakers": 9,
+        "consoles": 8
+      },
+      "f": {
+        "tvs": 8,
+        "speakers": 11,
+        "consoles": 6
+      }
+    },
+    "shipping_costs_cents": {
+      "n": {
+        "a": 350,
+        "b": 600,
+        "c": 925,
+        "d": 400,
+        "f": 700
+      },
+      "e": {
+        "a": 500,
+        "b": 275,
+        "c": 650,
+        "d": 800,
+        "f": 300
+      },
+      "s": {
+        "a": 850,
+        "b": 700,
+        "c": 200,
+        "d": 550,
+        "f": 600
+      },
+      "w": {
+        "a": 425,
+        "b": 900,
+        "c": 500,
+        "d": 250,
+        "f": 775
+      }
+    }
+  }
+}
