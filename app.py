@@ -20,6 +20,7 @@ st.set_page_config(page_title='Transportation System', layout='wide', initial_si
 st.html(f"""<style>
 [data-testid="stMainBlockContainer"]{{padding-top:3.6rem;padding-bottom:2rem;max-width:1500px}}
 .st-key-headline{{margin-bottom:.6rem}}
+.st-key-plan_actions{{padding-top:1.5rem}}
 .st-key-headline p{{font-family:{DISPLAY_FONT};font-weight:600;font-size:1.65rem;line-height:1.2;margin:0;color:{TOKENS['ink']}}}
 </style>""")
 
@@ -139,7 +140,7 @@ def preview_body(plan, partial):
             st.dataframe([{'Item': labels(state.items)[s.item_id],
                            'From': labels(state.warehouses)[s.warehouse_id],
                            'To': labels(state.stores)[s.store_id], 'Units': str(s.quantity),
-                           '$/unit': money(s.unit_cost_cents), 'Subtotal ($)': money(s.quantity*s.unit_cost_cents)}
+                           '$/unit': money(s.unit_cost_cents), 'Total': money(s.quantity*s.unit_cost_cents)}
                           for s in plan.shipments], hide_index=True, width='stretch')
             why_optimal(plan)
         with right:
@@ -295,7 +296,7 @@ def preview_screen(controller):
     head, actions = st.columns([3, 1], vertical_alignment='top')
     with head:
         partial = show_plan(preview.plan)
-    with actions:
+    with actions, st.container(key='plan_actions'):
         confirm = st.button('Approve partial restock' if partial else 'Confirm restock', key='confirm', type='primary',
                             disabled=not preview.can_confirm or st.session_state.blocked, width='stretch')
         cancel = st.button('Cancel', key='cancel', width='stretch')
